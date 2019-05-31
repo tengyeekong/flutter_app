@@ -30,6 +30,7 @@ class MainPage extends StatelessWidget {
     );
 
     final loginButton = getPadding(context, loginPageTag, loginPageText);
+    final timerButton = getPadding(context, timerPageTag, timerPageText);
     final demo1Button = getPadding(context, demo1PageTag, demo1PageText);
     final demo2Button = getPadding(context, demo2PageTag, demo2PageText);
     final demo3Button = getPadding(context, demo3PageTag, demo3PageText);
@@ -48,6 +49,7 @@ class MainPage extends StatelessWidget {
               logo,
               SizedBox(height: bigRadius),
               loginButton,
+              timerButton,
               demo1Button,
               demo2Button,
               demo3Button,

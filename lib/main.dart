@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'helpers/Constants.dart';
 import 'Pages/MainPage.dart';
+import 'Pages/TimerPage.dart';
 import 'Pages/LoginPage.dart';
 import 'Pages/HomePage.dart';
 import 'Pages/Demo1Page.dart';
@@ -14,6 +15,7 @@ void main() => runApp(ContactlyApp());
 class ContactlyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
     mainPageTag: (context) => MainPage(),
+    timerPageTag: (context) => TimerPage(),
     loginPageTag: (context) => LoginPage(),
     homePageTag: (context) => HomePage(),
     demo1PageTag: (context) => Demo1Page(),
