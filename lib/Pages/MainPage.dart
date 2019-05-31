@@ -5,7 +5,7 @@ class MainPage extends StatelessWidget {
 
   Padding getPadding(BuildContext context, String tag, String text) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 12.0),
+      padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 50.0),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
@@ -13,7 +13,7 @@ class MainPage extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).pushNamed(tag);
         },
-        padding: EdgeInsets.all(12),
+        padding: EdgeInsets.all(18),
         color: appGreyColor,
         child: Text(text, style: TextStyle(color: Colors.white)),
       ),
@@ -44,7 +44,7 @@ class MainPage extends StatelessWidget {
         body: Center(
           child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+            padding: EdgeInsets.symmetric(vertical: 80.0, horizontal: 24.0),
             children: <Widget>[
               logo,
               SizedBox(height: bigRadius),
