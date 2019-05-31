@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'models/Record.dart';
-import 'helpers/URLLauncher.dart';
+import 'package:flutter_app/helpers/URLLauncher.dart';
+import 'package:flutter_app/models/Record.dart';
 
 // 1
 class DetailPage extends StatelessWidget {

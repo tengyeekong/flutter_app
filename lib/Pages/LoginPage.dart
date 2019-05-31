@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'helpers/Constants.dart';
+import 'package:flutter_app/helpers/Constants.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 
 class LoginPage extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return new TimerAppState();
+    return new LoginState();
   }
 }
 
-class TimerAppState extends State<LoginPage> {
+class LoginState extends State<LoginPage> {
   final _pinCodeController = TextEditingController();
   static const duration = const Duration(seconds: 1);
 
   int secondsPassed = 0;
   bool isActive = false;
+  String loginBtnText = loginButtonText;
 
   Timer timer;
 
@@ -31,16 +31,17 @@ class TimerAppState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-
     if (timer == null)
       timer = Timer.periodic(duration, (Timer t) {
         handleTick();
       });
 
-    SystemChannels.lifecycle.setMessageHandler((msg){
+    SystemChannels.lifecycle.setMessageHandler((msg) {
       debugPrint('SystemChannels> $msg');
-      if(msg == AppLifecycleState.paused.toString())
-        setState(() {isActive = false;});
+      if (msg == AppLifecycleState.paused.toString())
+        setState(() {
+          isActive = false;
+        });
 //      else setState(() {isActive = true;});
     });
 
@@ -66,10 +67,7 @@ class TimerAppState extends State<LoginPage> {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(32.0),
           ),
-          hintStyle: TextStyle(
-              color: Colors.white
-          )
-      ),
+          hintStyle: TextStyle(color: Colors.white)),
       style: TextStyle(
         color: Colors.white,
       ),
@@ -83,44 +81,43 @@ class TimerAppState extends State<LoginPage> {
         ),
         onPressed: () {
           Navigator.of(context).pushNamed(homePageTag);
+//          setState(() {loginBtnText = _pinCodeController.text;});
         },
         padding: EdgeInsets.all(12),
         color: appGreyColor,
-        child: Text(loginButtonText, style: TextStyle(color: Colors.white)),
+        child: Text('$loginBtnText', style: TextStyle(color: Colors.white)),
       ),
     );
 
     final timerWidget = Container(
-      margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
-      child: ListView(
-        shrinkWrap: true,
-        padding: EdgeInsets.only(left: 24.0, right: 24.0),
-        children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+        child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
-              CustomTextContainer(
-                  label: 'HRS', value: hours.toString().padLeft(2, '0')),
-              CustomTextContainer(
-                  label: 'MIN', value: minutes.toString().padLeft(2, '0')),
-              CustomTextContainer(
-                  label: 'SEC', value: seconds.toString().padLeft(2, '0')),
-            ],
-          ),
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            child: RaisedButton(
-              child: Text(isActive ? 'STOP' : 'START'),
-              onPressed: () {
-                setState(() {
-                  isActive = !isActive;
-                });
-              },
-            ),
-          )
-        ]
-      )
-    );
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CustomTextContainer(
+                      label: 'HRS', value: hours.toString().padLeft(2, '0')),
+                  CustomTextContainer(
+                      label: 'MIN', value: minutes.toString().padLeft(2, '0')),
+                  CustomTextContainer(
+                      label: 'SEC', value: seconds.toString().padLeft(2, '0')),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: RaisedButton(
+                  child: Text(isActive ? 'STOP' : 'START'),
+                  onPressed: () {
+                    setState(() {
+                      isActive = !isActive;
+                    });
+                  },
+                ),
+              )
+            ]));
 
     return MaterialApp(
       title: 'Welcome to Flutter',

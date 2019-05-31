@@ -79,4 +79,5 @@ flutter:
 
   assets:
       - assets/images/flutter-logo-round.png
+      - assets/images/lake.jpg
       - assets/data/records.json

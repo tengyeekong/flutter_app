@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'DetailsPage.dart';
-import 'helpers/Constants.dart';
-import 'models/Record.dart';
-import 'models/RecordList.dart';
-import 'models/RecordService.dart';
+import 'package:flutter_app/Pages/DetailsPage.dart';
+import 'package:flutter_app/helpers/Constants.dart';
+import 'package:flutter_app/models/Record.dart';
+import 'package:flutter_app/models/RecordList.dart';
+import 'package:flutter_app/models/RecordService.dart';
 
 class HomePage extends StatefulWidget {
 
