@@ -1,23 +1,59 @@
 import 'package:flutter/material.dart';
 import 'helpers/Constants.dart';
+import 'dart:async';
+import 'package:flutter/services.dart';
 
-// 1
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
 
-  // 2
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return new TimerAppState();
+  }
+}
+
+class TimerAppState extends State<LoginPage> {
   final _pinCodeController = TextEditingController();
+  static const duration = const Duration(seconds: 1);
 
-  // 3
+  int secondsPassed = 0;
+  bool isActive = false;
+
+  Timer timer;
+
+  void handleTick() {
+    if (isActive) {
+      setState(() {
+        secondsPassed = secondsPassed + 1;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    // 3a
+
+    if (timer == null)
+      timer = Timer.periodic(duration, (Timer t) {
+        handleTick();
+      });
+
+    SystemChannels.lifecycle.setMessageHandler((msg){
+      debugPrint('SystemChannels> $msg');
+      if(msg == AppLifecycleState.paused.toString())
+        setState(() {isActive = false;});
+//      else setState(() {isActive = true;});
+    });
+
+    int seconds = secondsPassed % 60;
+    int minutes = secondsPassed ~/ 60;
+    int hours = secondsPassed ~/ (60 * 60);
+
     final logo = CircleAvatar(
       backgroundColor: Colors.transparent,
       radius: bigRadius,
       child: appLogo,
     );
 
-    // 3b
     final pinCode = TextFormField(
       controller: _pinCodeController,
       keyboardType: TextInputType.phone,
@@ -39,7 +75,6 @@ class LoginPage extends StatelessWidget {
       ),
     );
 
-    // 3c
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: RaisedButton(
@@ -55,21 +90,94 @@ class LoginPage extends StatelessWidget {
       ),
     );
 
-    // 3d
-    return Scaffold(
-      backgroundColor: appDarkGreyColor,
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
-            logo,
-            SizedBox(height: bigRadius),
-            pinCode,
-            SizedBox(height: buttonHeight),
-            loginButton
-          ],
+    final timerWidget = Container(
+      margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+      child: ListView(
+        shrinkWrap: true,
+        padding: EdgeInsets.only(left: 24.0, right: 24.0),
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              CustomTextContainer(
+                  label: 'HRS', value: hours.toString().padLeft(2, '0')),
+              CustomTextContainer(
+                  label: 'MIN', value: minutes.toString().padLeft(2, '0')),
+              CustomTextContainer(
+                  label: 'SEC', value: seconds.toString().padLeft(2, '0')),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 20),
+            child: RaisedButton(
+              child: Text(isActive ? 'STOP' : 'START'),
+              onPressed: () {
+                setState(() {
+                  isActive = !isActive;
+                });
+              },
+            ),
+          )
+        ]
+      )
+    );
+
+    return MaterialApp(
+      title: 'Welcome to Flutter',
+      home: Scaffold(
+        backgroundColor: appDarkGreyColor,
+        body: Center(
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+            children: <Widget>[
+              logo,
+              SizedBox(height: bigRadius),
+              pinCode,
+              SizedBox(height: buttonHeight),
+              loginButton,
+              timerWidget
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class CustomTextContainer extends StatelessWidget {
+  CustomTextContainer({this.label, this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.all(20),
+      decoration: new BoxDecoration(
+        borderRadius: new BorderRadius.circular(10),
+        color: Colors.black87,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            '$value',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 54,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            '$label',
+            style: TextStyle(
+              color: Colors.white70,
+            ),
+          )
+        ],
       ),
     );
   }
