@@ -19,7 +19,7 @@ class LoginPage extends StatelessWidget {
       keyboardType: TextInputType.phone,
       maxLength: 4,
       maxLines: 1,
-      autofocus: true,
+//      autofocus: true,
       decoration: InputDecoration(
           hintText: pinCodeHintText,
           contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
