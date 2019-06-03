@@ -3,11 +3,13 @@ import 'package:flutter_app/helpers/Constants.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 
+import '../AppDrawer.dart';
+
 class TimerPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return new LoginState();
+    return LoginState();
   }
 }
 
@@ -76,18 +78,22 @@ class LoginState extends State<TimerPage> {
               )
             ]));
 
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        backgroundColor: appDarkGreyColor,
-        body: Center(
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
-            children: <Widget>[
-              timerWidget
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: appDarkGreyColor,
+      drawer: AppDrawer(),
+      appBar: AppBar(
+          elevation: 0.1,
+          backgroundColor: appDarkGreyColor,
+          centerTitle: true,
+          title: Text("Timer"),
+      ),
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          children: <Widget>[
+            timerWidget
+          ],
         ),
       ),
     );
@@ -105,8 +111,8 @@ class CustomTextContainer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 5),
       padding: EdgeInsets.all(20),
-      decoration: new BoxDecoration(
-        borderRadius: new BorderRadius.circular(10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
         color: Colors.black87,
       ),
       child: Column(

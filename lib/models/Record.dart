@@ -14,7 +14,7 @@ class Record {
   });
 
   factory Record.fromJson(Map<String, dynamic> json){
-    return new Record(
+    return Record(
         name: json['name'],
         address: json['address'],
         contact: json ['contact'],

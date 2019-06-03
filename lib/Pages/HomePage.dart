@@ -5,6 +5,8 @@ import 'package:flutter_app/models/Record.dart';
 import 'package:flutter_app/models/RecordList.dart';
 import 'package:flutter_app/models/RecordService.dart';
 
+import '../AppDrawer.dart';
+
 class HomePage extends StatefulWidget {
 
   @override
@@ -16,23 +18,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  final TextEditingController _filter = new TextEditingController();
+  final TextEditingController _filter = TextEditingController();
 
-  RecordList _records = new RecordList();
-  RecordList _filteredRecords = new RecordList();
+  RecordList _records = RecordList();
+  RecordList _filteredRecords = RecordList();
 
   String _searchText = "";
 
-  Icon _searchIcon = new Icon(Icons.search);
+  Icon _searchIcon = Icon(Icons.search);
 
-  Widget _appBarTitle = new Text(appTitle);
+  Widget _appBarTitle = Text(appTitle);
 
   @override
   void initState() {
     super.initState();
 
-    _records.records = new List();
-    _filteredRecords.records = new List();
+    _records.records = List();
+    _filteredRecords.records = List();
 
     _getRecords();
   }
@@ -52,18 +54,19 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: _buildBar(context),
       backgroundColor: appDarkGreyColor,
+      drawer: AppDrawer(),
       body: _buildList(context),
       resizeToAvoidBottomPadding: false,
     );
   }
 
   Widget _buildBar(BuildContext context) {
-    return new AppBar(
+    return AppBar(
         elevation: 0.1,
         backgroundColor: appDarkGreyColor,
         centerTitle: true,
         title: _appBarTitle,
-        leading: new IconButton(
+        leading: IconButton(
             icon: _searchIcon,
             onPressed: _searchPressed
         )
@@ -72,7 +75,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildList(BuildContext context) {
     if (_searchText.isNotEmpty) {
-      _filteredRecords.records = new List();
+      _filteredRecords.records = List();
       for (int i = 0; i < _records.records.length; i++) {
         if (_records.records[i].name.toLowerCase().contains(_searchText.toLowerCase())
             || _records.records[i].address.toLowerCase().contains(_searchText.toLowerCase())) {
@@ -91,7 +94,7 @@ class _HomePageState extends State<HomePage> {
     return Card(
       key: ValueKey(record.name),
       elevation: 8.0,
-      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       child: Container(
         decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
         child: ListTile(
@@ -99,9 +102,9 @@ class _HomePageState extends State<HomePage> {
           EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           leading: Container(
               padding: EdgeInsets.only(right: 12.0),
-              decoration: new BoxDecoration(
-                  border: new Border(
-                      right: new BorderSide(width: 1.0, color: Colors.white24))),
+              decoration: BoxDecoration(
+                  border: Border(
+                      right: BorderSide(width: 1.0, color: Colors.white24))),
               child: Hero(
                   tag: "avatar_" + record.name,
                   child: CircleAvatar(
@@ -116,8 +119,8 @@ class _HomePageState extends State<HomePage> {
           ),
           subtitle: Row(
             children: <Widget>[
-              new Flexible(
-                  child: new Column(
+              Flexible(
+                  child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         RichText(
@@ -135,7 +138,7 @@ class _HomePageState extends State<HomePage> {
           Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
             Navigator.push(
-                context, MaterialPageRoute(builder: (context) => new DetailPage(record: record)));
+                context, MaterialPageRoute(builder: (context) => DetailPage(record: record)));
           },
         ),
       ),
@@ -158,7 +161,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _resetRecords() {
-    this._filteredRecords.records = new List();
+    this._filteredRecords.records = List();
     for (Record record in _records.records) {
       this._filteredRecords.records.add(record);
     }
@@ -167,21 +170,21 @@ class _HomePageState extends State<HomePage> {
   void _searchPressed() {
     setState(() {
       if (this._searchIcon.icon == Icons.search) {
-        this._searchIcon = new Icon(Icons.close);
-        this._appBarTitle = new TextField(
+        this._searchIcon = Icon(Icons.close);
+        this._appBarTitle = TextField(
           controller: _filter,
           autofocus: true,
-          style: new TextStyle(color: Colors.white),
-          decoration: new InputDecoration(
-            prefixIcon: new Icon(Icons.search, color: Colors.white),
+          style: TextStyle(color: Colors.white),
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.search, color: Colors.white),
             fillColor: Colors.white,
             hintText: 'Search by name',
             hintStyle: TextStyle(color: Colors.white),
           ),
         );
       } else {
-        this._searchIcon = new Icon(Icons.search);
-        this._appBarTitle = new Text(appTitle);
+        this._searchIcon = Icon(Icons.search);
+        this._appBarTitle = Text(appTitle);
         _filter.clear();
       }
     });

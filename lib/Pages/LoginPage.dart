@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/Constants.dart';
 import 'package:flutter/services.dart';
 
+import '../AppDrawer.dart';
+
 class LoginPage extends StatelessWidget {
   final _pinCodeController = TextEditingController();
   String loginBtnText = loginButtonText;
@@ -48,22 +50,20 @@ class LoginPage extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        backgroundColor: appDarkGreyColor,
-        body: Center(
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
-            children: <Widget>[
-              logo,
-              SizedBox(height: bigRadius),
-              pinCode,
-              SizedBox(height: buttonHeight),
-              loginButton
-            ],
-          ),
+    return Scaffold(
+      backgroundColor: appDarkGreyColor,
+      drawer: AppDrawer(),
+      body: Center(
+        child: ListView(
+          shrinkWrap: true,
+          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          children: <Widget>[
+            logo,
+            SizedBox(height: bigRadius),
+            pinCode,
+            SizedBox(height: buttonHeight),
+            loginButton
+          ],
         ),
       ),
     );

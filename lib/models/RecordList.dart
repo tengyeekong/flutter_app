@@ -1,7 +1,7 @@
 import 'Record.dart';
 
 class RecordList {
-  List<Record> records = new List();
+  List<Record> records = List();
 
   RecordList({
     this.records
@@ -9,11 +9,11 @@ class RecordList {
 
   factory RecordList.fromJson(List<dynamic> parsedJson) {
 
-    List<Record> records = new List<Record>();
+    List<Record> records = List<Record>();
 
     records = parsedJson.map((i) => Record.fromJson(i)).toList();
 
-    return new RecordList(
+    return RecordList(
       records: records,
     );
   }

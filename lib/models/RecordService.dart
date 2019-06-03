@@ -11,7 +11,7 @@ class RecordService {
   Future<RecordList> loadRecords() async {
     String jsonString = await _loadRecordsAsset();
     final jsonResponse = json.decode(jsonString);
-    RecordList records = new RecordList.fromJson(jsonResponse);
+    RecordList records = RecordList.fromJson(jsonResponse);
     return records;
   }
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../AppDrawer.dart';
+
 class Demo1Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -68,25 +70,23 @@ class Demo1Page extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
-      title: 'Flutter layout demo',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter layout demo'),
-        ),
-        body: ListView(
-          children: [
-            Image.asset(
-              'assets/images/lake.jpg',
-              width: 600,
-              height: 240,
-              fit: BoxFit.cover,
-            ),
-            titleSection,
-            buttonSection,
-            textSection,
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter layout demo'),
+      ),
+      drawer: AppDrawer(),
+      body: ListView(
+        children: [
+          Image.asset(
+            'assets/images/lake.jpg',
+            width: 600,
+            height: 240,
+            fit: BoxFit.cover,
+          ),
+          titleSection,
+          buttonSection,
+          textSection,
+        ],
       ),
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'helpers/Constants.dart';
-import 'Pages/MainPage.dart';
 import 'Pages/TimerPage.dart';
 import 'Pages/LoginPage.dart';
 import 'Pages/HomePage.dart';
@@ -14,7 +13,6 @@ void main() => runApp(ContactlyApp());
 
 class ContactlyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
-    mainPageTag: (context) => MainPage(),
     timerPageTag: (context) => TimerPage(),
     loginPageTag: (context) => LoginPage(),
     homePageTag: (context) => HomePage(),
@@ -30,10 +28,10 @@ class ContactlyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: appTitle,
-        theme: new ThemeData(
+        theme: ThemeData(
           primaryColor: appDarkGreyColor,
         ),
-        home: MainPage(),
+        home: LoginPage(),
         routes: routes);
   }
 }

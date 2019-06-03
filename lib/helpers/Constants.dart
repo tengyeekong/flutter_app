@@ -26,7 +26,6 @@ const bigRadius = 66.0;
 const buttonHeight = 24.0;
 
 // Pages
-const mainPageTag = 'Main Page';
 const timerPageTag = 'Timer Page';
 const loginPageTag = 'Login Page';
 const homePageTag = 'Home Page';

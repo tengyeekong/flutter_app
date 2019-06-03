@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
+import '../AppDrawer.dart';
+
 class Demo2Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Flutter Demo'),
-        ),
-        body: Center(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter Demo'),
+      ),
+      drawer: AppDrawer(),
+      body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TapboxA(),
-              SizedBox(height: 20),
-              ParentWidget(),
-              SizedBox(height: 20),
-              ParentWidget2(),
-            ]
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TapboxA(),
+                SizedBox(height: 20),
+                ParentWidget(),
+                SizedBox(height: 20),
+                ParentWidget2(),
+              ]
           )
-        ),
       ),
     );
   }

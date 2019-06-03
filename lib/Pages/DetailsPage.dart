@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/URLLauncher.dart';
 import 'package:flutter_app/models/Record.dart';
 
+import '../AppDrawer.dart';
+
 // 1
 class DetailPage extends StatelessWidget {
   final Record record;
@@ -10,15 +12,16 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: new Text(record.name),
+    return Scaffold(
+        appBar: AppBar(
+          title: Text(record.name),
         ),
-        body: new ListView(
+        drawer: AppDrawer(),
+        body: ListView(
             children: <Widget>[
               Hero(
                 tag: "avatar_" + record.name,
-                child: new Image.network(
+                child: Image.network(
                     record.photo
                 ),
               ),
@@ -27,31 +30,31 @@ class DetailPage extends StatelessWidget {
                   onTap: () {
                     URLLauncher().launchURL(record.url);
                   },
-                  child: new Container(
+                  child: Container(
                     padding: const EdgeInsets.all(32.0),
-                    child: new Row(
+                    child: Row(
                       children: [
                         // First child in the Row for the name and the
                         // Release date information.
-                        new Expanded(
+                        Expanded(
                           // Name and Address are in the same column
-                          child: new Column(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Code to create the view for name.
-                              new Container(
+                              Container(
                                 padding: const EdgeInsets.only(bottom: 8.0),
-                                child: new Text(
+                                child: Text(
                                   "Name: " + record.name,
-                                  style: new TextStyle(
+                                  style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                               // Code to create the view for address.
-                              new Text(
+                              Text(
                                 "Address: " + record.address,
-                                style: new TextStyle(
+                                style: TextStyle(
                                   color: Colors.grey[500],
                                 ),
                               ),
@@ -59,11 +62,11 @@ class DetailPage extends StatelessWidget {
                           ),
                         ),
                         // Icon to indicate the phone number.
-                        new Icon(
+                        Icon(
                           Icons.phone,
                           color: Colors.red[500],
                         ),
-                        new Text(' ${record.contact}'),
+                        Text(' ${record.contact}'),
                       ],
                     ),
                   )
