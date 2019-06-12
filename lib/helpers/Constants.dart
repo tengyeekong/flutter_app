@@ -9,6 +9,7 @@ const appTitle = "Contactly";
 
 const pinCodeHintText = "Pin Code";
 const loginButtonText = "Login";
+const FriendlyChatPageText = "FriendlyChat Page";
 const timerPageText = "Timer Page";
 const loginPageText = "Login Page";
 const demo1PageText = "Demo 1 Page";
@@ -29,6 +30,7 @@ const buttonHeight = 24.0;
 const timerPageTag = 'Timer Page';
 const loginPageTag = 'Login Page';
 const homePageTag = 'Home Page';
+const FriendlyChatPageTag = "FriendlyChat Page";
 const demo1PageTag = 'Demo 1 Page';
 const demo2PageTag = 'Demo 2 Page';
 const demo3PageTag = 'Demo 3 Page';

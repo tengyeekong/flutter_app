@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Pages/FriendlyChatPage.dart';
 import 'helpers/Constants.dart';
 import 'Pages/TimerPage.dart';
 import 'Pages/LoginPage.dart';
@@ -32,6 +33,7 @@ class DrawerState extends State<AppDrawer> {
               ),
             ),
             getListTile(context, LoginPage(), loginPageText),
+            getListTile(context, FriendlyChatPage(), FriendlyChatPageText),
             getListTile(context, TimerPage(), timerPageText),
             getListTile(context, Demo1Page(), demo1PageText),
             getListTile(context, Demo2Page(), demo2PageText),

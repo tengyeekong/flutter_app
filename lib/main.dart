@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Pages/FriendlyChatPage.dart';
 import 'helpers/Constants.dart';
 import 'Pages/TimerPage.dart';
 import 'Pages/LoginPage.dart';
@@ -8,6 +9,7 @@ import 'Pages/Demo2Page.dart';
 import 'Pages/Demo3Page.dart';
 import 'Pages/Demo4Page.dart';
 import 'Pages/Demo5Page.dart';
+import 'package:flutter/foundation.dart';
 
 void main() => runApp(ContactlyApp());
 
@@ -16,6 +18,7 @@ class ContactlyApp extends StatelessWidget {
     timerPageTag: (context) => TimerPage(),
     loginPageTag: (context) => LoginPage(),
     homePageTag: (context) => HomePage(),
+    FriendlyChatPageTag: (context) => FriendlyChatPage(),
     demo1PageTag: (context) => Demo1Page(),
     demo2PageTag: (context) => Demo2Page(),
     demo3PageTag: (context) => Demo3Page(),
@@ -28,10 +31,22 @@ class ContactlyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: appTitle,
-        theme: ThemeData(
-          primaryColor: appDarkGreyColor,
-        ),
+        theme: defaultTargetPlatform == TargetPlatform.iOS
+            ? kIOSTheme
+            : kDefaultTheme,
         home: LoginPage(),
         routes: routes);
   }
 }
+
+final ThemeData kIOSTheme = new ThemeData(
+  primarySwatch: Colors.orange,
+  primaryColor: Colors.grey[100],
+  primaryColorBrightness: Brightness.light,
+);
+
+final ThemeData kDefaultTheme = new ThemeData(
+  primarySwatch: Colors.purple,
+  primaryColor: appDarkGreyColor,
+  accentColor: Colors.orangeAccent[400],
+);
