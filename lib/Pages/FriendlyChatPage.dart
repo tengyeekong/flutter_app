@@ -141,7 +141,9 @@ class ChatMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new SizeTransition(
       sizeFactor: new CurvedAnimation(
-      parent: animationController, curve: Curves.easeOut),
+        parent: animationController,
+        curve: Curves.easeOut
+      ),
       axisAlignment: 0.0,
       child: new Container(
         margin: const EdgeInsets.symmetric(vertical: 10.0),
