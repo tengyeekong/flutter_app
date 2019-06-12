@@ -150,15 +150,17 @@ class ChatMessage extends StatelessWidget {
           children: <Widget>[
             new Container(
               margin: const EdgeInsets.only(right: 16.0),
-              child: new CircleAvatar(child: new Text(_name[0])),
+              child: new CircleAvatar(
+                backgroundColor: appDarkGreyColor,
+                child: new Text(_name[0], style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)))),
             ),
             new Expanded(
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text(_name, style: Theme.of(context).textTheme.subhead),
+                  new Text(_name, style: Theme.of(context).textTheme.subtitle),
                   new Container(
-                    margin: const EdgeInsets.only(top: 5.0),
+                    margin: const EdgeInsets.only(top: 2.0),
                     child: new Text(text),
                   ),
                 ],
