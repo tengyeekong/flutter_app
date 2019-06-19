@@ -154,7 +154,7 @@ class ChatMessage extends StatelessWidget {
           ));
         },
         child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 4.0),
+          margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 14.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -164,26 +164,51 @@ class ChatMessage extends StatelessWidget {
                   backgroundColor: appDarkGreyColor,
                   child: Text(_name[0], style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)))),
               ),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Text(_name, style: Theme.of(context).textTheme.subtitle),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 5.0),
-                            child: Text("10:00 PM", style: TextStyle(color: Colors.lightBlue, fontSize: 8.0)),
+              Flexible(
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(_name, style: Theme.of(context).textTheme.subtitle),
+//                        Container(
+//                          margin: const EdgeInsets.only(top: 2.0),
+//                          child: Text(text),
+//                        ),
+//                        Text("10:00 PM", style: TextStyle(color: Colors.lightBlue, fontSize: 8.0)),
+                        Container(
+                          constraints: BoxConstraints(minWidth: 100),
+                          child: Stack(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(right: 58.0),
+                                child: Text(text),
+                              ),
+                              Positioned(
+                                bottom: 0.0,
+                                right: 0.0,
+                                child: Row(
+                                  children: <Widget>[
+                                    Text("10:00 PM",
+                                        style: TextStyle(
+                                          color: Colors.black38,
+                                          fontSize: 10.0,
+                                        )),
+//                                  SizedBox(width: 3.0),
+//                                  Icon(
+//                                    icon,
+//                                    size: 12.0,
+//                                    color: Colors.black38,
+//                                  )
+                                  ],
+                                ),
+                              )
+                            ],
                           ),
-                        ],
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 2.0),
-                        child: Text(text),
-                      ),
-                    ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
