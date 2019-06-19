@@ -9,54 +9,54 @@ const String _name = "Yao";
 class FriendlyChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       backgroundColor: appDarkGreyColor,
       drawer: AppDrawer(),
-      body: new ChatScreen(),
+      body: ChatScreen(),
     );
   }
 }
 
 class ChatScreen extends StatefulWidget {
   @override
-  State createState() => new ChatScreenState();
+  State createState() => ChatScreenState();
 }
 
 class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   final List<ChatMessage> _messages = <ChatMessage>[];
-  final TextEditingController _textController = new TextEditingController();
+  final TextEditingController _textController = TextEditingController();
   bool _isComposing = false;
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
-        title: new Text("FriendlyChat"),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("FriendlyChat"),
         elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
       ),
-      body: new Container(
-        child: new Column(
+      body: Container(
+        child: Column(
           children: <Widget>[
-            new Flexible(
-              child: new ListView.builder(
-                padding: new EdgeInsets.all(8.0),
+            Flexible(
+              child: ListView.builder(
+                padding: EdgeInsets.all(8.0),
                 reverse: true,
                 itemBuilder: (_, int index) => _messages[index],
                 itemCount: _messages.length,
               ),
             ),
-            new Divider(height: 1.0),
-            new Container(
-              decoration: new BoxDecoration(
+            Divider(height: 1.0),
+            Container(
+              decoration: BoxDecoration(
                   color: Theme.of(context).cardColor),
               child: _buildTextComposer(),
             ),
           ],
         ),
         decoration: Theme.of(context).platform == TargetPlatform.iOS ?
-          new BoxDecoration(
-            border: new Border(
-              top: new BorderSide(color: Colors.grey[200]),
+          BoxDecoration(
+            border: Border(
+              top: BorderSide(color: Colors.grey[200]),
             ),
           )
           : null,
@@ -65,14 +65,16 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   }
 
   Widget _buildTextComposer() {
-    return new IconTheme(
-      data: new IconThemeData(color: Theme.of(context).accentColor),
-      child: new Container(
+    return IconTheme(
+      data: IconThemeData(color: Theme.of(context).accentColor),
+      child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: new Row(
+        child: Row(
           children: <Widget>[
-            new Flexible(
-              child: new TextField(
+            Flexible(
+              child: TextField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
                 controller: _textController,
                 onChanged: (String text) {
                   setState(() {
@@ -80,20 +82,20 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                   });
                 },
                 onSubmitted: _handleSubmitted,
-                decoration: new InputDecoration.collapsed(
+                decoration: InputDecoration.collapsed(
                     hintText: "Send a message"),
               ),
             ),
-            new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 4.0),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 4.0),
               child: Theme.of(context).platform == TargetPlatform.iOS ?
-              new CupertinoButton(
-                child: new Text("Send", style: TextStyle(color: _isComposing ? appDarkGreyColor : null)),
+              CupertinoButton(
+                child: Text("Send", style: TextStyle(color: _isComposing ? appDarkGreyColor : null)),
                 onPressed: _isComposing
                     ? () =>  _handleSubmitted(_textController.text)
                     : null,) :
-              new IconButton(
-                icon: new Icon(Icons.send, color: _isComposing ? appDarkGreyColor : null),
+              IconButton(
+                icon: Icon(Icons.send, color: _isComposing ? appDarkGreyColor : null),
                 onPressed: _isComposing ?
                     () =>  _handleSubmitted(_textController.text) : null,
               ),
@@ -110,10 +112,10 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       _isComposing = false;
     });
 
-    ChatMessage message = new ChatMessage(
+    ChatMessage message = ChatMessage(
       text: text,
-      animationController: new AnimationController(
-        duration: new Duration(milliseconds: 700),
+      animationController: AnimationController(
+        duration: Duration(milliseconds: 700),
         vsync: this,
       ),
     );
@@ -139,36 +141,54 @@ class ChatMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new SizeTransition(
-      sizeFactor: new CurvedAnimation(
+    return SizeTransition(
+      sizeFactor: CurvedAnimation(
         parent: animationController,
         curve: Curves.easeOut
       ),
       axisAlignment: 0.0,
-      child: new Container(
-        margin: const EdgeInsets.symmetric(vertical: 10.0),
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.only(right: 16.0),
-              child: new CircleAvatar(
-                backgroundColor: appDarkGreyColor,
-                child: new Text(_name[0], style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)))),
-            ),
-            new Expanded(
-              child: new Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  new Text(_name, style: Theme.of(context).textTheme.subtitle),
-                  new Container(
-                    margin: const EdgeInsets.only(top: 2.0),
-                    child: new Text(text),
-                  ),
-                ],
+      child: InkWell(
+        onLongPress: () {
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text('LongTap'),
+          ));
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 4.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(right: 12.0, top: 8.0),
+                child: CircleAvatar(
+                  backgroundColor: appDarkGreyColor,
+                  child: Text(_name[0], style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)))),
               ),
-            ),
-          ],
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(_name, style: Theme.of(context).textTheme.subtitle),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5.0),
+                            child: Text("10:00 PM", style: TextStyle(color: Colors.lightBlue, fontSize: 8.0)),
+                          ),
+                        ],
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 2.0),
+                        child: Text(text),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       )
     );
