@@ -7,7 +7,7 @@ Color appGreyColor2 = Color.fromRGBO(74, 85, 104, 1.0);
 
 // Strings
 const appTitle = "Contactly";
-const newSoftTitle = "NewSoft";
+const newSoftTitle = "Listing";
 
 const pinCodeHintText = "Pin Code";
 const loginButtonText = "Login";
