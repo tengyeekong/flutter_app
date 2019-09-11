@@ -6,7 +6,7 @@ class Api {
   static Dio dio = new Dio();
 
   Api() {
-    if (dio.options.baseUrl.isEmpty) {
+    if (dio.options.baseUrl != "http://interview.advisoryapps.com/index.php") {
       dio.options.baseUrl = "http://interview.advisoryapps.com/index.php";
       dio.options.connectTimeout = 5000;
       dio.options.receiveTimeout = 3000;
@@ -72,10 +72,10 @@ class Api {
         if (updateResponse.statusCode == 200 &&
             updateResponse.data["status"]["code"] == 200) {
           return true;
-        } else
-          return false;
-      } else
-        return false;
+        }
+        else return false;
+      }
+      else return false;
     } catch (e) {
       print(e);
     }
