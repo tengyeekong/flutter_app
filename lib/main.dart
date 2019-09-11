@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Pages/FriendlyChatPage.dart';
+import 'Pages/NewSoftPage.dart';
 import 'helpers/Constants.dart';
 import 'Pages/TimerPage.dart';
 import 'Pages/LoginPage.dart';
@@ -24,6 +25,7 @@ class ContactlyApp extends StatelessWidget {
     demo3PageTag: (context) => Demo3Page(),
     demo4PageTag: (context) => Demo4Page(),
     demo5PageTag: (context) => Demo5Page(),
+    newSoftPageTag: (context) => NewSoftPage(),
   };
 
   @override

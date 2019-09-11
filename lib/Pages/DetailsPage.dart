@@ -21,9 +21,7 @@ class DetailPage extends StatelessWidget {
             children: <Widget>[
               Hero(
                 tag: "avatar_" + record.name,
-                child: Image.network(
-                    record.photo
-                ),
+                child: Image.network(record.photo),
               ),
               // 3
               GestureDetector(
