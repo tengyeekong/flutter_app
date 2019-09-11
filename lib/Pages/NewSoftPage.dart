@@ -156,11 +156,13 @@ class _NewSoftPageState extends State<NewSoftPage> {
           onTap: () {
             Scaffold.of(context).hideCurrentSnackBar();
             final snackBar = SnackBar(
-                content: Text(listItem.id +
-                    ": " +
-                    listItem.name +
-                    "\n" +
-                    listItem.distance));
+              content: Text(listItem.id +
+                  ": " +
+                  listItem.name +
+                  "\n" +
+                  listItem.distance),
+              duration: Duration(seconds: 2),
+            );
             Scaffold.of(context).showSnackBar(snackBar);
           },
           onLongPress: () {
