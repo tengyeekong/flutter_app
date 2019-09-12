@@ -11,15 +11,15 @@ const newSoftTitle = "Listing";
 
 const pinCodeHintText = "Pin Code";
 const loginButtonText = "Login";
-const FriendlyChatPageText = "FriendlyChat Page";
-const timerPageText = "Timer Page";
-const loginPageText = "Login Page";
-const demo1PageText = "Demo 1 Page";
-const demo2PageText = "Demo 2 Page";
-const demo3PageText = "Demo 3 Page";
-const demo4PageText = "Demo 4 Page";
-const demo5PageText = "Demo 5 Page";
-const newSoftPageText = "NewSoft Page";
+const FriendlyChatPageText = "FriendlyChat";
+const timerPageText = "Timer";
+const loginPageText = "Login";
+const demo1PageText = "Demo 1";
+const demo2PageText = "Demo 2";
+const demo3PageText = "Demo 3";
+const demo4PageText = "Demo 4";
+const demo5PageText = "Demo 5";
+const newSoftPageText = "Listing";
 
 // Images
 Image appLogo = Image.asset('assets/images/flutter-logo-round.png');
