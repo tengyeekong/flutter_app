@@ -136,9 +136,8 @@ class _NewSoftPageState extends State<NewSoftPage> {
           return _buildProgressIndicator();
         } else if (_filteredLists.lists.length > 0) {
           return _buildListItem(context, _filteredLists.lists[index]);
-        } else {
-          return Center();
-        }
+        } else
+          return Container();
       },
     );
   }
