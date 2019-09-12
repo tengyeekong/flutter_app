@@ -35,19 +35,20 @@ class _NewSoftPageState extends State<NewSoftPage> {
     _lists.lists = List();
     _filteredLists.lists = List();
 
-    _getLists();
-//    WidgetsBinding.instance
-//        .addPostFrameCallback((_) => _refreshController.requestRefresh());
+    _getLists(false);
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _refreshController.requestRefresh());
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _getLists();
+      if (_scrollController.position.pixels >
+              _scrollController.position.maxScrollExtent - 200 &&
+          !isLoading) {
+        _getLists(false);
       }
     });
   }
 
-  void _getLists() async {
+  void _getLists(bool isRefresh) async {
     try {
       setState(() {
         isLoading = true;
@@ -55,6 +56,10 @@ class _NewSoftPageState extends State<NewSoftPage> {
 
       Listing lists = await Api.getListing();
       if (lists != null) {
+        if (isRefresh) {
+          _lists.lists.clear();
+          _filteredLists.lists.clear();
+        }
         setState(() {
           for (ListItem listItem in lists.lists) {
             _lists.lists.add(listItem);
@@ -71,21 +76,32 @@ class _NewSoftPageState extends State<NewSoftPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildBar(context),
-      backgroundColor: appDarkGreyColor,
-      drawer: AppDrawer(),
-      body: SmartRefresher(
-        controller: _refreshController,
-        enablePullDown: true,
-        onRefresh: () async {
-          _lists.lists.clear();
-          _filteredLists.lists.clear();
-          _getLists();
-        },
-        child: _buildList(context),
+    return WillPopScope(
+      onWillPop: () async {
+        if (_scrollController.position.pixels >
+            _scrollController.position.minScrollExtent + 100) {
+          _scrollController.animateTo(
+              _scrollController.position.minScrollExtent,
+              duration: Duration(milliseconds: 100),
+              curve: Curves.easeIn);
+          return false;
+        } else
+          return true;
+      },
+      child: Scaffold(
+        appBar: _buildBar(context),
+        backgroundColor: appDarkGreyColor,
+        drawer: AppDrawer(),
+        body: SmartRefresher(
+          controller: _refreshController,
+          enablePullDown: true,
+          onRefresh: () async {
+            _getLists(true);
+          },
+          child: _buildList(context),
+        ),
+        resizeToAvoidBottomPadding: false,
       ),
-      resizeToAvoidBottomPadding: false,
     );
   }
 
@@ -115,10 +131,13 @@ class _NewSoftPageState extends State<NewSoftPage> {
       controller: _scrollController,
       itemCount: _filteredLists.lists.length + 1,
       itemBuilder: (context, index) {
-        if (index == _filteredLists.lists.length) {
+        if (index == _filteredLists.lists.length &&
+            !_refreshController.isRefresh) {
           return _buildProgressIndicator();
-        } else {
+        } else if (_filteredLists.lists.length > 0) {
           return _buildListItem(context, _filteredLists.lists[index]);
+        } else {
+          return Center();
         }
       },
     );
