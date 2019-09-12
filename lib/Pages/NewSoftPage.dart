@@ -17,20 +17,16 @@ class NewSoftPage extends StatefulWidget {
 
 class _NewSoftPageState extends State<NewSoftPage> {
   final TextEditingController _filterController = TextEditingController();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _distanceController = TextEditingController();
   final RefreshController _refreshController = RefreshController();
+  final ScrollController _scrollController = ScrollController();
 
   Listing _lists = Listing();
   Listing _filteredLists = Listing();
-
   String _searchText = "";
-
   Icon _searchIcon = Icon(Icons.search);
-
   Widget _appBarTitle = Text(newSoftTitle);
-
   bool isUpdating = false;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -40,12 +36,23 @@ class _NewSoftPageState extends State<NewSoftPage> {
     _filteredLists.lists = List();
 
     _getLists();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _refreshController.requestRefresh());
+//    WidgetsBinding.instance
+//        .addPostFrameCallback((_) => _refreshController.requestRefresh());
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        _getLists();
+      }
+    });
   }
 
   void _getLists() async {
     try {
+      setState(() {
+        isLoading = true;
+      });
+
       Listing lists = await Api.getListing();
       if (lists != null) {
         setState(() {
@@ -53,6 +60,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
             _lists.lists.add(listItem);
             _filteredLists.lists.add(listItem);
           }
+          isLoading = false;
         });
       }
       _refreshController.refreshCompleted();
@@ -71,6 +79,8 @@ class _NewSoftPageState extends State<NewSoftPage> {
         controller: _refreshController,
         enablePullDown: true,
         onRefresh: () async {
+          _lists.lists.clear();
+          _filteredLists.lists.clear();
           _getLists();
         },
         child: _buildList(context),
@@ -102,10 +112,29 @@ class _NewSoftPageState extends State<NewSoftPage> {
 
     return ListView.builder(
       padding: const EdgeInsets.symmetric(vertical: 15.0),
-      itemCount: _filteredLists.lists.length,
+      controller: _scrollController,
+      itemCount: _filteredLists.lists.length + 1,
       itemBuilder: (context, index) {
-        return _buildListItem(context, _filteredLists.lists[index]);
+        if (index == _filteredLists.lists.length) {
+          return _buildProgressIndicator();
+        } else {
+          return _buildListItem(context, _filteredLists.lists[index]);
+        }
       },
+    );
+  }
+
+  Widget _buildProgressIndicator() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8.0, 14.0, 8.0, 8.0),
+      child: Center(
+        child: Opacity(
+          opacity: isLoading ? 1.0 : 00,
+          child: CircularProgressIndicator(
+            backgroundColor: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 
@@ -119,17 +148,6 @@ class _NewSoftPageState extends State<NewSoftPage> {
         child: ListTile(
           contentPadding:
               EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-//          leading: Container(
-//              padding: EdgeInsets.only(right: 15.0),
-//              decoration: BoxDecoration(
-//                  border: Border(
-//                      right: BorderSide(width: 1.0, color: Colors.white24))),
-//              child: Hero(
-//                  tag: "avatar_" + listItem.name,
-//                  child: CircleAvatar(
-//                    radius: 32,
-//                    backgroundImage: NetworkImage(record.photo),
-//                  ))),
           title: Text(
             listItem.name,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -227,6 +245,14 @@ class _NewSoftPageState extends State<NewSoftPage> {
       }
     });
   }
+
+  @override
+  void dispose() {
+    _filterController.dispose();
+    _refreshController.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
 }
 
 class UpdateDialog extends StatefulWidget {
@@ -237,7 +263,7 @@ class UpdateDialog extends StatefulWidget {
       : super(key: key);
 
   @override
-  _UpdateDialogState createState() => new _UpdateDialogState();
+  _UpdateDialogState createState() => _UpdateDialogState();
 }
 
 class _UpdateDialogState extends State<UpdateDialog> {
@@ -342,5 +368,12 @@ class _UpdateDialogState extends State<UpdateDialog> {
     } catch (e) {
       print(e);
     }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _distanceController.dispose();
+    super.dispose();
   }
 }

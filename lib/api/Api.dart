@@ -3,9 +3,10 @@ import 'package:flutter_app/models/ListItem.dart';
 import 'package:flutter_app/models/Listing.dart';
 
 class Api {
-  static Dio dio = new Dio();
+  static Dio dio = Dio();
 
   Api() {
+    if (dio == null) dio = Dio();
     if (dio.options.baseUrl != "http://interview.advisoryapps.com/index.php") {
       dio.options.baseUrl = "http://interview.advisoryapps.com/index.php";
       dio.options.connectTimeout = 5000;
@@ -16,7 +17,7 @@ class Api {
   static getListing() async {
     Api();
     try {
-      FormData loginData = new FormData.from(
+      FormData loginData = FormData.from(
           {"email": "movida@advisoryapps.com", "password": "movida123"});
 
       Response loginResponse = await dio.post(
@@ -25,7 +26,7 @@ class Api {
       );
       if (loginResponse.statusCode == 200 &&
           loginResponse.data["status"]["code"] == 200) {
-        FormData listingData = new FormData.from({
+        FormData listingData = FormData.from({
           "id": loginResponse.data["id"].toString(),
           "token": loginResponse.data["token"].toString()
         });
@@ -48,7 +49,7 @@ class Api {
   static updateList(ListItem listItem) async {
     Api();
     try {
-      FormData loginData = new FormData.from(
+      FormData loginData = FormData.from(
           {"email": "movida@advisoryapps.com", "password": "movida123"});
 
       Response loginResponse = await dio.post(
@@ -57,7 +58,7 @@ class Api {
       );
       if (loginResponse.statusCode == 200 &&
           loginResponse.data["status"]["code"] == 200) {
-        FormData updateData = new FormData.from({
+        FormData updateData = FormData.from({
           "id": loginResponse.data["id"].toString(),
           "token": loginResponse.data["token"].toString(),
           "listing_id": listItem.id,
@@ -72,10 +73,10 @@ class Api {
         if (updateResponse.statusCode == 200 &&
             updateResponse.data["status"]["code"] == 200) {
           return true;
-        }
-        else return false;
-      }
-      else return false;
+        } else
+          return false;
+      } else
+        return false;
     } catch (e) {
       print(e);
     }
