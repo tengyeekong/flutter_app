@@ -30,7 +30,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
 
   @override
   void setState(fn) {
-    if(mounted) {
+    if (mounted) {
       super.setState(fn);
     }
   }
@@ -49,7 +49,8 @@ class _NewSoftPageState extends State<NewSoftPage> {
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >
               _scrollController.position.maxScrollExtent - 200 &&
-          !isLoading) {
+          !isLoading &&
+          this._searchIcon.icon == Icons.search) {
         _getLists(false);
       }
     });
@@ -82,7 +83,8 @@ class _NewSoftPageState extends State<NewSoftPage> {
           setState(() {
             for (int i = 1; i <= 20; i++) {
               String value = (_lists.lists.length + 1).toString();
-              ListItem listItem = ListItem(id: value, name: value, distance: value);
+              ListItem listItem =
+                  ListItem(id: value, name: value, distance: value);
               _lists.lists.add(listItem);
               _filteredLists.lists.add(listItem);
             }
@@ -154,9 +156,11 @@ class _NewSoftPageState extends State<NewSoftPage> {
       itemCount: _filteredLists.lists.length + 1,
       itemBuilder: (context, index) {
         if (index == _filteredLists.lists.length &&
-            !_refreshController.isRefresh) {
+            !_refreshController.isRefresh &&
+            this._searchIcon.icon == Icons.search) {
           return _buildProgressIndicator();
-        } else if (_filteredLists.lists.length > 0) {
+        } else if (_filteredLists.lists.length > 0 &&
+            index < _filteredLists.lists.length) {
           return _buildListItem(context, _filteredLists.lists[index]);
         } else
           return Container();
@@ -186,7 +190,8 @@ class _NewSoftPageState extends State<NewSoftPage> {
       child: Container(
         decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
         child: ListTile(
-          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           title: Text(
             listItem.name,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
@@ -313,7 +318,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
 
   @override
   void setState(fn) {
-    if(mounted) {
+    if (mounted) {
       super.setState(fn);
     }
   }

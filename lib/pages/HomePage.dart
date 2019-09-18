@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void setState(fn) {
-    if(mounted) {
+    if (mounted) {
       super.setState(fn);
     }
   }
