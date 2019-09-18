@@ -39,6 +39,12 @@ class ContactlyApp extends StatelessWidget {
             ? kIOSTheme
             : kDefaultTheme,
         initialRoute: loginPageTag,
+//        home: WillPopScope(
+//          onWillPop: () async {
+//            return true;
+//          },
+//          child: LoginPage(),
+//        ),
         routes: routes);
   }
 }

@@ -28,7 +28,7 @@ class DrawerState extends State<AppDrawer> {
             getListTile(context, demo3PageTag, demo3PageText),
             getListTile(context, demo4PageTag, demo4PageText),
             getListTile(context, demo5PageTag, demo5PageText),
-            getListTile(context, listingPageTag, newSoftPageText),
+            getListTile(context, listingPageTag, listingPageText),
           ]),
         ));
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/BottomNavBar.dart';
 import 'package:flutter_app/api/Api.dart';
 import 'package:flutter_app/helpers/Constants.dart';
 import 'package:flutter_app/models/ListItem.dart';
@@ -41,7 +42,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
     _lists.lists = List();
     _filteredLists.lists = List();
 
-    _getLists(false);
+    _getLists(true);
     WidgetsBinding.instance
         .addPostFrameCallback((_) => _refreshController.requestRefresh());
 
@@ -60,21 +61,35 @@ class _NewSoftPageState extends State<NewSoftPage> {
         isLoading = true;
       });
 
-      Listing lists = await Api.getListing();
-      if (lists != null) {
-        if (isRefresh) {
-          _lists.lists.clear();
-          _filteredLists.lists.clear();
-        }
-        setState(() {
-          for (ListItem listItem in lists.lists) {
-            _lists.lists.add(listItem);
-            _filteredLists.lists.add(listItem);
+      if (isRefresh) {
+        Listing lists = await Api.getListing();
+        if (lists != null) {
+          if (isRefresh) {
+            _lists.lists.clear();
+            _filteredLists.lists.clear();
           }
-          isLoading = false;
+          setState(() {
+            for (ListItem listItem in lists.lists) {
+              _lists.lists.add(listItem);
+              _filteredLists.lists.add(listItem);
+            }
+            isLoading = false;
+          });
+        }
+        _refreshController.refreshCompleted();
+      } else {
+        Future.delayed(Duration(seconds: 2), () {
+          setState(() {
+            for (int i = 1; i <= 20; i++) {
+              String value = (_lists.lists.length + 1).toString();
+              ListItem listItem = ListItem(id: value, name: value, distance: value);
+              _lists.lists.add(listItem);
+              _filteredLists.lists.add(listItem);
+            }
+            isLoading = false;
+          });
         });
       }
-      _refreshController.refreshCompleted();
     } catch (e) {
       print(e);
     }
@@ -98,6 +113,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
         appBar: _buildBar(context),
         backgroundColor: appDarkGreyColor,
         drawer: AppDrawer(),
+//        bottomNavigationBar: BottomNavBar(),
         body: SmartRefresher(
           controller: _refreshController,
           enablePullDown: true,
