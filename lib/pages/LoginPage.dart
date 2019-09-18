@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/Constants.dart';
 import 'package:flutter/services.dart';
-
-import '../AppDrawer.dart';
+import 'package:flutter_app/AppDrawer.dart';
 
 class LoginPage extends StatelessWidget {
   final _pinCodeController = TextEditingController();

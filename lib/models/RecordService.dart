@@ -1,4 +1,4 @@
-import 'RecordList.dart';
+import 'package:flutter_app/models/RecordList.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
 

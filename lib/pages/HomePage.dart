@@ -1,13 +1,11 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/Pages/DetailsPage.dart';
+import 'package:flutter_app/pages/DetailsPage.dart';
 import 'package:flutter_app/helpers/Constants.dart';
 import 'package:flutter_app/models/Record.dart';
 import 'package:flutter_app/models/RecordList.dart';
 import 'package:flutter_app/models/RecordService.dart';
-
-import '../AppDrawer.dart';
+import 'package:flutter_app/AppDrawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -40,7 +38,7 @@ class _HomePageState extends State<HomePage> {
 
   void _getRecords() async {
     RecordList records = await RecordService().loadRecords();
-    Timer(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 2), () {
       setState(() {
         for (Record record in records.records) {
           _records.records.add(record);
@@ -63,7 +61,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildBar(BuildContext context) {
     return AppBar(
-        elevation: 0.1,
+        elevation: 0.0,
         backgroundColor: appDarkGreyColor,
         centerTitle: true,
         title: _appBarTitle,
@@ -153,10 +151,17 @@ class _HomePageState extends State<HomePage> {
           trailing:
               Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => DetailPage(record: record)));
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                detailsPageTag,
+                    (route) => route.isCurrent
+                    ? route.settings.name == detailsPageTag ? false : true
+                    : true,
+                    arguments: record,);
+
+//            Navigator.push(
+//                context,
+//                MaterialPageRoute(
+//                    builder: (context) => DetailPage(record: record)));
           },
         ),
       ),

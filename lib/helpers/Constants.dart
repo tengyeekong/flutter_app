@@ -30,13 +30,14 @@ const bigRadius = 66.0;
 const buttonHeight = 24.0;
 
 // Pages
-const timerPageTag = 'Timer Page';
-const loginPageTag = 'Login Page';
-const homePageTag = 'Home Page';
-const FriendlyChatPageTag = "FriendlyChat Page";
-const demo1PageTag = 'Demo 1 Page';
-const demo2PageTag = 'Demo 2 Page';
-const demo3PageTag = 'Demo 3 Page';
-const demo4PageTag = 'Demo 4 Page';
-const demo5PageTag = 'Demo 5 Page';
-const newSoftPageTag = "NewSoft Page";
+const loginPageTag = '/';
+const homePageTag = '/home';
+const detailsPageTag = '/home/detail';
+const timerPageTag = '/timer';
+const friendlyChatPageTag = "/friendlychat";
+const demo1PageTag = '/demo1';
+const demo2PageTag = '/demo2';
+const demo3PageTag = '/demo3';
+const demo4PageTag = '/demo4';
+const demo5PageTag = '/demo5';
+const listingPageTag = "/listing";

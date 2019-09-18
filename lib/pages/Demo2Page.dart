@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../AppDrawer.dart';
+import 'package:flutter_app/AppDrawer.dart';
 
 class Demo2Page extends StatelessWidget {
   @override

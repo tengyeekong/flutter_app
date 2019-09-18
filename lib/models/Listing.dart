@@ -1,4 +1,4 @@
-import 'ListItem.dart';
+import 'package:flutter_app/models/ListItem.dart';
 
 class Listing {
   List<ListItem> lists = List();

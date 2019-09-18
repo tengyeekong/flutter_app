@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/Constants.dart';
-import '../AppDrawer.dart';
+import 'package:flutter_app/AppDrawer.dart';
 import 'package:flutter/cupertino.dart';
 
 const String _name = "Yao";

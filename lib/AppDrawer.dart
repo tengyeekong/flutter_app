@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
-import 'Pages/FriendlyChatPage.dart';
-import 'Pages/NewSoftPage.dart';
-import 'helpers/Constants.dart';
-import 'Pages/TimerPage.dart';
-import 'Pages/LoginPage.dart';
-import 'Pages/Demo1Page.dart';
-import 'Pages/Demo2Page.dart';
-import 'Pages/Demo3Page.dart';
-import 'Pages/Demo4Page.dart';
-import 'Pages/Demo5Page.dart';
+import 'package:flutter_app/helpers/Constants.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -18,45 +9,47 @@ class AppDrawer extends StatefulWidget {
 }
 
 class DrawerState extends State<AppDrawer> {
-
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Container(
-        color: appGreyColor,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
+        child: Container(
+          color: appGreyColor,
+          child: ListView(padding: EdgeInsets.zero, children: <Widget>[
             DrawerHeader(
-//              child: Text('Drawer Header', style: TextStyle(color: Colors.white)),
-              decoration: BoxDecoration(
-                color: Colors.blueGrey,
-              ),
+              child: Center(
+                child: Text('Drawer Header', style: TextStyle(color: Colors.white))),
+              decoration: BoxDecoration(color: Colors.blueGrey,),
             ),
-            getListTile(context, LoginPage(), loginPageText),
-            getListTile(context, FriendlyChatPage(), FriendlyChatPageText),
-            getListTile(context, TimerPage(), timerPageText),
-            getListTile(context, Demo1Page(), demo1PageText),
-            getListTile(context, Demo2Page(), demo2PageText),
-            getListTile(context, Demo3Page(), demo3PageText),
-            getListTile(context, Demo4Page(), demo4PageText),
-            getListTile(context, Demo5Page(), demo5PageText),
-            getListTile(context, NewSoftPage(), newSoftPageText),
-          ]
-        ),
-      )
-    );
+            getListTile(context, loginPageTag, loginPageText),
+            getListTile(context, friendlyChatPageTag, FriendlyChatPageText),
+            getListTile(context, timerPageTag, timerPageText),
+            getListTile(context, demo1PageTag, demo1PageText),
+            getListTile(context, demo2PageTag, demo2PageText),
+            getListTile(context, demo3PageTag, demo3PageText),
+            getListTile(context, demo4PageTag, demo4PageText),
+            getListTile(context, demo5PageTag, demo5PageText),
+            getListTile(context, listingPageTag, newSoftPageText),
+          ]),
+        ));
   }
 
-  ListTile getListTile(BuildContext context, Widget widget, String text) {
+  ListTile getListTile(BuildContext context, String tag, String text) {
     return ListTile(
       title: Text(text, style: TextStyle(color: Colors.white)),
       onTap: () {
-//        Navigator.of(context).pushNamed(tag);
-        Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(
-            builder: (context) => widget)
-        );
+        Navigator.of(context).pop();
+        if (ModalRoute.of(context).settings.name != tag) {
+          Navigator.of(context).pushNamedAndRemoveUntil(
+              tag,
+              (route) => route.isCurrent
+                  ? route.settings.name == tag ? false : true
+                  : true);
+        }
+
+//        Navigator.pop(context);
+//        Navigator.push(context, MaterialPageRoute(
+//            builder: (context) => widget)
+//        );
       },
     );
   }

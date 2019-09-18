@@ -1,4 +1,4 @@
-import 'Record.dart';
+import 'package:flutter_app/models/Record.dart';
 
 class RecordList {
   List<Record> records = List();

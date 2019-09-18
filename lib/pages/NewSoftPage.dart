@@ -3,10 +3,9 @@ import 'package:flutter_app/api/Api.dart';
 import 'package:flutter_app/helpers/Constants.dart';
 import 'package:flutter_app/models/ListItem.dart';
 import 'package:flutter_app/models/Listing.dart';
-import 'package:dio/dio.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../AppDrawer.dart';
+import 'package:flutter_app/AppDrawer.dart';
 
 class NewSoftPage extends StatefulWidget {
   @override
@@ -107,7 +106,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
 
   Widget _buildBar(BuildContext context) {
     return AppBar(
-        elevation: 0.1,
+        elevation: 0.0,
         backgroundColor: appDarkGreyColor,
         centerTitle: true,
         title: _appBarTitle,
@@ -164,8 +163,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
       child: Container(
         decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
         child: ListTile(
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          contentPadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           title: Text(
             listItem.name,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

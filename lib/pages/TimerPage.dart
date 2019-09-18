@@ -3,7 +3,7 @@ import 'package:flutter_app/helpers/Constants.dart';
 import 'dart:async';
 import 'package:flutter/services.dart';
 
-import '../AppDrawer.dart';
+import 'package:flutter_app/AppDrawer.dart';
 
 class TimerPage extends StatefulWidget {
   @override

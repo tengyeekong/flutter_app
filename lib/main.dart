@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'Pages/FriendlyChatPage.dart';
-import 'Pages/NewSoftPage.dart';
-import 'helpers/Constants.dart';
-import 'Pages/TimerPage.dart';
-import 'Pages/LoginPage.dart';
-import 'Pages/HomePage.dart';
-import 'Pages/Demo1Page.dart';
-import 'Pages/Demo2Page.dart';
-import 'Pages/Demo3Page.dart';
-import 'Pages/Demo4Page.dart';
-import 'Pages/Demo5Page.dart';
+import 'package:flutter_app/helpers/Constants.dart';
+import 'package:flutter_app/pages/DetailsPage.dart';
+import 'package:flutter_app/pages/FriendlyChatPage.dart';
+import 'package:flutter_app/pages/NewSoftPage.dart';
+import 'package:flutter_app/pages/TimerPage.dart';
+import 'package:flutter_app/pages/LoginPage.dart';
+import 'package:flutter_app/pages/HomePage.dart';
+import 'package:flutter_app/pages/Demo1Page.dart';
+import 'package:flutter_app/pages/Demo2Page.dart';
+import 'package:flutter_app/pages/Demo3Page.dart';
+import 'package:flutter_app/pages/Demo4Page.dart';
+import 'package:flutter_app/pages/Demo5Page.dart';
 import 'package:flutter/foundation.dart';
 
 void main() => runApp(ContactlyApp());
@@ -19,13 +20,14 @@ class ContactlyApp extends StatelessWidget {
     timerPageTag: (context) => TimerPage(),
     loginPageTag: (context) => LoginPage(),
     homePageTag: (context) => HomePage(),
-    FriendlyChatPageTag: (context) => FriendlyChatPage(),
+    detailsPageTag: (context) => DetailPage(record: ModalRoute.of(context).settings.arguments),
+    friendlyChatPageTag: (context) => FriendlyChatPage(),
     demo1PageTag: (context) => Demo1Page(),
     demo2PageTag: (context) => Demo2Page(),
     demo3PageTag: (context) => Demo3Page(),
     demo4PageTag: (context) => Demo4Page(),
     demo5PageTag: (context) => Demo5Page(),
-    newSoftPageTag: (context) => NewSoftPage(),
+    listingPageTag: (context) => NewSoftPage(),
   };
 
   @override
@@ -36,7 +38,7 @@ class ContactlyApp extends StatelessWidget {
         theme: defaultTargetPlatform == TargetPlatform.iOS
             ? kIOSTheme
             : kDefaultTheme,
-        home: LoginPage(),
+        initialRoute: loginPageTag,
         routes: routes);
   }
 }
