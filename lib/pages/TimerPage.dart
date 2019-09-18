@@ -9,11 +9,11 @@ class TimerPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return LoginState();
+    return _TimerState();
   }
 }
 
-class LoginState extends State<TimerPage> {
+class _TimerState extends State<TimerPage> {
   static const duration = const Duration(seconds: 1);
   int secondsPassed = 0;
   bool isActive = false;
@@ -35,6 +35,7 @@ class LoginState extends State<TimerPage> {
         handleTick();
       });
 
+    // pause timer when app paused
     SystemChannels.lifecycle.setMessageHandler((msg) {
       debugPrint('SystemChannels> $msg');
       if (msg == AppLifecycleState.paused.toString())
@@ -44,9 +45,10 @@ class LoginState extends State<TimerPage> {
 //      else setState(() {isActive = true;});
     });
 
-    int seconds = secondsPassed % 60;
-    int minutes = secondsPassed ~/ 60;
-    int hours = secondsPassed ~/ (60 * 60);
+    const int UNIT = 60;
+    int seconds = secondsPassed % UNIT;
+    int minutes = secondsPassed ~/ UNIT;
+    int hours = secondsPassed ~/ (UNIT * UNIT);
 
     final timerWidget = Container(
         margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
@@ -90,7 +92,7 @@ class LoginState extends State<TimerPage> {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+//          padding: EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             timerWidget
           ],

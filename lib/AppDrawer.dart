@@ -39,11 +39,13 @@ class DrawerState extends State<AppDrawer> {
       onTap: () {
         Navigator.of(context).pop();
         if (ModalRoute.of(context).settings.name != tag) {
-          Navigator.of(context).pushNamedAndRemoveUntil(
-              tag,
-              (route) => route.isCurrent
-                  ? route.settings.name == tag ? false : true
-                  : true);
+          Navigator.of(context).pushNamed(tag);
+
+//          Navigator.of(context).pushNamedAndRemoveUntil(
+//              tag,
+//              (route) => route.isCurrent
+//                  ? route.settings.name == tag ? false : true
+//                  : true);
         }
 
 //        Navigator.pop(context);

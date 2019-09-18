@@ -27,6 +27,13 @@ class _HomePageState extends State<HomePage> {
   Widget _appBarTitle = Text(appTitle);
 
   @override
+  void setState(fn) {
+    if(mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
 

@@ -28,6 +28,13 @@ class _NewSoftPageState extends State<NewSoftPage> {
   bool isLoading = false;
 
   @override
+  void setState(fn) {
+    if(mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
 
@@ -287,6 +294,13 @@ class _UpdateDialogState extends State<UpdateDialog> {
   final TextEditingController _distanceController = TextEditingController();
 
   bool isUpdating = false;
+
+  @override
+  void setState(fn) {
+    if(mounted) {
+      super.setState(fn);
+    }
+  }
 
   @override
   void initState() {
