@@ -124,7 +124,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
           },
           child: _buildList(context),
         ),
-        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
       ),
     );
   }

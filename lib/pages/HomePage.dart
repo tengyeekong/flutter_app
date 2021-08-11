@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: appDarkGreyColor,
       drawer: AppDrawer(),
       body: _buildList(context),
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
     );
   }
 

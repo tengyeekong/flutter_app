@@ -17,7 +17,7 @@ class Api {
   static getListing() async {
     Api();
     try {
-      FormData loginData = FormData.from(
+      FormData loginData = FormData.fromMap(
           {"email": "movida@advisoryapps.com", "password": "movida123"});
 
       Response loginResponse = await dio.post(
@@ -26,13 +26,12 @@ class Api {
       );
       if (loginResponse.statusCode == 200 &&
           loginResponse.data["status"]["code"] == 200) {
-        FormData listingData = FormData.from({
-          "id": loginResponse.data["id"].toString(),
-          "token": loginResponse.data["token"].toString()
-        });
         Response listingResponse = await dio.get(
           "/listing",
-          queryParameters: listingData,
+          queryParameters: {
+            "id": loginResponse.data["id"].toString(),
+            "token": loginResponse.data["token"].toString()
+          },
         );
         print(listingResponse);
         if (listingResponse.statusCode == 200 &&
@@ -49,7 +48,7 @@ class Api {
   static updateList(ListItem listItem) async {
     Api();
     try {
-      FormData loginData = FormData.from(
+      FormData loginData = FormData.fromMap(
           {"email": "movida@advisoryapps.com", "password": "movida123"});
 
       Response loginResponse = await dio.post(
@@ -58,7 +57,7 @@ class Api {
       );
       if (loginResponse.statusCode == 200 &&
           loginResponse.data["status"]["code"] == 200) {
-        FormData updateData = FormData.from({
+        FormData updateData = FormData.fromMap({
           "id": loginResponse.data["id"].toString(),
           "token": loginResponse.data["token"].toString(),
           "listing_id": listItem.id,
