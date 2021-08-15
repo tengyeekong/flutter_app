@@ -29,6 +29,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
   Widget _appBarTitle = Text(newSoftTitle);
   bool isUpdating = false;
   bool isLoading = false;
+  bool enablePullDown = true;
 
   @override
   void setState(fn) {
@@ -98,7 +99,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
           },
           child: SmartRefresher(
               controller: _refreshController,
-              enablePullDown: true,
+              enablePullDown: enablePullDown,
               onRefresh: () async {
                 if (!isLoading) {
                   _listingBloc
@@ -255,6 +256,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
   void _searchPressed() {
     setState(() {
       if (this._searchIcon.icon == Icons.search) {
+        enablePullDown = false;
         this._searchIcon = Icon(Icons.close);
         this._appBarTitle = TextField(
           controller: _filterController,
@@ -268,6 +270,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
           ),
         );
       } else {
+        enablePullDown = true;
         this._searchIcon = Icon(Icons.search);
         this._appBarTitle = Text(newSoftTitle);
         _filterController.clear();
