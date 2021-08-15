@@ -1,15 +1,15 @@
 import 'package:flutter_app/models/Record.dart';
 
 class RecordList {
-  List<Record> records = List();
+  List<Record> records;
 
   RecordList({
-    this.records
+    required this.records
   });
 
   factory RecordList.fromJson(List<dynamic> parsedJson) {
 
-    List<Record> records = List<Record>();
+    List<Record> records = [];
 
     records = parsedJson.map((i) => Record.fromJson(i)).toList();
 

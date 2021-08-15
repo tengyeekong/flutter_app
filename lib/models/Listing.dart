@@ -1,15 +1,15 @@
 import 'package:flutter_app/models/ListItem.dart';
 
 class Listing {
-  List<ListItem> lists = List();
+  final List<ListItem> lists;
 
-  Listing({
-    this.lists
+  const Listing({
+    this.lists = const []
   });
 
   factory Listing.fromJson(List<dynamic> parsedJson) {
 
-    List<ListItem> lists = List<ListItem>();
+    List<ListItem> lists = <ListItem>[];
 
     lists = parsedJson.map((i) => ListItem.fromJson(i)).toList();
 

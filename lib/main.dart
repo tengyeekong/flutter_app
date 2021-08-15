@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/helpers/Constants.dart';
+import 'package:flutter_app/models/Record.dart';
 import 'package:flutter_app/pages/DetailsPage.dart';
 import 'package:flutter_app/pages/FriendlyChatPage.dart';
 import 'package:flutter_app/pages/NewSoftPage.dart';
@@ -13,14 +14,19 @@ import 'package:flutter_app/pages/Demo4Page.dart';
 import 'package:flutter_app/pages/Demo5Page.dart';
 import 'package:flutter/foundation.dart';
 
-void main() => runApp(ContactlyApp());
+import 'injector/injector_config.dart';
+
+void main() {
+  InjectorConfig.setup();
+  runApp(ContactlyApp());
+}
 
 class ContactlyApp extends StatelessWidget {
   final routes = <String, WidgetBuilder>{
     timerPageTag: (context) => TimerPage(),
     loginPageTag: (context) => LoginPage(),
     homePageTag: (context) => HomePage(),
-    detailsPageTag: (context) => DetailPage(record: ModalRoute.of(context).settings.arguments),
+    detailsPageTag: (context) => DetailPage(record: ModalRoute.of(context)?.settings.arguments as Record),
     friendlyChatPageTag: (context) => FriendlyChatPage(),
     demo1PageTag: (context) => Demo1Page(),
     demo2PageTag: (context) => Demo2Page(),

@@ -8,8 +8,8 @@ class Demo5Page extends StatefulWidget {
 
 // #docregion print-state
 class _LogoAppState extends State<Demo5Page> with SingleTickerProviderStateMixin {
-  Animation<double> animation;
-  AnimationController controller;
+  late Animation<double> animation;
+  late AnimationController controller;
 
   @override
   void initState() {
@@ -45,11 +45,11 @@ class AnimatedLogo extends AnimatedWidget {
   static final _opacityTween = Tween<double>(begin: 0.1, end: 1);
   static final _sizeTween = Tween<double>(begin: 0, end: 300);
 
-  AnimatedLogo({Key key, Animation<double> animation})
+  AnimatedLogo({Key? key, required Animation<double> animation})
       : super(key: key, listenable: animation);
 
   Widget build(BuildContext context) {
-    final Animation<double> animation = listenable;
+    final Animation<double> animation = listenable as Animation<double>;
     return Center(
       child: Opacity(
         opacity: _opacityTween.evaluate(animation),
@@ -100,7 +100,7 @@ class UsedInTutorialTextOnly extends _LogoAppState {
     // #docregion IntTween-curve
     AnimationController controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
-    final Animation curve =
+    final Animation<double> curve =
     CurvedAnimation(parent: controller, curve: Curves.easeOut);
     Animation<int> alpha = IntTween(begin: 0, end: 255).animate(curve);
     // #enddocregion IntTween-curve

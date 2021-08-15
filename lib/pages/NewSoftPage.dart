@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/BottomNavBar.dart';
 import 'package:flutter_app/api/Api.dart';
+import 'package:flutter_app/bloc/listing_bloc/listing_bloc.dart';
 import 'package:flutter_app/helpers/Constants.dart';
+import 'package:flutter_app/injector/injector.dart';
 import 'package:flutter_app/models/ListItem.dart';
-import 'package:flutter_app/models/Listing.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'package:flutter_app/AppDrawer.dart';
@@ -16,12 +17,13 @@ class NewSoftPage extends StatefulWidget {
 }
 
 class _NewSoftPageState extends State<NewSoftPage> {
+  ListingBloc? _listingBloc;
   final TextEditingController _filterController = TextEditingController();
   final RefreshController _refreshController = RefreshController();
   final ScrollController _scrollController = ScrollController();
 
-  Listing _lists = Listing();
-  Listing _filteredLists = Listing();
+  List<ListItem> _listItems = [];
+  List<ListItem> _filteredListItems = [];
   String _searchText = "";
   Icon _searchIcon = Icon(Icons.search);
   Widget _appBarTitle = Text(newSoftTitle);
@@ -39,62 +41,23 @@ class _NewSoftPageState extends State<NewSoftPage> {
   void initState() {
     super.initState();
 
-    _lists.lists = List();
-    _filteredLists.lists = List();
+    _listingBloc = Injector.resolve<ListingBloc>();
 
-    _getLists(true);
     WidgetsBinding.instance
-        .addPostFrameCallback((_) => _refreshController.requestRefresh());
+        ?.addPostFrameCallback((_) => _refreshController.requestRefresh());
 
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels >
+      bool allowLoad = _scrollController.hasClients &&
+          _scrollController.position.pixels >
               _scrollController.position.maxScrollExtent - 200 &&
           !isLoading &&
-          this._searchIcon.icon == Icons.search) {
-        _getLists(false);
+          this._searchIcon.icon == Icons.search;
+
+      if (allowLoad) {
+        setState(() => isLoading = true);
+        _listingBloc?.add(FetchListingEvent());
       }
     });
-  }
-
-  void _getLists(bool isRefresh) async {
-    try {
-      setState(() {
-        isLoading = true;
-      });
-
-      if (isRefresh) {
-        Listing lists = await Api.getListing();
-        if (lists != null) {
-          if (isRefresh) {
-            _lists.lists.clear();
-            _filteredLists.lists.clear();
-          }
-          setState(() {
-            for (ListItem listItem in lists.lists) {
-              _lists.lists.add(listItem);
-              _filteredLists.lists.add(listItem);
-            }
-            isLoading = false;
-          });
-        }
-        _refreshController.refreshCompleted();
-      } else {
-        Future.delayed(Duration(seconds: 2), () {
-          setState(() {
-            for (int i = 1; i <= 20; i++) {
-              String value = (_lists.lists.length + 1).toString();
-              ListItem listItem =
-                  ListItem(id: value, name: value, distance: value);
-              _lists.lists.add(listItem);
-              _filteredLists.lists.add(listItem);
-            }
-            isLoading = false;
-          });
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   @override
@@ -116,20 +79,40 @@ class _NewSoftPageState extends State<NewSoftPage> {
         backgroundColor: appDarkGreyColor,
         drawer: AppDrawer(),
 //        bottomNavigationBar: BottomNavBar(),
-        body: SmartRefresher(
-          controller: _refreshController,
-          enablePullDown: true,
-          onRefresh: () async {
-            _getLists(true);
+        body: BlocListener<ListingBloc, ListingState>(
+          bloc: _listingBloc,
+          listener: (context, state) {
+            if (state.status == ListingStatus.success) {
+              _listItems
+                ..clear()
+                ..addAll(state.data.lists);
+              _filteredListItems
+                ..clear()
+                ..addAll(state.data.lists);
+
+              _refreshController.refreshCompleted();
+              setState(() {
+                isLoading = false;
+              });
+            }
           },
-          child: _buildList(context),
+          child: SmartRefresher(
+              controller: _refreshController,
+              enablePullDown: true,
+              onRefresh: () async {
+                if (!isLoading) {
+                  _listingBloc
+                      ?.add(FetchListingEvent(status: ListingStatus.initial));
+                }
+              },
+              child: _buildList(context)),
         ),
         resizeToAvoidBottomInset: false,
       ),
     );
   }
 
-  Widget _buildBar(BuildContext context) {
+  AppBar _buildBar(BuildContext context) {
     return AppBar(
         elevation: 0.0,
         backgroundColor: appDarkGreyColor,
@@ -140,12 +123,13 @@ class _NewSoftPageState extends State<NewSoftPage> {
 
   Widget _buildList(BuildContext context) {
     if (_searchText.isNotEmpty) {
-      _filteredLists.lists = List();
-      for (int i = 0; i < _lists.lists.length; i++) {
-        if (_lists.lists[i].name
+      _filteredListItems.clear();
+      for (int i = 0; i < _listItems.length; i++) {
+        if (_listItems[i]
+            .name
             .toLowerCase()
             .contains(_searchText.toLowerCase())) {
-          _filteredLists.lists.add(_lists.lists[i]);
+          _filteredListItems.add(_listItems[i]);
         }
       }
     }
@@ -153,15 +137,15 @@ class _NewSoftPageState extends State<NewSoftPage> {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(vertical: 15.0),
       controller: _scrollController,
-      itemCount: _filteredLists.lists.length + 1,
+      itemCount: _filteredListItems.length + 1,
       itemBuilder: (context, index) {
-        if (index == _filteredLists.lists.length &&
+        if (index == _filteredListItems.length &&
             !_refreshController.isRefresh &&
             this._searchIcon.icon == Icons.search) {
           return _buildProgressIndicator();
-        } else if (_filteredLists.lists.length > 0 &&
-            index < _filteredLists.lists.length) {
-          return _buildListItem(context, _filteredLists.lists[index]);
+        } else if (_filteredListItems.length > 0 &&
+            index < _filteredListItems.length) {
+          return _buildListItem(context, _filteredListItems[index]);
         } else
           return Container();
       },
@@ -175,6 +159,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
         child: Opacity(
           opacity: isLoading ? 1.0 : 00,
           child: CircularProgressIndicator(
+            color: Color.fromRGBO(64, 75, 96, .9),
             backgroundColor: Colors.white,
           ),
         ),
@@ -216,7 +201,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
 //          trailing:
 //              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
-            Scaffold.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
             final snackBar = SnackBar(
               content: Text(listItem.id +
                   ": " +
@@ -225,7 +210,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
                   listItem.distance),
               duration: Duration(seconds: 2),
             );
-            Scaffold.of(context).showSnackBar(snackBar);
+            ScaffoldMessenger.of(context).showSnackBar(snackBar);
           },
           onLongPress: () {
             showDialog(
@@ -261,9 +246,9 @@ class _NewSoftPageState extends State<NewSoftPage> {
   }
 
   void _resetRecords() {
-    this._filteredLists.lists = List();
-    for (ListItem listItem in _lists.lists) {
-      this._filteredLists.lists.add(listItem);
+    this._filteredListItems.clear();
+    for (ListItem listItem in _listItems) {
+      this._filteredListItems.add(listItem);
     }
   }
 
@@ -292,6 +277,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
 
   @override
   void dispose() {
+    _listingBloc?.close();
     _filterController.dispose();
     _refreshController.dispose();
     _scrollController.dispose();
@@ -303,7 +289,8 @@ class UpdateDialog extends StatefulWidget {
   final ListItem listItem;
   final ValueChanged<ListItem> onListUpdated;
 
-  const UpdateDialog({Key key, this.listItem, this.onListUpdated})
+  const UpdateDialog(
+      {Key? key, required this.listItem, required this.onListUpdated})
       : super(key: key);
 
   @override
@@ -374,11 +361,16 @@ class _UpdateDialogState extends State<UpdateDialog> {
               ),
             ),
             Padding(padding: EdgeInsets.only(top: 30.0)),
-            FlatButton(
-              padding: EdgeInsets.symmetric(vertical: 15, horizontal: 40),
-              color: appDarkGreyColor,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0)),
+            TextButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                    EdgeInsets.symmetric(vertical: 15, horizontal: 40)),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(appDarkGreyColor),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8.0))),
+              ),
               onPressed: () {
                 widget.listItem.name = _nameController.text;
                 widget.listItem.distance = _distanceController.text;

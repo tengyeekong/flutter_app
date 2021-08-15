@@ -6,11 +6,11 @@ class Record {
   String url;
 
   Record({
-    this.name,
-    this.address,
-    this.contact,
-    this.photo,
-    this.url
+    required this.name,
+    required this.address,
+    required this.contact,
+    required this.photo,
+    required this.url
   });
 
   factory Record.fromJson(Map<String, dynamic> json){

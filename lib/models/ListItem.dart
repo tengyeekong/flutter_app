@@ -4,9 +4,9 @@ class ListItem {
   String distance;
 
   ListItem({
-    this.id,
-    this.name,
-    this.distance
+    required this.id,
+    required this.name,
+    required this.distance
   });
 
   factory ListItem.fromJson(Map<String, dynamic> json){

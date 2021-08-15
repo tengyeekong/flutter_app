@@ -17,8 +17,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _filter = TextEditingController();
 
-  RecordList _records = RecordList();
-  RecordList _filteredRecords = RecordList();
+  RecordList _records = RecordList(records: []);
+  RecordList _filteredRecords = RecordList(records: []);
 
   String _searchText = "";
 
@@ -36,9 +36,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    _records.records = List();
-    _filteredRecords.records = List();
 
     _getRecords();
   }
@@ -66,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _buildBar(BuildContext context) {
+  AppBar _buildBar(BuildContext context) {
     return AppBar(
         elevation: 0.0,
         backgroundColor: appDarkGreyColor,
@@ -77,7 +74,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildList(BuildContext context) {
     if (_searchText.isNotEmpty) {
-      _filteredRecords.records = List();
+      _filteredRecords.records = [];
       for (int i = 0; i < _records.records.length; i++) {
         if (_records.records[i].name
                 .toLowerCase()
@@ -191,7 +188,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _resetRecords() {
-    this._filteredRecords.records = List();
+    this._filteredRecords.records = [];
     for (Record record in _records.records) {
       this._filteredRecords.records.add(record);
     }

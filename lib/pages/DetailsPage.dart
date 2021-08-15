@@ -7,7 +7,7 @@ import 'package:flutter_app/AppDrawer.dart';
 class DetailPage extends StatelessWidget {
   final Record record;
   // 2
-  DetailPage({this.record});
+  DetailPage({required this.record});
 
   @override
   Widget build(BuildContext context) {

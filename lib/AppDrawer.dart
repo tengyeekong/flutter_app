@@ -38,7 +38,7 @@ class DrawerState extends State<AppDrawer> {
       title: Text(text, style: TextStyle(color: Colors.white)),
       onTap: () {
         Navigator.of(context).pop();
-        if (ModalRoute.of(context).settings.name != tag) {
+        if (ModalRoute.of(context)?.settings.name != tag) {
           Navigator.of(context).pushNamed(tag);
 
 //          Navigator.of(context).pushNamedAndRemoveUntil(

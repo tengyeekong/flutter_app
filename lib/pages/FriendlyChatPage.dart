@@ -56,7 +56,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
         decoration: Theme.of(context).platform == TargetPlatform.iOS ?
           BoxDecoration(
             border: Border(
-              top: BorderSide(color: Colors.grey[200]),
+              top: BorderSide(color: Colors.grey[200]!),
             ),
           )
           : null,
@@ -135,7 +135,7 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 }
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage({this.text, this.animationController});
+  ChatMessage({required this.text, required this.animationController});
   final String text;
   final AnimationController animationController;
 

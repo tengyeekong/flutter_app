@@ -18,7 +18,7 @@ class _TimerState extends State<TimerPage> {
   int secondsPassed = 0;
   bool isActive = false;
   String loginBtnText = loginButtonText;
-  Timer timer;
+  Timer? timer;
 
   void handleTick() {
     if (isActive) {
@@ -36,7 +36,7 @@ class _TimerState extends State<TimerPage> {
       });
 
     // pause timer when app paused
-    SystemChannels.lifecycle.setMessageHandler((msg) {
+    SystemChannels.lifecycle.setMessageHandler((msg) async {
       debugPrint('SystemChannels> $msg');
       if (msg == AppLifecycleState.paused.toString())
         setState(() {
@@ -103,7 +103,7 @@ class _TimerState extends State<TimerPage> {
 }
 
 class CustomTextContainer extends StatelessWidget {
-  CustomTextContainer({this.label, this.value});
+  CustomTextContainer({required this.label, required this.value});
 
   final String label;
   final String value;

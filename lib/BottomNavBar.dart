@@ -72,7 +72,7 @@ class BottomNavBar extends StatelessWidget {
       default: tag = loginPageTag; break;
     }
 
-    if (ModalRoute.of(context).settings.name != tag) {
+    if (ModalRoute.of(context)?.settings.name != tag) {
       Navigator.of(context).pushNamed(tag);
     }
   }

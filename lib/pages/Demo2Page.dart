@@ -31,7 +31,7 @@ class Demo2Page extends StatelessWidget {
 //------------------------- TapboxA ----------------------------------
 
 class TapboxA extends StatefulWidget {
-  TapboxA({Key key}) : super(key: key);
+  TapboxA({Key? key}) : super(key: key);
 
   @override
   _TapboxAState createState() => _TapboxAState();
@@ -98,7 +98,7 @@ class _ParentWidgetState extends State<ParentWidget> {
 //------------------------- TapboxB ----------------------------------
 
 class TapboxB extends StatelessWidget {
-  TapboxB({Key key, this.active: false, @required this.onChanged})
+  TapboxB({Key? key, this.active: false, required this.onChanged})
       : super(key: key);
 
   final bool active;
@@ -160,7 +160,7 @@ class _ParentWidgetState2 extends State<ParentWidget2> {
 //----------------------------- TapboxC ------------------------------
 
 class TapboxC extends StatefulWidget {
-  TapboxC({Key key, this.active: false, @required this.onChanged})
+  TapboxC({Key? key, this.active: false, required this.onChanged})
       : super(key: key);
 
   final bool active;
@@ -213,7 +213,7 @@ class _TapboxCState extends State<TapboxC> {
           color: widget.active ? Colors.lightGreen[700] : Colors.grey[600],
           border: _highlight
               ? Border.all(
-                  color: Colors.teal[700],
+                  color: Colors.teal[700]!,
                   width: 10.0,
                 )
               : null,
