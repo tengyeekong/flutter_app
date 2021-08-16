@@ -1,20 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/helpers/Constants.dart';
-import 'package:flutter_app/models/Record.dart';
-import 'package:flutter_app/pages/DetailsPage.dart';
-import 'package:flutter_app/pages/FriendlyChatPage.dart';
-import 'package:flutter_app/pages/NewSoftPage.dart';
-import 'package:flutter_app/pages/TimerPage.dart';
-import 'package:flutter_app/pages/LoginPage.dart';
-import 'package:flutter_app/pages/HomePage.dart';
-import 'package:flutter_app/pages/Demo1Page.dart';
-import 'package:flutter_app/pages/Demo2Page.dart';
-import 'package:flutter_app/pages/Demo3Page.dart';
-import 'package:flutter_app/pages/Demo4Page.dart';
-import 'package:flutter_app/pages/Demo5Page.dart';
+import 'package:flutter_app/common/Constants.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_app/presentation/routes.dart';
 
-import 'injector/injector_config.dart';
+import 'common/injector/injector_config.dart';
 
 void main() {
   InjectorConfig.setup();
@@ -22,20 +11,6 @@ void main() {
 }
 
 class ContactlyApp extends StatelessWidget {
-  final routes = <String, WidgetBuilder>{
-    timerPageTag: (context) => TimerPage(),
-    loginPageTag: (context) => LoginPage(),
-    homePageTag: (context) => HomePage(),
-    detailsPageTag: (context) => DetailPage(record: ModalRoute.of(context)?.settings.arguments as Record),
-    friendlyChatPageTag: (context) => FriendlyChatPage(),
-    demo1PageTag: (context) => Demo1Page(),
-    demo2PageTag: (context) => Demo2Page(),
-    demo3PageTag: (context) => Demo3Page(),
-    demo4PageTag: (context) => Demo4Page(),
-    demo5PageTag: (context) => Demo5Page(),
-    listingPageTag: (context) => NewSoftPage(),
-  };
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,7 +26,7 @@ class ContactlyApp extends StatelessWidget {
 //          },
 //          child: LoginPage(),
 //        ),
-        routes: routes);
+        routes: Routes.routes);
   }
 }
 
