@@ -151,7 +151,7 @@ class ChatMessage extends StatelessWidget {
         axisAlignment: 0.0,
         child: InkWell(
           onLongPress: () {
-            Scaffold.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('LongTap'),
             ));
           },
@@ -177,7 +177,7 @@ class ChatMessage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(_name,
-                              style: Theme.of(context).textTheme.subtitle),
+                              style: Theme.of(context).textTheme.subtitle2),
 //                        Container(
 //                          margin: const EdgeInsets.only(top: 2.0),
 //                          child: Text(text),

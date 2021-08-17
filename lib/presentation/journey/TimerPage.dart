@@ -69,7 +69,7 @@ class _TimerState extends State<TimerPage> {
               ),
               Container(
                 margin: EdgeInsets.only(top: 20),
-                child: RaisedButton(
+                child: ElevatedButton(
                   child: Text(isActive ? 'STOP' : 'START'),
                   onPressed: () {
                     setState(() {

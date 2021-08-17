@@ -383,7 +383,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 if (state.status == ListingStatus.success) {
                   if (state is UpdateListingState) {
                     isUpdating = false;
-                    ListItem? item = (state as UpdateListingState).data;
+                    ListItem? item = state.data;
                     if (item != null) {
                       widget.onListUpdated(item);
                     }

@@ -5,7 +5,7 @@ import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
 
 class LoginPage extends StatelessWidget {
   final _pinCodeController = TextEditingController();
-  String loginBtnText = loginButtonText;
+  final String loginBtnText = loginButtonText;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class LoginPage extends StatelessWidget {
         controller: _pinCodeController,
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
-          WhitelistingTextInputFormatter.digitsOnly
+          FilteringTextInputFormatter.digitsOnly
         ],
         obscureText: true,
         maxLength: 4,
@@ -93,16 +93,21 @@ class LoginPage extends StatelessWidget {
 
     final loginButton = Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24),
+            ),
+          ),
+          padding:
+              MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(12)),
+          backgroundColor: MaterialStateProperty.all<Color>(appGreyColor),
         ),
         onPressed: () {
           Navigator.of(context).pushNamed(homePageTag);
 //          setState(() {loginBtnText = _pinCodeController.text;});
         },
-        padding: EdgeInsets.all(12),
-        color: appGreyColor,
         child: Text('$loginBtnText', style: TextStyle(color: Colors.white)),
       ),
     );
