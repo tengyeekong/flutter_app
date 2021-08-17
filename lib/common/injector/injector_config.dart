@@ -7,6 +7,7 @@ import 'package:kiwi/kiwi.dart';
 
 part 'injector_config.g.dart';
 
+/// Run "flutter packages pub run build_runner build" to generate codes
 abstract class InjectorConfig {
   static late KiwiContainer container;
 
