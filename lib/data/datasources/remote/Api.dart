@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_app/data/models/ListItem.dart';
-import 'package:flutter_app/data/models/Listing.dart';
 
 class ApiClient {
   static Dio dio = Dio();

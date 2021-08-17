@@ -1,13 +1,15 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
+
 import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 
 class Demo5Page extends StatefulWidget {
   _LogoAppState createState() => _LogoAppState();
 }
 
 // #docregion print-state
-class _LogoAppState extends State<Demo5Page> with SingleTickerProviderStateMixin {
+class _LogoAppState extends State<Demo5Page>
+    with SingleTickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
 
@@ -101,7 +103,7 @@ class UsedInTutorialTextOnly extends _LogoAppState {
     AnimationController controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
     final Animation<double> curve =
-    CurvedAnimation(parent: controller, curve: Curves.easeOut);
+        CurvedAnimation(parent: controller, curve: Curves.easeOut);
     Animation<int> alpha = IntTween(begin: 0, end: 255).animate(curve);
     // #enddocregion IntTween-curve
     return alpha;

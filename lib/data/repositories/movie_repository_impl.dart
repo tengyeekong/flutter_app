@@ -1,4 +1,3 @@
-import 'package:flutter_app/data/datasources/remote/Api.dart';
 import 'package:flutter_app/data/datasources/remote/listing_remote_datasource.dart';
 import 'package:flutter_app/data/models/ListItem.dart';
 import 'package:flutter_app/data/models/Listing.dart';

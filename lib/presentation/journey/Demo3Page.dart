@@ -1,18 +1,20 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 
 class Demo3Page extends StatefulWidget {
   _LogoAppState createState() => _LogoAppState();
 }
 
-class _LogoAppState extends State<Demo3Page> with SingleTickerProviderStateMixin {
+class _LogoAppState extends State<Demo3Page>
+    with SingleTickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController controller;
 
   @override
   void initState() {
     super.initState();
-    controller = AnimationController(duration: const Duration(seconds: 2), vsync: this);
+    controller =
+        AnimationController(duration: const Duration(seconds: 2), vsync: this);
     animation = Tween<double>(begin: 0, end: 300).animate(controller)
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {

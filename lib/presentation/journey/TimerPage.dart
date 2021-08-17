@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_app/common/Constants.dart';
 import 'dart:async';
-import 'package:flutter/services.dart';
 
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_app/common/Constants.dart';
 import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
 
 class TimerPage extends StatefulWidget {
@@ -84,18 +84,16 @@ class _TimerState extends State<TimerPage> {
       backgroundColor: appDarkGreyColor,
       drawer: AppDrawer(),
       appBar: AppBar(
-          elevation: 0.1,
-          backgroundColor: appDarkGreyColor,
-          centerTitle: true,
-          title: Text("Timer"),
+        elevation: 0.1,
+        backgroundColor: appDarkGreyColor,
+        centerTitle: true,
+        title: Text("Timer"),
       ),
       body: Center(
         child: ListView(
           shrinkWrap: true,
 //          padding: EdgeInsets.only(left: 24.0, right: 24.0),
-          children: <Widget>[
-            timerWidget
-          ],
+          children: <Widget>[timerWidget],
         ),
       ),
     );

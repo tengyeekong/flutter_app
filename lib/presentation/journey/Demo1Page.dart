@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
 
 class Demo1Page extends StatelessWidget {

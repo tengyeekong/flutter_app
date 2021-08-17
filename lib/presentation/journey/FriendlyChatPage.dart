@@ -1,7 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/Constants.dart';
 import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
-import 'package:flutter/cupertino.dart';
 
 const String _name = "Yao";
 
@@ -47,19 +47,18 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
             ),
             Divider(height: 1.0),
             Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).cardColor),
+              decoration: BoxDecoration(color: Theme.of(context).cardColor),
               child: _buildTextComposer(),
             ),
           ],
         ),
-        decoration: Theme.of(context).platform == TargetPlatform.iOS ?
-          BoxDecoration(
-            border: Border(
-              top: BorderSide(color: Colors.grey[200]!),
-            ),
-          )
-          : null,
+        decoration: Theme.of(context).platform == TargetPlatform.iOS
+            ? BoxDecoration(
+                border: Border(
+                  top: BorderSide(color: Colors.grey[200]!),
+                ),
+              )
+            : null,
       ),
     );
   }
@@ -82,23 +81,28 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                   });
                 },
                 onSubmitted: _handleSubmitted,
-                decoration: InputDecoration.collapsed(
-                    hintText: "Send a message"),
+                decoration:
+                    InputDecoration.collapsed(hintText: "Send a message"),
               ),
             ),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 4.0),
-              child: Theme.of(context).platform == TargetPlatform.iOS ?
-              CupertinoButton(
-                child: Text("Send", style: TextStyle(color: _isComposing ? appDarkGreyColor : null)),
-                onPressed: _isComposing
-                    ? () =>  _handleSubmitted(_textController.text)
-                    : null,) :
-              IconButton(
-                icon: Icon(Icons.send, color: _isComposing ? appDarkGreyColor : null),
-                onPressed: _isComposing ?
-                    () =>  _handleSubmitted(_textController.text) : null,
-              ),
+              child: Theme.of(context).platform == TargetPlatform.iOS
+                  ? CupertinoButton(
+                      child: Text("Send",
+                          style: TextStyle(
+                              color: _isComposing ? appDarkGreyColor : null)),
+                      onPressed: _isComposing
+                          ? () => _handleSubmitted(_textController.text)
+                          : null,
+                    )
+                  : IconButton(
+                      icon: Icon(Icons.send,
+                          color: _isComposing ? appDarkGreyColor : null),
+                      onPressed: _isComposing
+                          ? () => _handleSubmitted(_textController.text)
+                          : null,
+                    ),
             ),
           ],
         ),
@@ -142,80 +146,81 @@ class ChatMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizeTransition(
-      sizeFactor: CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeOut
-      ),
-      axisAlignment: 0.0,
-      child: InkWell(
-        onLongPress: () {
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text('LongTap'),
-          ));
-        },
-        child: Container(
-          margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 14.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(right: 12.0, top: 8.0),
-                child: CircleAvatar(
-                  backgroundColor: appDarkGreyColor,
-                  child: Text(_name[0], style: TextStyle(color: Color.fromRGBO(255, 255, 255, 1.0)))),
-              ),
-              Flexible(
-                child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(_name, style: Theme.of(context).textTheme.subtitle),
+        sizeFactor:
+            CurvedAnimation(parent: animationController, curve: Curves.easeOut),
+        axisAlignment: 0.0,
+        child: InkWell(
+          onLongPress: () {
+            Scaffold.of(context).showSnackBar(SnackBar(
+              content: Text('LongTap'),
+            ));
+          },
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 14.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.only(right: 12.0, top: 8.0),
+                  child: CircleAvatar(
+                      backgroundColor: appDarkGreyColor,
+                      child: Text(_name[0],
+                          style: TextStyle(
+                              color: Color.fromRGBO(255, 255, 255, 1.0)))),
+                ),
+                Flexible(
+                  child: Card(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8.0, horizontal: 12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(_name,
+                              style: Theme.of(context).textTheme.subtitle),
 //                        Container(
 //                          margin: const EdgeInsets.only(top: 2.0),
 //                          child: Text(text),
 //                        ),
 //                        Text("10:00 PM", style: TextStyle(color: Colors.lightBlue, fontSize: 8.0)),
-                        Container(
-                          constraints: BoxConstraints(minWidth: 100),
-                          child: Stack(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.only(right: 58.0),
-                                child: Text(text),
-                              ),
-                              Positioned(
-                                bottom: 0.0,
-                                right: 0.0,
-                                child: Row(
-                                  children: <Widget>[
-                                    Text("10:00 PM",
-                                        style: TextStyle(
-                                          color: Colors.black38,
-                                          fontSize: 10.0,
-                                        )),
+                          Container(
+                            constraints: BoxConstraints(minWidth: 100),
+                            child: Stack(
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.only(right: 58.0),
+                                  child: Text(text),
+                                ),
+                                Positioned(
+                                  bottom: 0.0,
+                                  right: 0.0,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text("10:00 PM",
+                                          style: TextStyle(
+                                            color: Colors.black38,
+                                            fontSize: 10.0,
+                                          )),
 //                                  SizedBox(width: 3.0),
 //                                  Icon(
 //                                    icon,
 //                                    size: 12.0,
 //                                    color: Colors.black38,
 //                                  )
-                                  ],
-                                ),
-                              )
-                            ],
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      )
-    );
+        ));
   }
 }

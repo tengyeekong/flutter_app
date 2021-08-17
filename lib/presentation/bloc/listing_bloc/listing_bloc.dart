@@ -1,11 +1,9 @@
 import 'package:flutter_app/data/models/ListItem.dart';
 import 'package:flutter_app/data/models/Listing.dart';
 import 'package:flutter_app/domain/usecases/listing_usecase.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'listing_event.dart';
-
 part 'listing_state.dart';
 
 class ListingBloc extends Bloc<ListingEvent, ListingState> {

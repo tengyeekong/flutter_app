@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
+import 'package:flutter/material.dart';
 
 class Demo4Page extends StatefulWidget {
   _LogoAppState createState() => _LogoAppState();

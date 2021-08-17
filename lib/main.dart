@@ -1,12 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/Constants.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_app/presentation/routes.dart';
 
-import 'common/injector/injector_config.dart';
+import 'common/injector/injector.dart';
 
 void main() {
-  InjectorConfig.setup();
+  Injector.setup();
   runApp(ContactlyApp());
 }
 

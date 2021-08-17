@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'injector_config.dart';
+part of 'injector.dart';
 
 // **************************************************************************
 // KiwiInjectorGenerator
 // **************************************************************************
 
-class _$InjectorConfig extends InjectorConfig {
+class _$Injector extends Injector {
   @override
   void _configureBlocs() {
     final KiwiContainer container = KiwiContainer();

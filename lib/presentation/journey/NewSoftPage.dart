@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/Constants.dart';
 import 'package:flutter_app/common/injector/injector.dart';
-import 'package:flutter_app/data/datasources/remote/Api.dart';
 import 'package:flutter_app/data/models/ListItem.dart';
 import 'package:flutter_app/data/models/Listing.dart';
 import 'package:flutter_app/presentation/bloc/listing_bloc/listing_bloc.dart';
-import 'package:flutter_app/common/Constants.dart';
+import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
 
 class NewSoftPage extends StatefulWidget {
   @override
