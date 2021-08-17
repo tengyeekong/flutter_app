@@ -1,6 +1,7 @@
 import 'package:flutter_app/data/datasources/remote/Api.dart';
 import 'package:flutter_app/data/datasources/remote/listing_remote_datasource.dart';
 import 'package:flutter_app/data/repositories/movie_repository_impl.dart';
+import 'package:flutter_app/domain/repositories/listing_repository.dart';
 import 'package:flutter_app/domain/usecases/listing_usecase.dart';
 import 'package:flutter_app/presentation/bloc/listing_bloc/listing_bloc.dart';
 import 'package:kiwi/kiwi.dart';
@@ -39,7 +40,7 @@ abstract class InjectorConfig {
   @Register.factory(ListingUseCase)
   void _configureUseCases();
 
-  @Register.factory(ListingRepositoryImpl)
+  @Register.factory(ListingRepository, from: ListingRepositoryImpl)
   void _configureRepositories();
 
   @Register.factory(ListingRemoteDataSource)

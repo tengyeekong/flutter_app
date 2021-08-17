@@ -20,14 +20,14 @@ class _$InjectorConfig extends InjectorConfig {
     final KiwiContainer container = KiwiContainer();
     container
       ..registerFactory(
-          (c) => ListingUseCase(listingRepository: c<ListingRepositoryImpl>()));
+          (c) => ListingUseCase(listingRepository: c<ListingRepository>()));
   }
 
   @override
   void _configureRepositories() {
     final KiwiContainer container = KiwiContainer();
     container
-      ..registerFactory(
+      ..registerFactory<ListingRepository>(
           (c) => ListingRepositoryImpl(c<ListingRemoteDataSource>()));
   }
 
