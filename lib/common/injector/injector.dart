@@ -1,6 +1,6 @@
-import 'package:flutter_app/data/datasources/remote/Api.dart';
+import 'package:flutter_app/common/network/api_client.dart';
 import 'package:flutter_app/data/datasources/remote/listing_remote_datasource.dart';
-import 'package:flutter_app/data/repositories/movie_repository_impl.dart';
+import 'package:flutter_app/data/repositories/listing_repository_impl.dart';
 import 'package:flutter_app/domain/repositories/listing_repository.dart';
 import 'package:flutter_app/domain/usecases/listing_usecase.dart';
 import 'package:flutter_app/presentation/bloc/listing_bloc/listing_bloc.dart';

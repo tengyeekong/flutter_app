@@ -1,5 +1,5 @@
-import 'package:flutter_app/data/models/ListItem.dart';
-import 'package:flutter_app/data/models/Listing.dart';
+import 'package:flutter_app/data/models/list_item.dart';
+import 'package:flutter_app/data/models/listing.dart';
 import 'package:flutter_app/domain/usecases/listing_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

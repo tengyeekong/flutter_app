@@ -1,4 +1,4 @@
-import 'ListItem.dart';
+import 'list_item.dart';
 
 class Listing {
   final List<ListItem> lists;

@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/Constants.dart';
+import 'package:flutter_app/common/constants.dart';
 import 'package:flutter_app/presentation/routes.dart';
 
 import 'common/injector/injector.dart';
@@ -17,8 +17,14 @@ class ContactlyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: appTitle,
         theme: defaultTargetPlatform == TargetPlatform.iOS
-            ? kIOSTheme
-            : kDefaultTheme,
+            ? kIOSTheme.copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              )
+            : kDefaultTheme.copyWith(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              ),
         initialRoute: loginPageTag,
 //        home: WillPopScope(
 //          onWillPop: () async {

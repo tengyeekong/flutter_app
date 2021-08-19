@@ -1,4 +1,4 @@
-import 'Record.dart';
+import 'record.dart';
 
 class RecordList {
   List<Record> records;

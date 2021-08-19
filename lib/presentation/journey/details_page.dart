@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/URLLauncher.dart';
-import 'package:flutter_app/data/models/Record.dart';
-import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
+import 'package:flutter_app/common/network/url_launcher.dart';
+import 'package:flutter_app/data/models/record.dart';
+import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 
 // 1
 class DetailPage extends StatelessWidget {

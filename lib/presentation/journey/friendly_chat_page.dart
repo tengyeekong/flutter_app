@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/Constants.dart';
-import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
+import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 
 const String _name = "Yao";
 

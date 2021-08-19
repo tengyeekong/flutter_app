@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_app/common/Constants.dart';
-import 'package:flutter_app/data/models/Record.dart';
+import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/data/models/record.dart';
 
-import 'journey/Demo1Page.dart';
-import 'journey/Demo2Page.dart';
-import 'journey/Demo3Page.dart';
-import 'journey/Demo4Page.dart';
-import 'journey/Demo5Page.dart';
-import 'journey/DetailsPage.dart';
-import 'journey/FriendlyChatPage.dart';
-import 'journey/HomePage.dart';
-import 'journey/LoginPage.dart';
-import 'journey/NewSoftPage.dart';
-import 'journey/TimerPage.dart';
+import 'journey/demo_1_page.dart';
+import 'journey/demo_2_page.dart';
+import 'journey/demo_3_page.dart';
+import 'journey/demo_4_page.dart';
+import 'journey/demo_5_page.dart';
+import 'journey/details_page.dart';
+import 'journey/friendly_chat_page.dart';
+import 'journey/home_page.dart';
+import 'journey/listing_page.dart';
+import 'journey/login_page.dart';
+import 'journey/test_Page.dart';
+import 'journey/timer_page.dart';
 
 class Routes {
   static final routes = <String, WidgetBuilder>{
@@ -28,6 +29,7 @@ class Routes {
     demo3PageTag: (context) => Demo3Page(),
     demo4PageTag: (context) => Demo4Page(),
     demo5PageTag: (context) => Demo5Page(),
-    listingPageTag: (context) => NewSoftPage(),
+    listingPageTag: (context) => ListingPage(),
+    testPageTag: (context) => TestPage(),
   };
 }

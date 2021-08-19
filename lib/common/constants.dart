@@ -20,6 +20,7 @@ const demo3PageText = "Demo 3";
 const demo4PageText = "Demo 4";
 const demo5PageText = "Demo 5";
 const listingPageText = "Listing";
+const testPageText = "Test";
 
 // Images
 Image appLogo = Image.asset("assets/images/flutter-logo-round.png");
@@ -41,6 +42,7 @@ const demo3PageTag = "/demo3";
 const demo4PageTag = "/demo4";
 const demo5PageTag = "/demo5";
 const listingPageTag = "/listing";
+const testPageTag = "/test";
 
 //const loginPageTag = "login";
 //const homePageTag = "home";

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart' show rootBundle;
 
-import 'RecordList.dart';
+import 'record_list.dart';
 
 class RecordService {
   Future<String> _loadRecordsAsset() async {

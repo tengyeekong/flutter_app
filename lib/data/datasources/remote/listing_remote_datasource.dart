@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_app/data/models/ListItem.dart';
-import 'package:flutter_app/data/models/Listing.dart';
+import 'package:flutter_app/data/models/list_item.dart';
+import 'package:flutter_app/data/models/listing.dart';
 
-import 'Api.dart';
+import '../../../common/network/api_client.dart';
 
 class ListingRemoteDataSource {
   final ApiClient apiClient;
@@ -26,6 +26,8 @@ class ListingRemoteDataSource {
           queryParameters: {
             "id": loginResponse.data["id"].toString(),
             "token": loginResponse.data["token"].toString()
+            // "id": "2",
+            // "token": "95cecb7627ae09fe57b551f1d555e87e"
           },
         );
         print(listingResponse);

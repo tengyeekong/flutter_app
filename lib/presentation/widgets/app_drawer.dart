@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/Constants.dart';
+import 'package:flutter_app/common/constants.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -35,6 +35,7 @@ class DrawerState extends State<AppDrawer> {
           getListTile(context, demo4PageTag, demo4PageText),
           getListTile(context, demo5PageTag, demo5PageText),
           getListTile(context, listingPageTag, listingPageText),
+          getListTile(context, testPageTag, testPageText),
         ]),
       ),
     );

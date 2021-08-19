@@ -1,6 +1,6 @@
 import 'package:flutter_app/data/datasources/remote/listing_remote_datasource.dart';
-import 'package:flutter_app/data/models/ListItem.dart';
-import 'package:flutter_app/data/models/Listing.dart';
+import 'package:flutter_app/data/models/list_item.dart';
+import 'package:flutter_app/data/models/listing.dart';
 
 import '../../domain/repositories/listing_repository.dart';
 

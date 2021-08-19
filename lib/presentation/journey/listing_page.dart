@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/Constants.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_app/common/constants.dart';
 import 'package:flutter_app/common/injector/injector.dart';
-import 'package:flutter_app/data/models/ListItem.dart';
-import 'package:flutter_app/data/models/Listing.dart';
+import 'package:flutter_app/data/models/list_item.dart';
 import 'package:flutter_app/presentation/bloc/listing_bloc/listing_bloc.dart';
-import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
+import 'package:flutter_app/presentation/widgets/app_drawer.dart';
+import 'package:flutter_app/presentation/widgets/bottom_nav_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class NewSoftPage extends StatefulWidget {
+class ListingPage extends StatefulWidget {
   @override
-  _NewSoftPageState createState() {
-    return _NewSoftPageState();
+  _ListingPageState createState() {
+    return _ListingPageState();
   }
 }
 
-class _NewSoftPageState extends State<NewSoftPage> {
+class _ListingPageState extends State<ListingPage> {
   ListingBloc? _listingBloc;
   final TextEditingController _filterController = TextEditingController();
   final RefreshController _refreshController = RefreshController();
@@ -29,6 +30,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
   bool isUpdating = false;
   bool isLoading = false;
   bool enablePullDown = true;
+  double yBtmNavTransValue = 0;
 
   @override
   void setState(fn) {
@@ -51,11 +53,27 @@ class _NewSoftPageState extends State<NewSoftPage> {
           _scrollController.position.pixels >
               _scrollController.position.maxScrollExtent - 200 &&
           !isLoading &&
-          this._searchIcon.icon == Icons.search;
+          this._searchIcon.icon == Icons.search &&
+          _listItems.length >= 20;
 
       if (allowLoad) {
         setState(() => isLoading = true);
         _listingBloc?.add(FetchListingEvent(listItems: _listItems.toList()));
+      }
+
+      ScrollDirection userScrollDirection =
+          _scrollController.position.userScrollDirection;
+
+      if (userScrollDirection == ScrollDirection.reverse &&
+          yBtmNavTransValue == 0) {
+        setState(() {
+          yBtmNavTransValue = 100;
+        });
+      } else if (userScrollDirection == ScrollDirection.forward &&
+          yBtmNavTransValue == 100) {
+        setState(() {
+          yBtmNavTransValue = 0;
+        });
       }
     });
   }
@@ -77,20 +95,25 @@ class _NewSoftPageState extends State<NewSoftPage> {
       child: Scaffold(
         appBar: _buildBar(context),
         backgroundColor: appDarkGreyColor,
+        extendBody: true,
         drawer: AppDrawer(),
-//        bottomNavigationBar: BottomNavBar(),
+        // bottomNavigationBar: BottomNavBar(
+        //   yTransValue: yBtmNavTransValue,
+        // ),
         body: BlocListener<ListingBloc, ListingState>(
           bloc: _listingBloc,
           listener: (context, state) {
             if (state.status == ListingStatus.success) {
               if (state is FetchListingState) {
-                Listing listing = state.data;
-                _listItems
-                  ..clear()
-                  ..addAll(listing.lists);
-                _filteredListItems
-                  ..clear()
-                  ..addAll(listing.lists);
+                List<ListItem> lists = state.data.lists;
+                if (lists.isNotEmpty) {
+                  _listItems
+                    ..clear()
+                    ..addAll(lists);
+                  _filteredListItems
+                    ..clear()
+                    ..addAll(lists);
+                }
 
                 if (_refreshController.isRefresh) {
                   _refreshController.refreshCompleted();
@@ -101,7 +124,8 @@ class _NewSoftPageState extends State<NewSoftPage> {
               }
             }
           },
-          child: SmartRefresher(
+          child: Stack(children: [
+            SmartRefresher(
               controller: _refreshController,
               enablePullDown: enablePullDown,
               onRefresh: () async {
@@ -112,7 +136,12 @@ class _NewSoftPageState extends State<NewSoftPage> {
                   ));
                 }
               },
-              child: _buildList(context)),
+              child: _buildList(context),
+            ),
+            BottomNavBar(
+              yTransValue: yBtmNavTransValue,
+            ),
+          ]),
         ),
         resizeToAvoidBottomInset: false,
       ),
@@ -211,7 +240,14 @@ class _NewSoftPageState extends State<NewSoftPage> {
 //              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            double snackBtmMargin =
+                yBtmNavTransValue == 100 ? 15 : kBottomNavigationBarHeight + 30;
             final snackBar = SnackBar(
+              margin: EdgeInsets.symmetric(
+                vertical: snackBtmMargin,
+                horizontal: 15,
+              ),
+              behavior: SnackBarBehavior.floating,
               content: Text(listItem.id +
                   ": " +
                   listItem.name +
@@ -240,7 +276,7 @@ class _NewSoftPageState extends State<NewSoftPage> {
     );
   }
 
-  _NewSoftPageState() {
+  _ListingPageState() {
     _filterController.addListener(() {
       if (_filterController.text.isEmpty) {
         setState(() {

@@ -1,11 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/Constants.dart';
-import 'package:flutter_app/data/models/Record.dart';
-import 'package:flutter_app/data/models/RecordList.dart';
-import 'package:flutter_app/data/models/RecordService.dart';
-import 'package:flutter_app/presentation/widgets/AppDrawer.dart';
+import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/data/models/record.dart';
+import 'package:flutter_app/data/models/record_list.dart';
+import 'package:flutter_app/data/models/record_service.dart';
+import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 
 class HomePage extends StatefulWidget {
   @override
