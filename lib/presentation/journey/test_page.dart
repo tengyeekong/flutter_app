@@ -31,9 +31,11 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
   final _controller = ScrollController();
   final _refreshController = RefreshController();
 
-  double get maxHeight => 200 + MediaQuery.of(context).padding.top;
+  double get statusBarHeight => MediaQuery.of(context).padding.top;
 
-  double get minHeight => kToolbarHeight + MediaQuery.of(context).padding.top;
+  double get maxHeight => 200 + statusBarHeight;
+
+  double get minHeight => kToolbarHeight + statusBarHeight;
 
   bool isEmpty = false;
 
@@ -148,7 +150,7 @@ class Header extends StatelessWidget {
           children: [
             _buildImage(),
             _buildGradient(animation),
-            _buildTitle(animation),
+            _buildTitle(context, animation),
           ],
         );
       },
@@ -163,15 +165,20 @@ class Header extends StatelessWidget {
     return expandRatio;
   }
 
-  Align _buildTitle(Animation<double> animation) {
+  Align _buildTitle(BuildContext context, Animation<double> animation) {
+    double statusBarHeight = MediaQuery.of(context).padding.top;
+
     return Align(
-      alignment: AlignmentTween(
-              begin: Alignment(-1.0, 0.75), end: Alignment.bottomLeft)
-          .evaluate(animation),
+      alignment: Alignment.bottomLeft,
       child: Container(
-        padding: EdgeInsetsTween(
-                begin: EdgeInsets.only(left: 45), end: EdgeInsets.only(left: 0))
+        height: kToolbarHeight,
+        alignment: AlignmentTween(
+                begin: Alignment.centerLeft, end: Alignment.bottomLeft)
             .evaluate(animation),
+        padding: EdgeInsetsTween(
+          begin: EdgeInsets.only(left: 45, top: statusBarHeight),
+          end: EdgeInsets.only(left: 0, top: 0),
+        ).evaluate(animation),
         margin: EdgeInsets.only(bottom: 12, left: 12),
         child: Text(
           "THE WEEKEND",

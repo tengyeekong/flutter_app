@@ -13,7 +13,7 @@ import 'journey/friendly_chat_page.dart';
 import 'journey/home_page.dart';
 import 'journey/listing_page.dart';
 import 'journey/login_page.dart';
-import 'journey/test_Page.dart';
+import 'journey/test_page.dart';
 import 'journey/timer_page.dart';
 
 class Routes {
