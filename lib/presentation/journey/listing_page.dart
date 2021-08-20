@@ -26,7 +26,7 @@ class _ListingPageState extends State<ListingPage> {
   List<ListItem> _filteredListItems = [];
   String _searchText = "";
   Icon _searchIcon = Icon(Icons.search);
-  Widget _appBarTitle = Text(newSoftTitle);
+  Widget _appBarTitle = Text(ListingTitle);
   bool isUpdating = false;
   bool isLoading = false;
   bool enablePullDown = true;
@@ -317,7 +317,7 @@ class _ListingPageState extends State<ListingPage> {
       } else {
         enablePullDown = true;
         this._searchIcon = Icon(Icons.search);
-        this._appBarTitle = Text(newSoftTitle);
+        this._appBarTitle = Text(ListingTitle);
         _filterController.clear();
       }
     });
