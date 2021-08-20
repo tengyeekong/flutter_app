@@ -24,7 +24,7 @@ class _LogoAppState extends State<Demo3Page>
           controller.forward();
         }
       })
-      ..addStatusListener((state) => print('$state'));
+      ..addStatusListener((state) => debugPrint(state.toString()));
     controller.forward();
   }
 
