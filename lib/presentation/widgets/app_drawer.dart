@@ -26,6 +26,8 @@ class DrawerState extends State<AppDrawer> {
               color: Colors.blueGrey,
             ),
           ),
+          getListTile(context, listingPageTag, listingPageText),
+          getListTile(context, testPageTag, testPageText),
           getListTile(context, loginPageTag, loginPageText),
           getListTile(context, friendlyChatPageTag, FriendlyChatPageText),
           getListTile(context, timerPageTag, timerPageText),
@@ -34,8 +36,6 @@ class DrawerState extends State<AppDrawer> {
           getListTile(context, demo3PageTag, demo3PageText),
           getListTile(context, demo4PageTag, demo4PageText),
           getListTile(context, demo5PageTag, demo5PageText),
-          getListTile(context, listingPageTag, listingPageText),
-          getListTile(context, testPageTag, testPageText),
         ]),
       ),
     );

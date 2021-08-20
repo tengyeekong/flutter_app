@@ -25,7 +25,7 @@ class ContactlyApp extends StatelessWidget {
                 splashColor: Colors.transparent,
                 highlightColor: Colors.transparent,
               ),
-        initialRoute: loginPageTag,
+        initialRoute: listingPageTag,
 //        home: WillPopScope(
 //          onWillPop: () async {
 //            return true;

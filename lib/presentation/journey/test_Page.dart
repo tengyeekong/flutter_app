@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 final Color darkBlue = Color.fromARGB(255, 18, 32, 47);
@@ -40,6 +41,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFF0C0101),
+      drawer: AppDrawer(),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.forward),
         backgroundColor: Colors.red,
