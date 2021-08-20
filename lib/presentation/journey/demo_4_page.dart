@@ -2,6 +2,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 class Demo4Page extends StatefulWidget {
+  @override
   _LogoAppState createState() => _LogoAppState();
 }
 
@@ -24,8 +25,8 @@ class _LogoAppState extends State<Demo4Page>
 
   @override
   Widget build(BuildContext context) => GrowTransition(
+    animation: animation,
         child: LogoWidget(),
-        animation: animation,
       );
 
   @override
@@ -37,28 +38,30 @@ class _LogoAppState extends State<Demo4Page>
 }
 
 class GrowTransition extends StatelessWidget {
-  GrowTransition({required this.child, required this.animation});
+  const GrowTransition({required this.child, required this.animation});
 
   final Widget child;
   final Animation<double> animation;
 
+  @override
   Widget build(BuildContext context) => Center(
-        child: AnimatedBuilder(
-            animation: animation,
-            builder: (context, child) => Container(
+    child: AnimatedBuilder(
+        animation: animation,
+        builder: (context, child) => SizedBox(
                   height: animation.value,
                   width: animation.value,
                   child: child,
                 ),
-            child: child),
-      );
+        child: child),
+  );
 }
 // #enddocregion GrowTransition
 
 class LogoWidget extends StatelessWidget {
   // Leave out the height and width so it fills the animating parent
+  @override
   Widget build(BuildContext context) => Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
-        child: FlutterLogo(),
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        child: const FlutterLogo(),
       );
 }

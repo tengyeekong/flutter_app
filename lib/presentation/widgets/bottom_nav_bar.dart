@@ -23,7 +23,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         canvasColor: appDarkGreyColor,
       ),
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 300),
         transform: Matrix4.translationValues(0, widget.yTransValue, 0),
         child: Padding(
           padding: const EdgeInsets.fromLTRB(50.0, 8.0, 50.0, 20.0),
@@ -34,7 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(9),
                 color: Colors.white,
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black45,
                     offset: Offset(0, 4),
@@ -43,7 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.all(
+                borderRadius: const BorderRadius.all(
                   Radius.circular(8),
                 ),
                 child: BottomNavigationBar(
@@ -62,7 +62,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.home),
-                      label: FriendlyChatPageText,
+                      label: friendlyChatPageText,
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.home),
@@ -105,7 +105,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 
-  _onTapped(BuildContext context, int index) {
+  void _onTapped(BuildContext context, int index) {
     String tag = "";
     switch (index) {
       case 0:

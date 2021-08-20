@@ -11,11 +11,11 @@ class ListingRepositoryImpl extends ListingRepository {
 
   @override
   Future<Listing> fetchListing() async {
-    return await listingRemoteDataSource.getListing();
+    return listingRemoteDataSource.getListing();
   }
 
   @override
   Future<bool> updateListing({required ListItem listItem}) async {
-    return await listingRemoteDataSource.updateList(listItem);
+    return listingRemoteDataSource.updateList(listItem);
   }
 }

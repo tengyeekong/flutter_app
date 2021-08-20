@@ -3,8 +3,6 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:dio/dio.dart';
 
-import 'multipart_file_extended.dart';
-
 class DioConnectivityRequestRetrier {
   final Dio dio;
   final Connectivity connectivity;
@@ -21,15 +19,10 @@ class DioConnectivityRequestRetrier {
     streamSubscription = connectivity.onConnectivityChanged.listen(
       (connectivityResult) async {
         if (connectivityResult != ConnectivityResult.none) {
-          FormData formData = FormData();
+          final FormData formData = FormData();
           if (requestOptions.data is FormData) {
-            formData.fields.addAll(requestOptions.data.fields);
-            for (MapEntry mapFile in requestOptions.data.files) {
-              formData.files.add(MapEntry(
-                  mapFile.key,
-                  MultipartFileExtended.fromFileSync(mapFile.value.filePath,
-                      filename: mapFile.value.filename)));
-            }
+            final FormData reqOptFormData = requestOptions.data as FormData;
+            formData.fields.addAll(reqOptFormData.fields);
             requestOptions.data = formData;
           }
 

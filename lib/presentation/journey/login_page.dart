@@ -19,16 +19,14 @@ class LoginPage extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32.0),
         color: Colors.transparent,
-        boxShadow: [
-          const BoxShadow(
+        boxShadow: const [
+          BoxShadow(
             color: Colors.black38,
-            offset: const Offset(0.0, 0.0),
 //            spreadRadius: 2.0,
 //            blurRadius: 12.0,
           ),
-          const BoxShadow(
+          BoxShadow(
             color: Color.fromRGBO(64, 75, 96, 0.9),
-            offset: const Offset(0.0, 0.0),
 //            spreadRadius: 8.0,
             blurRadius: 12.0,
           ),
@@ -42,22 +40,21 @@ class LoginPage extends StatelessWidget {
         ],
         obscureText: true,
         maxLength: 4,
-        maxLines: 1,
         decoration: InputDecoration(
             counterText: "",
-            counterStyle: TextStyle(color: Colors.white),
+            counterStyle: const TextStyle(color: Colors.white),
             hintText: pinCodeHintText,
-            contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+            contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
-              borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0)),
+              borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0)),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
-              borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0)),
+              borderSide: const BorderSide(color: Color.fromRGBO(0, 0, 0, 0)),
             ),
-            hintStyle: TextStyle(color: Colors.white)),
-        style: TextStyle(
+            hintStyle: const TextStyle(color: Colors.white)),
+        style: const TextStyle(
           color: Colors.white,
         ),
       ),
@@ -92,7 +89,7 @@ class LoginPage extends StatelessWidget {
 //    );
 
     final loginButton = Padding(
-      padding: EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: ElevatedButton(
         style: ButtonStyle(
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -100,15 +97,15 @@ class LoginPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
             ),
           ),
-          padding:
-              MaterialStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.all(12)),
+          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+              const EdgeInsets.all(12)),
           backgroundColor: MaterialStateProperty.all<Color>(appGreyColor),
         ),
         onPressed: () {
           Navigator.of(context).pushNamed(homePageTag);
 //          setState(() {loginBtnText = _pinCodeController.text;});
         },
-        child: Text('$loginBtnText', style: TextStyle(color: Colors.white)),
+        child: Text(loginBtnText, style: const TextStyle(color: Colors.white)),
       ),
     );
 
@@ -118,12 +115,12 @@ class LoginPage extends StatelessWidget {
       body: Center(
         child: ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(left: 24.0, right: 24.0),
+          padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             logo,
-            SizedBox(height: bigRadius),
+            const SizedBox(height: bigRadius),
             pinCode,
-            SizedBox(height: buttonHeight),
+            const SizedBox(height: buttonHeight),
             loginButton
           ],
         ),

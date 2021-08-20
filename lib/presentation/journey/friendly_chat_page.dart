@@ -31,27 +31,10 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("FriendlyChat"),
+        title: const Text("FriendlyChat"),
         elevation: Theme.of(context).platform == TargetPlatform.iOS ? 0.0 : 4.0,
       ),
       body: Container(
-        child: Column(
-          children: <Widget>[
-            Flexible(
-              child: ListView.builder(
-                padding: EdgeInsets.all(8.0),
-                reverse: true,
-                itemBuilder: (_, int index) => _messages[index],
-                itemCount: _messages.length,
-              ),
-            ),
-            Divider(height: 1.0),
-            Container(
-              decoration: BoxDecoration(color: Theme.of(context).cardColor),
-              child: _buildTextComposer(),
-            ),
-          ],
-        ),
         decoration: Theme.of(context).platform == TargetPlatform.iOS
             ? BoxDecoration(
                 border: Border(
@@ -59,6 +42,23 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 ),
               )
             : null,
+        child: Column(
+          children: <Widget>[
+            Flexible(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(8.0),
+                reverse: true,
+                itemBuilder: (_, int index) => _messages[index],
+                itemCount: _messages.length,
+              ),
+            ),
+            const Divider(height: 1.0),
+            Container(
+              decoration: BoxDecoration(color: Theme.of(context).cardColor),
+              child: _buildTextComposer(),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -77,24 +77,24 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
                 controller: _textController,
                 onChanged: (String text) {
                   setState(() {
-                    _isComposing = text.length > 0;
+                    _isComposing = text.isNotEmpty;
                   });
                 },
                 onSubmitted: _handleSubmitted,
                 decoration:
-                    InputDecoration.collapsed(hintText: "Send a message"),
+                    const InputDecoration.collapsed(hintText: "Send a message"),
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 4.0),
+              margin: const EdgeInsets.symmetric(horizontal: 4.0),
               child: Theme.of(context).platform == TargetPlatform.iOS
                   ? CupertinoButton(
-                      child: Text("Send",
-                          style: TextStyle(
-                              color: _isComposing ? appDarkGreyColor : null)),
                       onPressed: _isComposing
                           ? () => _handleSubmitted(_textController.text)
                           : null,
+                      child: Text("Send",
+                          style: TextStyle(
+                              color: _isComposing ? appDarkGreyColor : null)),
                     )
                   : IconButton(
                       icon: Icon(Icons.send,
@@ -116,10 +116,10 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
       _isComposing = false;
     });
 
-    ChatMessage message = ChatMessage(
+    final ChatMessage message = ChatMessage(
       text: text,
       animationController: AnimationController(
-        duration: Duration(milliseconds: 700),
+        duration: const Duration(milliseconds: 700),
         vsync: this,
       ),
     );
@@ -132,14 +132,15 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    for (ChatMessage message in _messages)
+    for (final ChatMessage message in _messages) {
       message.animationController.dispose();
+    }
     super.dispose();
   }
 }
 
 class ChatMessage extends StatelessWidget {
-  ChatMessage({required this.text, required this.animationController});
+  const ChatMessage({required this.text, required this.animationController});
   final String text;
   final AnimationController animationController;
 
@@ -148,10 +149,9 @@ class ChatMessage extends StatelessWidget {
     return SizeTransition(
         sizeFactor:
             CurvedAnimation(parent: animationController, curve: Curves.easeOut),
-        axisAlignment: 0.0,
         child: InkWell(
           onLongPress: () {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('LongTap'),
             ));
           },
@@ -165,7 +165,7 @@ class ChatMessage extends StatelessWidget {
                   child: CircleAvatar(
                       backgroundColor: appDarkGreyColor,
                       child: Text(_name[0],
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Color.fromRGBO(255, 255, 255, 1.0)))),
                 ),
                 Flexible(
@@ -184,18 +184,18 @@ class ChatMessage extends StatelessWidget {
 //                        ),
 //                        Text("10:00 PM", style: TextStyle(color: Colors.lightBlue, fontSize: 8.0)),
                           Container(
-                            constraints: BoxConstraints(minWidth: 100),
+                            constraints: const BoxConstraints(minWidth: 100),
                             child: Stack(
                               children: <Widget>[
                                 Padding(
-                                  padding: EdgeInsets.only(right: 58.0),
+                                  padding: const EdgeInsets.only(right: 58.0),
                                   child: Text(text),
                                 ),
                                 Positioned(
                                   bottom: 0.0,
                                   right: 0.0,
                                   child: Row(
-                                    children: <Widget>[
+                                    children: const <Widget>[
                                       Text("10:00 PM",
                                           style: TextStyle(
                                             color: Colors.black38,

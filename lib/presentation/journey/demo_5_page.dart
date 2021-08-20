@@ -4,6 +4,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 class Demo5Page extends StatefulWidget {
+  @override
   _LogoAppState createState() => _LogoAppState();
 }
 
@@ -47,19 +48,20 @@ class AnimatedLogo extends AnimatedWidget {
   static final _opacityTween = Tween<double>(begin: 0.1, end: 1);
   static final _sizeTween = Tween<double>(begin: 0, end: 300);
 
-  AnimatedLogo({Key? key, required Animation<double> animation})
+  const AnimatedLogo({Key? key, required Animation<double> animation})
       : super(key: key, listenable: animation);
 
+  @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable as Animation<double>;
     return Center(
       child: Opacity(
         opacity: _opacityTween.evaluate(animation),
         child: Container(
-          margin: EdgeInsets.symmetric(vertical: 10),
+          margin: const EdgeInsets.symmetric(vertical: 10),
           height: _sizeTween.evaluate(animation),
           width: _sizeTween.evaluate(animation),
-          child: FlutterLogo(),
+          child: const FlutterLogo(),
         ),
       ),
     );
@@ -69,7 +71,11 @@ class AnimatedLogo extends AnimatedWidget {
 class UsedInTutorialTextOnly extends _LogoAppState {
   UsedInTutorialTextOnly() {
     // ignore: unused_local_variable
-    var animation, sizeAnimation, opacityAnimation, tween, colorTween;
+    CurvedAnimation animation;
+    Animation<double> sizeAnimation;
+    Animation<double> opacityAnimation;
+    Tween<double> tween;
+    ColorTween colorTween;
 
     // #docregion CurvedAnimation
     animation = CurvedAnimation(parent: controller, curve: Curves.easeIn);
@@ -89,22 +95,23 @@ class UsedInTutorialTextOnly extends _LogoAppState {
     // #enddocregion colorTween
   }
 
-  usedInTutorialOnly1() {
+  Animation<int> usedInTutorialOnly1() {
     // #docregion IntTween
-    AnimationController controller = AnimationController(
+    final AnimationController controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
-    Animation<int> alpha = IntTween(begin: 0, end: 255).animate(controller);
+    final Animation<int> alpha =
+        IntTween(begin: 0, end: 255).animate(controller);
     // #enddocregion IntTween
     return alpha;
   }
 
-  usedInTutorialOnly2() {
+  Animation<int> usedInTutorialOnly2() {
     // #docregion IntTween-curve
-    AnimationController controller = AnimationController(
+    final AnimationController controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
     final Animation<double> curve =
         CurvedAnimation(parent: controller, curve: Curves.easeOut);
-    Animation<int> alpha = IntTween(begin: 0, end: 255).animate(curve);
+    final Animation<int> alpha = IntTween(begin: 0, end: 255).animate(curve);
     // #enddocregion IntTween-curve
     return alpha;
   }

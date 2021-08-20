@@ -8,7 +8,7 @@ class DetailPage extends StatelessWidget {
   final Record record;
 
   // 2
-  DetailPage({required this.record});
+  const DetailPage({required this.record});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class DetailPage extends StatelessWidget {
         drawer: AppDrawer(),
         body: ListView(children: <Widget>[
           Hero(
-            tag: "avatar_" + record.name,
+            tag: "avatar_${record.name}",
             child: Image.network(record.photo),
           ),
           // 3
@@ -42,15 +42,15 @@ class DetailPage extends StatelessWidget {
                           Container(
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: Text(
-                              "Name: " + record.name,
-                              style: TextStyle(
+                              "Name: ${record.name}",
+                              style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
                           // Code to create the view for address.
                           Text(
-                            "Address: " + record.address,
+                            "Address: ${record.address}",
                             style: TextStyle(
                               color: Colors.grey[500],
                             ),

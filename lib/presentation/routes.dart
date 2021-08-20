@@ -16,13 +16,18 @@ import 'journey/login_page.dart';
 import 'journey/test_page.dart';
 import 'journey/timer_page.dart';
 
-class Routes {
+mixin Routes {
   static final routes = <String, WidgetBuilder>{
     timerPageTag: (context) => TimerPage(),
     loginPageTag: (context) => LoginPage(),
     homePageTag: (context) => HomePage(),
-    detailsPageTag: (context) => DetailPage(
-        record: ModalRoute.of(context)?.settings.arguments as Record),
+    detailsPageTag: (context) {
+      final Object? obj = ModalRoute.of(context)?.settings.arguments;
+      if (obj != null && obj is Record) {
+        return DetailPage(record: obj);
+      }
+      return Container();
+    },
     friendlyChatPageTag: (context) => FriendlyChatPage(),
     demo1PageTag: (context) => Demo1Page(),
     demo2PageTag: (context) => Demo2Page(),

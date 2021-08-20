@@ -8,7 +8,9 @@ class Listing {
   factory Listing.fromJson(List<dynamic> parsedJson) {
     List<ListItem> lists = <ListItem>[];
 
-    lists = parsedJson.map((i) => ListItem.fromJson(i)).toList();
+    lists = parsedJson
+        .map((i) => ListItem.fromJson(i as Map<String, dynamic>))
+        .toList();
 
     return Listing(
       lists: lists,

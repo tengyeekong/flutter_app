@@ -22,18 +22,18 @@ class _ListingPageState extends State<ListingPage> {
   final RefreshController _refreshController = RefreshController();
   final ScrollController _scrollController = ScrollController();
 
-  List<ListItem> _listItems = [];
-  List<ListItem> _filteredListItems = [];
+  final List<ListItem> _listItems = [];
+  final List<ListItem> _filteredListItems = [];
   String _searchText = "";
-  Icon _searchIcon = Icon(Icons.search);
-  Widget _appBarTitle = Text(ListingTitle);
+  Icon _searchIcon = const Icon(Icons.search);
+  Widget _appBarTitle = const Text(listingTitle);
   bool isUpdating = false;
   bool isLoading = false;
   bool enablePullDown = true;
   double yBtmNavTransValue = 0;
 
   @override
-  void setState(fn) {
+  void setState(Function() fn) {
     if (mounted) {
       super.setState(fn);
     }
@@ -49,11 +49,11 @@ class _ListingPageState extends State<ListingPage> {
         ?.addPostFrameCallback((_) => _refreshController.requestRefresh());
 
     _scrollController.addListener(() {
-      bool allowLoad = _scrollController.hasClients &&
+      final bool allowLoad = _scrollController.hasClients &&
           _scrollController.position.pixels >
               _scrollController.position.maxScrollExtent - 200 &&
           !isLoading &&
-          this._searchIcon.icon == Icons.search &&
+          _searchIcon.icon == Icons.search &&
           _listItems.length >= 20;
 
       if (allowLoad) {
@@ -61,7 +61,7 @@ class _ListingPageState extends State<ListingPage> {
         _listingBloc?.add(FetchListingEvent(listItems: _listItems.toList()));
       }
 
-      ScrollDirection userScrollDirection =
+      final ScrollDirection userScrollDirection =
           _scrollController.position.userScrollDirection;
 
       if (userScrollDirection == ScrollDirection.reverse &&
@@ -86,11 +86,12 @@ class _ListingPageState extends State<ListingPage> {
             _scrollController.position.minScrollExtent + 100) {
           _scrollController.animateTo(
               _scrollController.position.minScrollExtent,
-              duration: Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 100),
               curve: Curves.easeIn);
           return false;
-        } else
+        } else {
           return true;
+        }
       },
       child: Scaffold(
         appBar: _buildBar(context),
@@ -105,7 +106,7 @@ class _ListingPageState extends State<ListingPage> {
           listener: (context, state) {
             if (state.status == ListingStatus.success) {
               if (state is FetchListingState) {
-                List<ListItem> lists = state.data.lists;
+                final List<ListItem> lists = state.data.lists;
                 if (lists.isNotEmpty) {
                   _listItems
                     ..clear()
@@ -177,13 +178,14 @@ class _ListingPageState extends State<ListingPage> {
       itemBuilder: (context, index) {
         if (index == _filteredListItems.length &&
             !_refreshController.isRefresh &&
-            this._searchIcon.icon == Icons.search) {
+            _searchIcon.icon == Icons.search) {
           return _buildProgressIndicator();
-        } else if (_filteredListItems.length > 0 &&
+        } else if (_filteredListItems.isNotEmpty &&
             index < _filteredListItems.length) {
           return _buildListItem(context, _filteredListItems[index]);
-        } else
+        } else {
           return Container();
+        }
       },
     );
   }
@@ -194,7 +196,7 @@ class _ListingPageState extends State<ListingPage> {
       child: Center(
         child: Opacity(
           opacity: isLoading ? 1.0 : 00,
-          child: CircularProgressIndicator(
+          child: const CircularProgressIndicator(
             color: Color.fromRGBO(64, 75, 96, .9),
             backgroundColor: Colors.white,
           ),
@@ -207,15 +209,16 @@ class _ListingPageState extends State<ListingPage> {
     return Card(
       key: ValueKey(listItem.name),
       elevation: 8.0,
-      margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       child: Container(
-        decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+        decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
         child: ListTile(
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           title: Text(
             listItem.name,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold),
           ),
           subtitle: Row(
             children: <Widget>[
@@ -226,10 +229,9 @@ class _ListingPageState extends State<ListingPage> {
                     RichText(
                       text: TextSpan(
                         text: listItem.distance,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       maxLines: 3,
-                      softWrap: true,
                     )
                   ],
                 ),
@@ -240,7 +242,7 @@ class _ListingPageState extends State<ListingPage> {
 //              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
           onTap: () {
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
-            double snackBtmMargin =
+            final double snackBtmMargin =
                 yBtmNavTransValue == 100 ? 15 : kBottomNavigationBarHeight + 30;
             final snackBar = SnackBar(
               margin: EdgeInsets.symmetric(
@@ -248,12 +250,9 @@ class _ListingPageState extends State<ListingPage> {
                 horizontal: 15,
               ),
               behavior: SnackBarBehavior.floating,
-              content: Text(listItem.id +
-                  ": " +
-                  listItem.name +
-                  "\n" +
-                  listItem.distance),
-              duration: Duration(seconds: 2),
+              content: Text(
+                  "${listItem.id}: ${listItem.name}\n${listItem.distance}"),
+              duration: const Duration(seconds: 2),
             );
             ScaffoldMessenger.of(context).showSnackBar(snackBar);
           },
@@ -292,22 +291,22 @@ class _ListingPageState extends State<ListingPage> {
   }
 
   void _resetRecords() {
-    this._filteredListItems.clear();
-    for (ListItem listItem in _listItems) {
-      this._filteredListItems.add(listItem);
+    _filteredListItems.clear();
+    for (final ListItem listItem in _listItems) {
+      _filteredListItems.add(listItem);
     }
   }
 
   void _searchPressed() {
     setState(() {
-      if (this._searchIcon.icon == Icons.search) {
+      if (_searchIcon.icon == Icons.search) {
         enablePullDown = false;
-        this._searchIcon = Icon(Icons.close);
-        this._appBarTitle = TextField(
+        _searchIcon = const Icon(Icons.close);
+        _appBarTitle = TextField(
           controller: _filterController,
           autofocus: true,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
+          style: const TextStyle(color: Colors.white),
+          decoration: const InputDecoration(
             prefixIcon: Icon(Icons.search, color: Colors.white),
             fillColor: Colors.white,
             hintText: 'Search by name',
@@ -316,8 +315,8 @@ class _ListingPageState extends State<ListingPage> {
         );
       } else {
         enablePullDown = true;
-        this._searchIcon = Icon(Icons.search);
-        this._appBarTitle = Text(ListingTitle);
+        _searchIcon = const Icon(Icons.search);
+        _appBarTitle = const Text(listingTitle);
         _filterController.clear();
       }
     });
@@ -356,7 +355,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
   bool isUpdating = false;
 
   @override
-  void setState(fn) {
+  void setState(Function() fn) {
     if (mounted) {
       super.setState(fn);
     }
@@ -376,7 +375,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       backgroundColor: appGreyColor2,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 30, horizontal: 30),
+        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
@@ -384,8 +383,8 @@ class _UpdateDialogState extends State<UpdateDialog> {
             TextField(
               controller: _nameController,
               autofocus: true,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
                 fillColor: Colors.white,
                 hintText: 'List Name',
                 hintStyle: TextStyle(color: Colors.white),
@@ -399,8 +398,8 @@ class _UpdateDialogState extends State<UpdateDialog> {
             ),
             TextField(
               controller: _distanceController,
-              style: TextStyle(color: Colors.white),
-              decoration: InputDecoration(
+              style: const TextStyle(color: Colors.white),
+              decoration: const InputDecoration(
                 fillColor: Colors.white,
                 hintText: 'List Distance',
                 hintStyle: TextStyle(color: Colors.white),
@@ -412,14 +411,14 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.only(top: 30.0)),
+            const Padding(padding: EdgeInsets.only(top: 30.0)),
             BlocListener<ListingBloc, ListingState>(
               bloc: widget.listingBloc,
               listener: (context, state) {
                 if (state.status == ListingStatus.success) {
                   if (state is UpdateListingState) {
                     isUpdating = false;
-                    ListItem? item = state.data;
+                    final ListItem? item = state.data;
                     if (item != null) {
                       widget.onListUpdated(item);
                     }
@@ -430,7 +429,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
               child: TextButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.all<EdgeInsets>(
-                      EdgeInsets.symmetric(vertical: 15, horizontal: 40)),
+                      const EdgeInsets.symmetric(vertical: 15, horizontal: 40)),
                   backgroundColor:
                       MaterialStateProperty.all<Color>(appDarkGreyColor),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -458,12 +457,12 @@ class _UpdateDialogState extends State<UpdateDialog> {
 
   Widget setUpButtonChild() {
     if (!isUpdating) {
-      return Text(
+      return const Text(
         'Update',
         style: TextStyle(color: Colors.white, fontSize: 18.0),
       );
     } else {
-      return CircularProgressIndicator(
+      return const CircularProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
       );
     }

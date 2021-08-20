@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 import 'connectivity_request_retrier.dart';
 
@@ -15,14 +16,18 @@ class RetryOnConnectionChangeInterceptor extends Interceptor {
   Future onError(DioError err, ErrorInterceptorHandler handler) async {
     if (_shouldRetry(err)) {
       try {
-        // return requestRetrier.scheduleRequestRetry(err.requestOptions);
-        Response response =
-            await requestRetrier.scheduleRequestRetry(err.requestOptions);
-        print(response.toString());
-        handler.resolve(response);
+        if (err.requestOptions.data is FormData &&
+            (err.requestOptions.data as FormData).files.isEmpty) {
+          final Response response =
+              await requestRetrier.scheduleRequestRetry(err.requestOptions);
+          debugPrint(response.toString());
+          handler.resolve(response);
+          return;
+        }
       } catch (e) {
         // Let any new error from the retrier pass through
         handler.next(err);
+        return;
       }
     }
     // Let the error pass through if it's not the error we're looking for

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-final Color darkBlue = Color.fromARGB(255, 18, 32, 47);
+final Color darkBlue = const Color.fromARGB(255, 18, 32, 47);
 
 class TestPage extends StatelessWidget {
   @override
@@ -42,16 +42,16 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF0C0101),
+      backgroundColor: const Color(0xFF0C0101),
       drawer: AppDrawer(),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.forward),
         backgroundColor: Colors.red,
         onPressed: () {
           setState(() {
             isEmpty = !isEmpty;
           });
         },
+        child: const Icon(Icons.forward),
       ),
       body: NotificationListener<ScrollEndNotification>(
         onNotification: (_) {
@@ -60,17 +60,16 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
         },
         child: SmartRefresher(
           controller: _refreshController,
-          enablePullDown: true,
           onRefresh: () async => _refreshController.refreshCompleted(),
           child: CustomScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             controller: _controller,
             slivers: [
               SliverAppBar(
                 pinned: true,
                 stretch: true,
                 leading: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: () {},
                 ),
                 flexibleSpace: Header(
@@ -89,7 +88,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
                   ),
                 )
               else
-                SliverFillRemaining(
+                const SliverFillRemaining(
                   hasScrollBody: false,
                   child: Center(
                     child: Text(
@@ -110,9 +109,9 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
   Card _buildCard(int index) {
     return Card(
       elevation: 4,
-      margin: EdgeInsets.only(left: 12, right: 12, top: 12),
+      margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+        margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
         child: Text("Item $index"),
       ),
     );
@@ -126,7 +125,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
           _controller.offset / scrollDistance > 0.5 ? scrollDistance : 0;
 
       Future.microtask(() => _controller.animateTo(snapOffset,
-          duration: Duration(milliseconds: 200), curve: Curves.easeIn));
+          duration: const Duration(milliseconds: 200), curve: Curves.easeIn));
     }
   }
 }
@@ -166,7 +165,7 @@ class Header extends StatelessWidget {
   }
 
   Align _buildTitle(BuildContext context, Animation<double> animation) {
-    double statusBarHeight = MediaQuery.of(context).padding.top;
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Align(
       alignment: Alignment.bottomLeft,
@@ -177,9 +176,9 @@ class Header extends StatelessWidget {
             .evaluate(animation),
         padding: EdgeInsetsTween(
           begin: EdgeInsets.only(left: 45, top: statusBarHeight),
-          end: EdgeInsets.only(left: 0, top: 0),
+          end: const EdgeInsets.only(),
         ).evaluate(animation),
-        margin: EdgeInsets.only(bottom: 12, left: 12),
+        margin: const EdgeInsets.only(bottom: 12, left: 12),
         child: Text(
           "THE WEEKEND",
           style: TextStyle(

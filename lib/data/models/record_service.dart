@@ -6,13 +6,14 @@ import 'record_list.dart';
 
 class RecordService {
   Future<String> _loadRecordsAsset() async {
-    return await rootBundle.loadString('assets/data/records.json');
+    return rootBundle.loadString('assets/data/records.json');
   }
 
   Future<RecordList> loadRecords() async {
-    String jsonString = await _loadRecordsAsset();
+    final String jsonString = await _loadRecordsAsset();
     final jsonResponse = json.decode(jsonString);
-    RecordList records = RecordList.fromJson(jsonResponse);
+    final RecordList records =
+        RecordList.fromJson(jsonResponse as List<dynamic>);
     return records;
   }
 }

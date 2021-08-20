@@ -10,24 +10,26 @@ abstract class ListingState {
   ListingStatus status;
 }
 
-class FetchListingState extends ListingState {
+class FetchListingState implements ListingState {
   FetchListingState({
     this.status = ListingStatus.initial,
     this.data = const Listing(),
     this.hasReachedEnd = false,
-  }) : super(status: status);
+  });
 
+  @override
   ListingStatus status;
   Listing data;
   bool hasReachedEnd;
 }
 
-class UpdateListingState extends ListingState {
+class UpdateListingState implements ListingState {
   UpdateListingState({
     this.status = ListingStatus.initial,
     this.data,
-  }) : super(status: status);
+  });
 
+  @override
   ListingStatus status;
   ListItem? data;
 }

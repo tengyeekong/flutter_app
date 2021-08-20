@@ -8,13 +8,12 @@ import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 class TimerPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _TimerState();
   }
 }
 
 class _TimerState extends State<TimerPage> {
-  static const duration = const Duration(seconds: 1);
+  static const duration = Duration(seconds: 1);
   int secondsPassed = 0;
   bool isActive = false;
   String loginBtnText = loginButtonText;
@@ -30,31 +29,31 @@ class _TimerState extends State<TimerPage> {
 
   @override
   Widget build(BuildContext context) {
-    if (timer == null)
-      timer = Timer.periodic(duration, (Timer t) {
-        handleTick();
-      });
+    timer ??= Timer.periodic(duration, (Timer t) {
+      handleTick();
+    });
 
     // pause timer when app paused
     SystemChannels.lifecycle.setMessageHandler((msg) async {
       debugPrint('SystemChannels> $msg');
-      if (msg == AppLifecycleState.paused.toString())
+      if (msg == AppLifecycleState.paused.toString()) {
         setState(() {
           isActive = false;
         });
+      }
 //      else setState(() {isActive = true;});
     });
 
-    const int UNIT = 60;
-    int seconds = secondsPassed % UNIT;
-    int minutes = secondsPassed ~/ UNIT;
-    int hours = secondsPassed ~/ (UNIT * UNIT);
+    const int unit = 60;
+    final int seconds = secondsPassed % unit;
+    final int minutes = secondsPassed ~/ unit;
+    final int hours = secondsPassed ~/ (unit * unit);
 
     final timerWidget = Container(
-        margin: EdgeInsets.fromLTRB(0, 40, 0, 0),
+        margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
         child: ListView(
             shrinkWrap: true,
-            padding: EdgeInsets.only(left: 24.0, right: 24.0),
+            padding: const EdgeInsets.only(left: 24.0, right: 24.0),
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -68,14 +67,14 @@ class _TimerState extends State<TimerPage> {
                 ],
               ),
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 child: ElevatedButton(
-                  child: Text(isActive ? 'STOP' : 'START'),
                   onPressed: () {
                     setState(() {
                       isActive = !isActive;
                     });
                   },
+                  child: Text(isActive ? 'STOP' : 'START'),
                 ),
               )
             ]));
@@ -87,7 +86,7 @@ class _TimerState extends State<TimerPage> {
         elevation: 0.1,
         backgroundColor: appDarkGreyColor,
         centerTitle: true,
-        title: Text("Timer"),
+        title: const Text("Timer"),
       ),
       body: Center(
         child: ListView(
@@ -101,7 +100,7 @@ class _TimerState extends State<TimerPage> {
 }
 
 class CustomTextContainer extends StatelessWidget {
-  CustomTextContainer({required this.label, required this.value});
+  const CustomTextContainer({required this.label, required this.value});
 
   final String label;
   final String value;
@@ -109,8 +108,8 @@ class CustomTextContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 5),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.black87,
@@ -119,16 +118,16 @@ class CustomTextContainer extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Text(
-            '$value',
-            style: TextStyle(
+            value,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 54,
               fontWeight: FontWeight.bold,
             ),
           ),
           Text(
-            '$label',
-            style: TextStyle(
+            label,
+            style: const TextStyle(
               color: Colors.white70,
             ),
           )

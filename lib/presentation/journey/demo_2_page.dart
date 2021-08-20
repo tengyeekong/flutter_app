@@ -6,17 +6,17 @@ class Demo2Page extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter Demo'),
+        title: const Text('Flutter Demo'),
       ),
       drawer: AppDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TapboxA(),
-            SizedBox(height: 20),
+            const TapboxA(),
+            const SizedBox(height: 20),
             ParentWidget(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ParentWidget2(),
           ],
         ),
@@ -29,7 +29,7 @@ class Demo2Page extends StatelessWidget {
 //------------------------- TapboxA ----------------------------------
 
 class TapboxA extends StatefulWidget {
-  TapboxA({Key? key}) : super(key: key);
+  const TapboxA({Key? key}) : super(key: key);
 
   @override
   _TapboxAState createState() => _TapboxAState();
@@ -44,20 +44,21 @@ class _TapboxAState extends State<TapboxA> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _handleTap,
       child: Container(
-        child: Center(
-          child: Text(
-            _active ? 'Active' : 'Inactive',
-            style: TextStyle(fontSize: 32.0, color: Colors.white),
-          ),
-        ),
         width: 200.0,
         height: 200.0,
         decoration: BoxDecoration(
           color: _active ? Colors.lightGreen[700] : Colors.grey[600],
+        ),
+        child: Center(
+          child: Text(
+            _active ? 'Active' : 'Inactive',
+            style: const TextStyle(fontSize: 32.0, color: Colors.white),
+          ),
         ),
       ),
     );
@@ -83,11 +84,9 @@ class _ParentWidgetState extends State<ParentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TapboxB(
-        active: _active,
-        onChanged: _handleTapboxChanged,
-      ),
+    return TapboxB(
+      active: _active,
+      onChanged: _handleTapboxChanged,
     );
   }
 }
@@ -95,7 +94,7 @@ class _ParentWidgetState extends State<ParentWidget> {
 //------------------------- TapboxB ----------------------------------
 
 class TapboxB extends StatelessWidget {
-  TapboxB({Key? key, this.active: false, required this.onChanged})
+  const TapboxB({Key? key, this.active = false, required this.onChanged})
       : super(key: key);
 
   final bool active;
@@ -105,20 +104,21 @@ class TapboxB extends StatelessWidget {
     onChanged(!active);
   }
 
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _handleTap,
       child: Container(
-        child: Center(
-          child: Text(
-            active ? 'Active' : 'Inactive',
-            style: TextStyle(fontSize: 32.0, color: Colors.white),
-          ),
-        ),
         width: 200.0,
         height: 200.0,
         decoration: BoxDecoration(
           color: active ? Colors.lightGreen[700] : Colors.grey[600],
+        ),
+        child: Center(
+          child: Text(
+            active ? 'Active' : 'Inactive',
+            style: const TextStyle(fontSize: 32.0, color: Colors.white),
+          ),
         ),
       ),
     );
@@ -144,11 +144,9 @@ class _ParentWidgetState2 extends State<ParentWidget2> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TapboxC(
-        active: _active,
-        onChanged: _handleTapboxChanged,
-      ),
+    return TapboxC(
+      active: _active,
+      onChanged: _handleTapboxChanged,
     );
   }
 }
@@ -156,12 +154,13 @@ class _ParentWidgetState2 extends State<ParentWidget2> {
 //----------------------------- TapboxC ------------------------------
 
 class TapboxC extends StatefulWidget {
-  TapboxC({Key? key, this.active: false, required this.onChanged})
+  const TapboxC({Key? key, this.active = false, required this.onChanged})
       : super(key: key);
 
   final bool active;
   final ValueChanged<bool> onChanged;
 
+  @override
   _TapboxCState createState() => _TapboxCState();
 }
 
@@ -190,6 +189,7 @@ class _TapboxCState extends State<TapboxC> {
     widget.onChanged(!widget.active);
   }
 
+  @override
   Widget build(BuildContext context) {
     // This example adds a green border on tap down.
     // On tap up, the square changes to the opposite state.
@@ -201,10 +201,6 @@ class _TapboxCState extends State<TapboxC> {
       onTap: _handleTap,
       onTapCancel: _handleTapCancel,
       child: Container(
-        child: Center(
-          child: Text(widget.active ? 'Active' : 'Inactive',
-              style: TextStyle(fontSize: 32.0, color: Colors.white)),
-        ),
         width: 200.0,
         height: 200.0,
         decoration: BoxDecoration(
@@ -215,6 +211,10 @@ class _TapboxCState extends State<TapboxC> {
                   width: 10.0,
                 )
               : null,
+        ),
+        child: Center(
+          child: Text(widget.active ? 'Active' : 'Inactive',
+              style: const TextStyle(fontSize: 32.0, color: Colors.white)),
         ),
       ),
     );

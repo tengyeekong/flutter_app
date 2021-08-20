@@ -11,7 +11,7 @@ class ApiClient {
     setupDio();
   }
 
-  setupDio() {
+  void setupDio() {
     dio.options.baseUrl = "http://interview.advisoryapps.com/index.php";
     // dio.options.connectTimeout = 5000;
     // dio.options.receiveTimeout = 3000;

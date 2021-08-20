@@ -4,7 +4,7 @@ import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 class Demo1Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget titleSection = Container(
+    final Widget titleSection = Container(
       padding: const EdgeInsets.all(32),
       child: Row(
         children: [
@@ -16,7 +16,7 @@ class Demo1Page extends StatelessWidget {
                 /*2*/
                 Container(
                   padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
+                  child: const Text(
                     'Oeschinen Lake Campground',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -43,22 +43,20 @@ class Demo1Page extends StatelessWidget {
       ),
     );
 
-    Color color = Theme.of(context).primaryColor;
+    final Color color = Theme.of(context).primaryColor;
 
-    Widget buttonSection = Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildButtonColumn(color, Icons.call, 'CALL'),
-          _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
-          _buildButtonColumn(color, Icons.share, 'SHARE'),
-        ],
-      ),
+    final Widget buttonSection = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildButtonColumn(color, Icons.call, 'CALL'),
+        _buildButtonColumn(color, Icons.near_me, 'ROUTE'),
+        _buildButtonColumn(color, Icons.share, 'SHARE'),
+      ],
     );
 
-    Widget textSection = Container(
+    final Widget textSection = Container(
       padding: const EdgeInsets.all(32),
-      child: Text(
+      child: const Text(
         'Lake Oeschinen lies at the foot of the Blüemlisalp in the Bernese '
         'Alps. Situated 1,578 meters above sea level, it is one of the '
         'larger Alpine Lakes. A gondola ride from Kandersteg, followed by a '
@@ -71,7 +69,7 @@ class Demo1Page extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter layout demo'),
+        title: const Text('Flutter layout demo'),
       ),
       drawer: AppDrawer(),
       body: ListView(
@@ -138,19 +136,16 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          padding: EdgeInsets.all(0),
-          child: IconButton(
-            icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
-            color: Colors.red[500],
-            onPressed: _toggleFavorite,
-          ),
+        IconButton(
+          icon: _isFavorited
+              ? const Icon(Icons.star)
+              : const Icon(Icons.star_border),
+          color: Colors.red[500],
+          onPressed: _toggleFavorite,
         ),
         SizedBox(
           width: 20,
-          child: Container(
-            child: Text('$_favoriteCount'),
-          ),
+          child: Text('$_favoriteCount'),
         ),
       ],
     );

@@ -2,6 +2,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 
 class Demo3Page extends StatefulWidget {
+  @override
   _LogoAppState createState() => _LogoAppState();
 }
 
@@ -38,17 +39,18 @@ class _LogoAppState extends State<Demo3Page>
 }
 
 class AnimatedLogo extends AnimatedWidget {
-  AnimatedLogo({Key? key, required Animation<double> animation})
+  const AnimatedLogo({Key? key, required Animation<double> animation})
       : super(key: key, listenable: animation);
 
+  @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable as Animation<double>;
     return Center(
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10),
         height: animation.value,
         width: animation.value,
-        child: FlutterLogo(),
+        child: const FlutterLogo(),
       ),
     );
   }

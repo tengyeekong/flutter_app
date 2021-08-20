@@ -17,17 +17,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final TextEditingController _filter = TextEditingController();
 
-  RecordList _records = RecordList(records: []);
-  RecordList _filteredRecords = RecordList(records: []);
+  final RecordList _records = RecordList(records: []);
+  final RecordList _filteredRecords = RecordList(records: []);
 
   String _searchText = "";
 
-  Icon _searchIcon = Icon(Icons.search);
+  Icon _searchIcon = const Icon(Icons.search);
 
-  Widget _appBarTitle = Text(appTitle);
+  Widget _appBarTitle = const Text(appTitle);
 
   @override
-  void setState(fn) {
+  void setState(Function() fn) {
     if (mounted) {
       super.setState(fn);
     }
@@ -40,11 +40,11 @@ class _HomePageState extends State<HomePage> {
     _getRecords();
   }
 
-  void _getRecords() async {
-    RecordList records = await RecordService().loadRecords();
-    Future.delayed(Duration(seconds: 2), () {
+  Future _getRecords() async {
+    final RecordList records = await RecordService().loadRecords();
+    Future.delayed(const Duration(seconds: 2), () {
       setState(() {
-        for (Record record in records.records) {
+        for (final Record record in records.records) {
           _records.records.add(record);
           _filteredRecords.records.add(record);
         }
@@ -87,8 +87,8 @@ class _HomePageState extends State<HomePage> {
       }
     }
 
-    if (_filteredRecords.records.length == 0) {
-      return Center(
+    if (_filteredRecords.records.isEmpty) {
+      return const Center(
         child: CircularProgressIndicator(
           backgroundColor: Colors.white30,
         ),
@@ -114,19 +114,18 @@ class _HomePageState extends State<HomePage> {
     return Card(
       key: ValueKey(record.name),
       elevation: 8.0,
-      margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       child: Container(
-        decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+        decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
         child: ListTile(
           contentPadding:
-              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           leading: Container(
-            padding: EdgeInsets.only(right: 15.0),
-            decoration: BoxDecoration(
-                border: Border(
-                    right: BorderSide(width: 1.0, color: Colors.white24))),
+            padding: const EdgeInsets.only(right: 15.0),
+            decoration: const BoxDecoration(
+                border: Border(right: BorderSide(color: Colors.white24))),
             child: Hero(
-              tag: "avatar_" + record.name,
+              tag: "avatar_${record.name}",
               child: CircleAvatar(
                 radius: 32,
                 backgroundImage: NetworkImage(record.photo),
@@ -135,7 +134,8 @@ class _HomePageState extends State<HomePage> {
           ),
           title: Text(
             record.name,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+                color: Colors.white, fontWeight: FontWeight.bold),
           ),
           subtitle: Row(
             children: <Widget>[
@@ -146,26 +146,30 @@ class _HomePageState extends State<HomePage> {
                     RichText(
                       text: TextSpan(
                         text: record.address,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                       maxLines: 3,
-                      softWrap: true,
                     ),
                   ],
                 ),
               ),
             ],
           ),
-          trailing:
-              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+          trailing: const Icon(
+            Icons.keyboard_arrow_right,
+            color: Colors.white,
+            size: 30.0,
+          ),
           onTap: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
               detailsPageTag,
-              (route) => route.isCurrent
-                  ? route.settings.name == detailsPageTag
-                      ? false
-                      : true
-                  : true,
+              (route) {
+                if (route.isCurrent && route.settings.name == detailsPageTag) {
+                  return false;
+                } else {
+                  return true;
+                }
+              },
               arguments: record,
             );
 
@@ -195,21 +199,21 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _resetRecords() {
-    this._filteredRecords.records = [];
-    for (Record record in _records.records) {
-      this._filteredRecords.records.add(record);
+    _filteredRecords.records = [];
+    for (final Record record in _records.records) {
+      _filteredRecords.records.add(record);
     }
   }
 
   void _searchPressed() {
     setState(() {
-      if (this._searchIcon.icon == Icons.search) {
-        this._searchIcon = Icon(Icons.close);
-        this._appBarTitle = TextField(
+      if (_searchIcon.icon == Icons.search) {
+        _searchIcon = const Icon(Icons.close);
+        _appBarTitle = TextField(
           controller: _filter,
           autofocus: true,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
+          style: const TextStyle(color: Colors.white),
+          decoration: const InputDecoration(
             prefixIcon: Icon(Icons.search, color: Colors.white),
             fillColor: Colors.white,
             hintText: 'Search by name',
@@ -217,8 +221,8 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       } else {
-        this._searchIcon = Icon(Icons.search);
-        this._appBarTitle = Text(appTitle);
+        _searchIcon = const Icon(Icons.search);
+        _appBarTitle = const Text(appTitle);
         _filter.clear();
       }
     });

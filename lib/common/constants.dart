@@ -1,17 +1,17 @@
 import "package:flutter/material.dart";
 
 // Colors
-Color appDarkGreyColor = Color.fromRGBO(58, 66, 86, 1.0);
-Color appGreyColor = Color.fromRGBO(64, 75, 96, 0.9);
-Color appGreyColor2 = Color.fromRGBO(74, 85, 104, 1.0);
+Color appDarkGreyColor = const Color.fromRGBO(58, 66, 86, 1.0);
+Color appGreyColor = const Color.fromRGBO(64, 75, 96, 0.9);
+Color appGreyColor2 = const Color.fromRGBO(74, 85, 104, 1.0);
 
 // Strings
 const appTitle = "Contactly";
-const ListingTitle = "Listing";
+const listingTitle = "Listing";
 
 const pinCodeHintText = "Pin Code";
 const loginButtonText = "Login";
-const FriendlyChatPageText = "FriendlyChat";
+const friendlyChatPageText = "FriendlyChat";
 const timerPageText = "Timer";
 const loginPageText = "Login";
 const demo1PageText = "Demo 1";

@@ -15,21 +15,21 @@ class DrawerState extends State<AppDrawer> {
       child: Container(
         color: appGreyColor,
         child: ListView(padding: EdgeInsets.zero, children: <Widget>[
-          DrawerHeader(
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.blueGrey,
+            ),
             child: Center(
               child: Text(
                 'Drawer Header',
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-            ),
           ),
           getListTile(context, listingPageTag, listingPageText),
           getListTile(context, testPageTag, testPageText),
           getListTile(context, loginPageTag, loginPageText),
-          getListTile(context, friendlyChatPageTag, FriendlyChatPageText),
+          getListTile(context, friendlyChatPageTag, friendlyChatPageText),
           getListTile(context, timerPageTag, timerPageText),
           getListTile(context, demo1PageTag, demo1PageText),
           getListTile(context, demo2PageTag, demo2PageText),
@@ -43,7 +43,7 @@ class DrawerState extends State<AppDrawer> {
 
   ListTile getListTile(BuildContext context, String tag, String text) {
     return ListTile(
-      title: Text(text, style: TextStyle(color: Colors.white)),
+      title: Text(text, style: const TextStyle(color: Colors.white)),
       onTap: () {
         Navigator.of(context).pop();
         if (ModalRoute.of(context)?.settings.name != tag) {

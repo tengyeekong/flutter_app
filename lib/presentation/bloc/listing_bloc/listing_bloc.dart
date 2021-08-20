@@ -27,14 +27,14 @@ class ListingBloc extends Bloc<ListingEvent, ListingState> {
         yield FetchListingState(
           status: ListingStatus.success,
           data: listing,
-          hasReachedEnd: false,
         );
       } else {
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(const Duration(seconds: 2));
         final listItems = event.listItems;
         for (int i = 1; i <= 20; i++) {
-          String value = (listItems.length + 1).toString();
-          ListItem listItem = ListItem(id: value, name: value, distance: value);
+          final String value = (listItems.length + 1).toString();
+          final ListItem listItem =
+              ListItem(id: value, name: value, distance: value);
           listItems.add(listItem);
         }
         yield FetchListingState(

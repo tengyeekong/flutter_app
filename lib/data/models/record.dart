@@ -14,10 +14,11 @@ class Record {
 
   factory Record.fromJson(Map<String, dynamic> json) {
     return Record(
-        name: json['name'],
-        address: json['address'],
-        contact: json['contact'],
-        photo: json['photo'],
-        url: json['url']);
+      name: json['name'].toString(),
+      address: json['address'].toString(),
+      contact: json['contact'].toString(),
+      photo: json['photo'].toString(),
+      url: json['url'].toString(),
+    );
   }
 }
