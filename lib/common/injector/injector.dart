@@ -12,7 +12,7 @@ part 'injector.g.dart';
 abstract class Injector {
   static late KiwiContainer container;
 
-  static void setup() {
+  static void init() {
     container = KiwiContainer();
     final injector = _$Injector();
     // ignore: cascade_invocations

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/common/constants/color_constants.dart';
+import 'package:flutter_app/common/constants/router_constants.dart';
+import 'package:flutter_app/common/constants/string_constants.dart';
 
 class BottomNavBar extends StatefulWidget {
   final double yTransValue;
@@ -20,7 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: appDarkGreyColor,
+        canvasColor: colorAppDarkGrey,
       ),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
@@ -58,15 +60,15 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   items: const <BottomNavigationBarItem>[
                     BottomNavigationBarItem(
                       icon: Icon(Icons.home),
-                      label: loginButtonText,
+                      label: strLoginButton,
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.home),
-                      label: friendlyChatPageText,
+                      label: strFriendlyChatPage,
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.home),
-                      label: timerPageText,
+                      label: strTimerPage,
                     ),
                     // BottomNavigationBarItem(
                     //   icon: Icon(Icons.home),
@@ -109,34 +111,34 @@ class _BottomNavBarState extends State<BottomNavBar> {
     String tag = "";
     switch (index) {
       case 0:
-        tag = loginPageTag;
+        tag = RouteName.loginPage;
         break;
       case 1:
-        tag = friendlyChatPageTag;
+        tag = RouteName.friendlyChatPage;
         break;
       case 2:
-        tag = timerPageTag;
+        tag = RouteName.timerPage;
         break;
       case 3:
-        tag = demo1PageTag;
+        tag = RouteName.demo1Page;
         break;
       case 4:
-        tag = demo2PageTag;
+        tag = RouteName.demo2Page;
         break;
       case 5:
-        tag = demo3PageTag;
+        tag = RouteName.demo3Page;
         break;
       case 6:
-        tag = demo4PageTag;
+        tag = RouteName.demo4Page;
         break;
       case 7:
-        tag = demo5PageTag;
+        tag = RouteName.demo5Page;
         break;
       case 8:
-        tag = listingPageTag;
+        tag = RouteName.listingPage;
         break;
       default:
-        tag = loginPageTag;
+        tag = RouteName.loginPage;
         break;
     }
 

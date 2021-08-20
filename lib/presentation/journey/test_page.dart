@@ -2,32 +2,16 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/constants/color_constants.dart';
 import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-final Color darkBlue = const Color.fromARGB(255, 18, 32, 47);
-
-class TestPage extends StatelessWidget {
+class TestPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: darkBlue),
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: SliverAppBarSnap(),
-        ),
-      ),
-    );
-  }
+  _TestPageState createState() => _TestPageState();
 }
 
-class SliverAppBarSnap extends StatefulWidget {
-  @override
-  _SliverAppBarSnapState createState() => _SliverAppBarSnapState();
-}
-
-class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
+class _TestPageState extends State<TestPage> {
   final _controller = ScrollController();
   final _refreshController = RefreshController();
 
@@ -42,7 +26,7 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF0C0101),
+      backgroundColor: colorAppDarkGrey,
       drawer: AppDrawer(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
@@ -111,8 +95,12 @@ class _SliverAppBarSnapState extends State<SliverAppBarSnap> {
       elevation: 4,
       margin: const EdgeInsets.only(left: 12, right: 12, top: 12),
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
-        child: Text("Item $index"),
+        decoration: const BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 12),
+        child: Text(
+          "Item $index",
+          style: const TextStyle(color: Colors.white),
+        ),
       ),
     );
   }

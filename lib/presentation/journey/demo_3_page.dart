@@ -1,5 +1,6 @@
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/common/my_logger.dart';
 
 class Demo3Page extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _LogoAppState extends State<Demo3Page>
           controller.forward();
         }
       })
-      ..addStatusListener((state) => debugPrint(state.toString()));
+      ..addStatusListener((state) => MyLogger.d(state.toString()));
     controller.forward();
   }
 

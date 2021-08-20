@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
+import '../my_logger.dart';
 import 'connectivity_request_retrier.dart';
 
 class RetryOnConnectionChangeInterceptor extends Interceptor {
@@ -20,7 +20,7 @@ class RetryOnConnectionChangeInterceptor extends Interceptor {
             (err.requestOptions.data as FormData).files.isEmpty) {
           final Response response =
               await requestRetrier.scheduleRequestRetry(err.requestOptions);
-          debugPrint(response.toString());
+          MyLogger.d(response.toString());
           handler.resolve(response);
           return;
         }

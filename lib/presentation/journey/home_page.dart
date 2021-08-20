@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/common/constants/color_constants.dart';
+import 'package:flutter_app/common/constants/router_constants.dart';
+import 'package:flutter_app/common/constants/string_constants.dart';
 import 'package:flutter_app/data/models/record.dart';
 import 'package:flutter_app/data/models/record_list.dart';
 import 'package:flutter_app/data/models/record_service.dart';
@@ -24,7 +26,7 @@ class _HomePageState extends State<HomePage> {
 
   Icon _searchIcon = const Icon(Icons.search);
 
-  Widget _appBarTitle = const Text(appTitle);
+  Widget _appBarTitle = const Text(strAppTitle);
 
   @override
   void setState(Function() fn) {
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildBar(context),
-      backgroundColor: appDarkGreyColor,
+      backgroundColor: colorAppDarkGrey,
       drawer: AppDrawer(),
       body: _buildList(context),
       resizeToAvoidBottomInset: false,
@@ -66,7 +68,7 @@ class _HomePageState extends State<HomePage> {
   AppBar _buildBar(BuildContext context) {
     return AppBar(
         elevation: 0.0,
-        backgroundColor: appDarkGreyColor,
+        backgroundColor: colorAppDarkGrey,
         centerTitle: true,
         title: _appBarTitle,
         leading: IconButton(icon: _searchIcon, onPressed: _searchPressed));
@@ -162,9 +164,10 @@ class _HomePageState extends State<HomePage> {
           ),
           onTap: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
-              detailsPageTag,
+              RouteName.detailsPage,
               (route) {
-                if (route.isCurrent && route.settings.name == detailsPageTag) {
+                if (route.isCurrent &&
+                    route.settings.name == RouteName.detailsPage) {
                   return false;
                 } else {
                   return true;
@@ -222,7 +225,7 @@ class _HomePageState extends State<HomePage> {
         );
       } else {
         _searchIcon = const Icon(Icons.search);
-        _appBarTitle = const Text(appTitle);
+        _appBarTitle = const Text(strAppTitle);
         _filter.clear();
       }
     });

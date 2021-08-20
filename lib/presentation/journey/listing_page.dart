@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/common/constants/color_constants.dart';
+import 'package:flutter_app/common/constants/string_constants.dart';
 import 'package:flutter_app/common/injector/injector.dart';
 import 'package:flutter_app/data/models/list_item.dart';
 import 'package:flutter_app/presentation/bloc/listing_bloc/listing_bloc.dart';
@@ -26,7 +27,7 @@ class _ListingPageState extends State<ListingPage> {
   final List<ListItem> _filteredListItems = [];
   String _searchText = "";
   Icon _searchIcon = const Icon(Icons.search);
-  Widget _appBarTitle = const Text(listingTitle);
+  Widget _appBarTitle = const Text(strListingPage);
   bool isUpdating = false;
   bool isLoading = false;
   bool enablePullDown = true;
@@ -95,7 +96,7 @@ class _ListingPageState extends State<ListingPage> {
       },
       child: Scaffold(
         appBar: _buildBar(context),
-        backgroundColor: appDarkGreyColor,
+        backgroundColor: colorAppDarkGrey,
         extendBody: true,
         drawer: AppDrawer(),
         // bottomNavigationBar: BottomNavBar(
@@ -152,7 +153,7 @@ class _ListingPageState extends State<ListingPage> {
   AppBar _buildBar(BuildContext context) {
     return AppBar(
         elevation: 0.0,
-        backgroundColor: appDarkGreyColor,
+        backgroundColor: colorAppDarkGrey,
         centerTitle: true,
         title: _appBarTitle,
         leading: IconButton(icon: _searchIcon, onPressed: _searchPressed));
@@ -316,7 +317,7 @@ class _ListingPageState extends State<ListingPage> {
       } else {
         enablePullDown = true;
         _searchIcon = const Icon(Icons.search);
-        _appBarTitle = const Text(listingTitle);
+        _appBarTitle = const Text(strListingPage);
         _filterController.clear();
       }
     });
@@ -373,7 +374,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      backgroundColor: appGreyColor2,
+      backgroundColor: colorAppGrey2,
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 30),
         child: Column(
@@ -431,7 +432,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                   padding: MaterialStateProperty.all<EdgeInsets>(
                       const EdgeInsets.symmetric(vertical: 15, horizontal: 40)),
                   backgroundColor:
-                      MaterialStateProperty.all<Color>(appDarkGreyColor),
+                      MaterialStateProperty.all<Color>(colorAppDarkGrey),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8.0))),

@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/common/constants/color_constants.dart';
+import 'package:flutter_app/common/constants/image_constants.dart';
+import 'package:flutter_app/common/constants/router_constants.dart';
+import 'package:flutter_app/common/constants/string_constants.dart';
+import 'package:flutter_app/common/constants/value_constants.dart';
 import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 
 class LoginPage extends StatelessWidget {
   final _pinCodeController = TextEditingController();
-  final String loginBtnText = loginButtonText;
+  final String loginBtnText = strLoginButton;
 
   @override
   Widget build(BuildContext context) {
     final logo = CircleAvatar(
       backgroundColor: Colors.transparent,
-      radius: bigRadius,
-      child: appLogo,
+      radius: valBigRadius,
+      child: Images.appLogo,
     );
 
     final pinCode = Container(
@@ -43,7 +47,7 @@ class LoginPage extends StatelessWidget {
         decoration: InputDecoration(
             counterText: "",
             counterStyle: const TextStyle(color: Colors.white),
-            hintText: pinCodeHintText,
+            hintText: strPinCodeHint,
             contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(32.0),
@@ -99,10 +103,10 @@ class LoginPage extends StatelessWidget {
           ),
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
               const EdgeInsets.all(12)),
-          backgroundColor: MaterialStateProperty.all<Color>(appGreyColor),
+          backgroundColor: MaterialStateProperty.all<Color>(colorAppGrey),
         ),
         onPressed: () {
-          Navigator.of(context).pushNamed(homePageTag);
+          Navigator.of(context).pushNamed(RouteName.homePage);
 //          setState(() {loginBtnText = _pinCodeController.text;});
         },
         child: Text(loginBtnText, style: const TextStyle(color: Colors.white)),
@@ -110,7 +114,7 @@ class LoginPage extends StatelessWidget {
     );
 
     return Scaffold(
-      backgroundColor: appDarkGreyColor,
+      backgroundColor: colorAppDarkGrey,
       drawer: AppDrawer(),
       body: Center(
         child: ListView(
@@ -118,9 +122,9 @@ class LoginPage extends StatelessWidget {
           padding: const EdgeInsets.only(left: 24.0, right: 24.0),
           children: <Widget>[
             logo,
-            const SizedBox(height: bigRadius),
+            const SizedBox(height: valBigRadius),
             pinCode,
-            const SizedBox(height: buttonHeight),
+            const SizedBox(height: valBtnHeight),
             loginButton
           ],
         ),

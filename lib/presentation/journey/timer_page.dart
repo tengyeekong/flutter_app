@@ -2,7 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/common/constants/color_constants.dart';
+import 'package:flutter_app/common/constants/string_constants.dart';
+import 'package:flutter_app/common/my_logger.dart';
 import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 
 class TimerPage extends StatefulWidget {
@@ -16,7 +18,7 @@ class _TimerState extends State<TimerPage> {
   static const duration = Duration(seconds: 1);
   int secondsPassed = 0;
   bool isActive = false;
-  String loginBtnText = loginButtonText;
+  String loginBtnText = strLoginButton;
   Timer? timer;
 
   void handleTick() {
@@ -35,7 +37,7 @@ class _TimerState extends State<TimerPage> {
 
     // pause timer when app paused
     SystemChannels.lifecycle.setMessageHandler((msg) async {
-      debugPrint('SystemChannels> $msg');
+      MyLogger.d('SystemChannels> $msg');
       if (msg == AppLifecycleState.paused.toString()) {
         setState(() {
           isActive = false;
@@ -80,11 +82,11 @@ class _TimerState extends State<TimerPage> {
             ]));
 
     return Scaffold(
-      backgroundColor: appDarkGreyColor,
+      backgroundColor: colorAppDarkGrey,
       drawer: AppDrawer(),
       appBar: AppBar(
         elevation: 0.1,
-        backgroundColor: appDarkGreyColor,
+        backgroundColor: colorAppDarkGrey,
         centerTitle: true,
         title: const Text("Timer"),
       ),

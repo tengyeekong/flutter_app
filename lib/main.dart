@@ -1,12 +1,16 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/constants.dart';
 import 'package:flutter_app/presentation/routes.dart';
 
+import 'common/constants/color_constants.dart';
+import 'common/constants/router_constants.dart';
+import 'common/constants/string_constants.dart';
 import 'common/injector/injector.dart';
+import 'common/my_logger.dart';
 
 void main() {
-  Injector.setup();
+  Injector.init();
+  MyLogger.init();
   runApp(ContactlyApp());
 }
 
@@ -14,25 +18,26 @@ class ContactlyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: appTitle,
-        theme: defaultTargetPlatform == TargetPlatform.iOS
-            ? kIOSTheme.copyWith(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-              )
-            : kDefaultTheme.copyWith(
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-              ),
-        initialRoute: listingPageTag,
+      debugShowCheckedModeBanner: false,
+      title: strAppTitle,
+      theme: defaultTargetPlatform == TargetPlatform.iOS
+          ? kIOSTheme.copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            )
+          : kDefaultTheme.copyWith(
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+            ),
 //        home: WillPopScope(
 //          onWillPop: () async {
 //            return true;
 //          },
 //          child: LoginPage(),
 //        ),
-        routes: Routes.routes);
+      initialRoute: RouteName.listingPage,
+      onGenerateRoute: Routes.generateRoute,
+    );
   }
 }
 
@@ -44,6 +49,6 @@ final ThemeData kIOSTheme = ThemeData(
 
 final ThemeData kDefaultTheme = ThemeData(
   primarySwatch: Colors.purple,
-  primaryColor: appDarkGreyColor,
-  accentColor: appDarkGreyColor,
+  primaryColor: colorAppDarkGrey,
+  accentColor: colorAppDarkGrey,
 );

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter_app/common/my_logger.dart';
 import 'package:flutter_app/data/models/list_item.dart';
 import 'package:flutter_app/data/models/listing.dart';
 
@@ -31,7 +31,7 @@ class ListingRemoteDataSource {
             // "token": "95cecb7627ae09fe57b551f1d555e87e"
           },
         );
-        debugPrint(listingResponse.toString());
+        MyLogger.d(listingResponse.toString());
         if (listingResponse.statusCode == 200 &&
             listingResponse.data["status"]["code"] == 200) {
           final Listing lists = Listing.fromJson(
@@ -40,7 +40,7 @@ class ListingRemoteDataSource {
         }
       }
     } catch (e) {
-      debugPrint(e.toString());
+      MyLogger.e(e.toString());
     }
     return const Listing();
   }
@@ -68,7 +68,7 @@ class ListingRemoteDataSource {
           "/listing/update",
           data: updateData,
         );
-        debugPrint(updateResponse.toString());
+        MyLogger.d(updateResponse.toString());
         if (updateResponse.statusCode == 200 &&
             updateResponse.data["status"]["code"] == 200) {
           return true;
@@ -79,7 +79,7 @@ class ListingRemoteDataSource {
         return false;
       }
     } catch (e) {
-      debugPrint(e.toString());
+      MyLogger.e(e.toString());
     }
     return false;
   }

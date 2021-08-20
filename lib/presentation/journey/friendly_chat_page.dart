@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/common/constants/color_constants.dart';
 import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 
 const String _name = "Yao";
@@ -10,7 +10,7 @@ class FriendlyChatPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appDarkGreyColor,
+      backgroundColor: colorAppDarkGrey,
       drawer: AppDrawer(),
       body: ChatScreen(),
     );
@@ -89,16 +89,16 @@ class ChatScreenState extends State<ChatScreen> with TickerProviderStateMixin {
               margin: const EdgeInsets.symmetric(horizontal: 4.0),
               child: Theme.of(context).platform == TargetPlatform.iOS
                   ? CupertinoButton(
-                      onPressed: _isComposing
+                onPressed: _isComposing
                           ? () => _handleSubmitted(_textController.text)
                           : null,
                       child: Text("Send",
                           style: TextStyle(
-                              color: _isComposing ? appDarkGreyColor : null)),
+                              color: _isComposing ? colorAppDarkGrey : null)),
                     )
                   : IconButton(
-                      icon: Icon(Icons.send,
-                          color: _isComposing ? appDarkGreyColor : null),
+                icon: Icon(Icons.send,
+                          color: _isComposing ? colorAppDarkGrey : null),
                       onPressed: _isComposing
                           ? () => _handleSubmitted(_textController.text)
                           : null,
@@ -163,7 +163,7 @@ class ChatMessage extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.only(right: 12.0, top: 8.0),
                   child: CircleAvatar(
-                      backgroundColor: appDarkGreyColor,
+                      backgroundColor: colorAppDarkGrey,
                       child: Text(_name[0],
                           style: const TextStyle(
                               color: Color.fromRGBO(255, 255, 255, 1.0)))),

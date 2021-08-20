@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/common/constants.dart';
+import 'package:flutter_app/common/constants/color_constants.dart';
+import 'package:flutter_app/common/constants/router_constants.dart';
+import 'package:flutter_app/common/constants/string_constants.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -13,7 +15,7 @@ class DrawerState extends State<AppDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: appGreyColor,
+        color: colorAppGrey,
         child: ListView(padding: EdgeInsets.zero, children: <Widget>[
           const DrawerHeader(
             decoration: BoxDecoration(
@@ -26,16 +28,16 @@ class DrawerState extends State<AppDrawer> {
               ),
             ),
           ),
-          getListTile(context, listingPageTag, listingPageText),
-          getListTile(context, testPageTag, testPageText),
-          getListTile(context, loginPageTag, loginPageText),
-          getListTile(context, friendlyChatPageTag, friendlyChatPageText),
-          getListTile(context, timerPageTag, timerPageText),
-          getListTile(context, demo1PageTag, demo1PageText),
-          getListTile(context, demo2PageTag, demo2PageText),
-          getListTile(context, demo3PageTag, demo3PageText),
-          getListTile(context, demo4PageTag, demo4PageText),
-          getListTile(context, demo5PageTag, demo5PageText),
+          getListTile(context, RouteName.listingPage, strListingPage),
+          getListTile(context, RouteName.testPage, strTestPage),
+          getListTile(context, RouteName.loginPage, strLoginPage),
+          getListTile(context, RouteName.friendlyChatPage, strFriendlyChatPage),
+          getListTile(context, RouteName.timerPage, strTimerPage),
+          getListTile(context, RouteName.demo1Page, strDemo1Page),
+          getListTile(context, RouteName.demo2Page, strDemo2Page),
+          getListTile(context, RouteName.demo3Page, strDemo3Page),
+          getListTile(context, RouteName.demo4Page, strDemo4Page),
+          getListTile(context, RouteName.demo5Page, strDemo5Page),
         ]),
       ),
     );
