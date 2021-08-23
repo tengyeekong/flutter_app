@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter_app/common/my_logger.dart';
 import 'package:flutter_app/data/models/list_item.dart';
 import 'package:flutter_app/data/models/listing.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../common/network/api_client.dart';
 
+@injectable
 class ListingRemoteDataSource {
   final ApiClient apiClient;
 

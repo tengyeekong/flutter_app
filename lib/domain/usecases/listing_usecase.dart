@@ -1,7 +1,9 @@
 import 'package:flutter_app/data/models/list_item.dart';
 import 'package:flutter_app/data/models/listing.dart';
 import 'package:flutter_app/domain/repositories/listing_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@injectable
 class ListingUseCase {
   final ListingRepository listingRepository;
 

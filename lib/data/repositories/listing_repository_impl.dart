@@ -1,10 +1,12 @@
 import 'package:flutter_app/data/datasources/remote/listing_remote_datasource.dart';
 import 'package:flutter_app/data/models/list_item.dart';
 import 'package:flutter_app/data/models/listing.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../domain/repositories/listing_repository.dart';
 
-class ListingRepositoryImpl extends ListingRepository {
+@Injectable(as: ListingRepository, env: [Environment.dev, Environment.prod])
+class ListingRepositoryImpl implements ListingRepository {
   final ListingRemoteDataSource listingRemoteDataSource;
 
   ListingRepositoryImpl(this.listingRemoteDataSource);

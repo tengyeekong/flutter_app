@@ -44,7 +44,7 @@ class _ListingPageState extends State<ListingPage> {
   void initState() {
     super.initState();
 
-    _listingBloc = Injector.resolve<ListingBloc>();
+    _listingBloc = getIt<ListingBloc>();
 
     WidgetsBinding.instance
         ?.addPostFrameCallback((_) => _refreshController.requestRefresh());

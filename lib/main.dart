@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/presentation/routes.dart';
+import 'package:injectable/injectable.dart';
 
 import 'common/constants/color_constants.dart';
 import 'common/constants/router_constants.dart';
@@ -9,7 +10,7 @@ import 'common/injector/injector.dart';
 import 'common/my_logger.dart';
 
 void main() {
-  Injector.init();
+  configureInjection(Environment.dev);
   MyLogger.init();
   runApp(ContactlyApp());
 }

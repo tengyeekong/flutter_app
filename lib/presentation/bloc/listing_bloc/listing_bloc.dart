@@ -2,10 +2,12 @@ import 'package:flutter_app/data/models/list_item.dart';
 import 'package:flutter_app/data/models/listing.dart';
 import 'package:flutter_app/domain/usecases/listing_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
 part 'listing_event.dart';
 part 'listing_state.dart';
 
+@injectable
 class ListingBloc extends Bloc<ListingEvent, ListingState> {
   final ListingUseCase listingUseCase;
 
