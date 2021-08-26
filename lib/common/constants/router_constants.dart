@@ -1,5 +1,5 @@
 class RouteName {
-  static const loginPage = "/";
+  static const loginPage = "/login";
   static const homePage = "/home";
   static const detailsPage = "/home/detail";
   static const timerPage = "/timer";

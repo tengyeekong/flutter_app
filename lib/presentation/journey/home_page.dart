@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/constants/color_constants.dart';
 import 'package:flutter_app/common/constants/router_constants.dart';
@@ -8,6 +9,8 @@ import 'package:flutter_app/data/models/record.dart';
 import 'package:flutter_app/data/models/record_list.dart';
 import 'package:flutter_app/data/models/record_service.dart';
 import 'package:flutter_app/presentation/widgets/app_drawer.dart';
+
+import '../routes.gr.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -163,9 +166,9 @@ class _HomePageState extends State<HomePage> {
             size: 30.0,
           ),
           onTap: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-              RouteName.detailsPage,
-              (route) {
+            AutoRouter.of(context).pushAndPopUntil(
+              DetailRoute(record: record),
+              predicate: (route) {
                 if (route.isCurrent &&
                     route.settings.name == RouteName.detailsPage) {
                   return false;
@@ -173,13 +176,7 @@ class _HomePageState extends State<HomePage> {
                   return true;
                 }
               },
-              arguments: record,
             );
-
-//            Navigator.push(
-//                context,
-//                MaterialPageRoute(
-//                    builder: (context) => DetailPage(record: record)));
           },
         ),
       ),

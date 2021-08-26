@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_app/common/constants/router_constants.dart';
-import 'package:flutter_app/data/models/record.dart';
 
 import 'journey/demo_1_page.dart';
 import 'journey/demo_2_page.dart';
@@ -16,47 +14,21 @@ import 'journey/login_page.dart';
 import 'journey/test_page.dart';
 import 'journey/timer_page.dart';
 
-class Routes {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case RouteName.timerPage:
-        return MaterialPageRoute(builder: (_) => TimerPage());
-      case RouteName.loginPage:
-        return MaterialPageRoute(builder: (_) => LoginPage());
-      case RouteName.homePage:
-        return MaterialPageRoute(builder: (_) => HomePage());
-      case RouteName.detailsPage:
-        final Object? obj = settings.arguments;
-        return MaterialPageRoute(
-          builder: (_) {
-            if (obj != null && obj is Record) {
-              return DetailPage(record: obj);
-            }
-            return Container();
-          },
-        );
-      case RouteName.friendlyChatPage:
-        return MaterialPageRoute(builder: (_) => FriendlyChatPage());
-      case RouteName.demo1Page:
-        return MaterialPageRoute(builder: (_) => Demo1Page());
-      case RouteName.demo2Page:
-        return MaterialPageRoute(builder: (_) => Demo2Page());
-      case RouteName.demo3Page:
-        return MaterialPageRoute(builder: (_) => Demo3Page());
-      case RouteName.demo4Page:
-        return MaterialPageRoute(builder: (_) => Demo4Page());
-      case RouteName.demo5Page:
-        return MaterialPageRoute(builder: (_) => Demo5Page());
-      case RouteName.listingPage:
-        return MaterialPageRoute(builder: (_) => ListingPage());
-      case RouteName.testPage:
-        return MaterialPageRoute(builder: (_) => TestPage());
-      default:
-        return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            body: Center(child: Text('No route defined for ${settings.name}')),
-          ),
-        );
-    }
-  }
-}
+@MaterialAutoRouter(
+  replaceInRouteName: 'Page,Route',
+  routes: <AutoRoute>[
+    AutoRoute(page: LoginPage, path: RouteName.loginPage),
+    AutoRoute(page: HomePage, path: RouteName.homePage),
+    AutoRoute(page: DetailPage, path: RouteName.detailsPage),
+    AutoRoute(page: TimerPage, path: RouteName.timerPage),
+    AutoRoute(page: FriendlyChatPage, path: RouteName.friendlyChatPage),
+    AutoRoute(page: Demo1Page, path: RouteName.demo1Page),
+    AutoRoute(page: Demo2Page, path: RouteName.demo2Page),
+    AutoRoute(page: Demo3Page, path: RouteName.demo3Page),
+    AutoRoute(page: Demo4Page, path: RouteName.demo4Page),
+    AutoRoute(page: Demo5Page, path: RouteName.demo5Page),
+    AutoRoute(page: ListingPage, path: RouteName.listingPage, initial: true),
+    AutoRoute(page: TestPage, path: RouteName.testPage),
+  ],
+)
+class $AppRouter {}

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/common/constants/color_constants.dart';
@@ -423,7 +424,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                     if (item != null) {
                       widget.onListUpdated(item);
                     }
-                    Navigator.of(context).pop();
+                    AutoRouter.of(context).pop();
                   }
                 }
               },
@@ -475,7 +476,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
   //     if (result) {
   //       isUpdating = false;
   //       widget.onListUpdated(listItem);
-  //       Navigator.of(context).pop();
+  //       AutoRouter.of(context).pop();
   //     }
   //   } catch (e) {
   //     print(e);

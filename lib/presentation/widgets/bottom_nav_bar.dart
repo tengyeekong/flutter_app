@@ -146,7 +146,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
       _selectedIndex = index;
     });
     // if (ModalRoute.of(context)?.settings.name != tag) {
-    //   Navigator.of(context).pushNamed(tag);
+    //   AutoRouter.of(context).pushNamed(tag);
     // }
   }
 }

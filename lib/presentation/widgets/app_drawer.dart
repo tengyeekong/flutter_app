@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/constants/color_constants.dart';
 import 'package:flutter_app/common/constants/router_constants.dart';
@@ -47,19 +48,19 @@ class DrawerState extends State<AppDrawer> {
     return ListTile(
       title: Text(text, style: const TextStyle(color: Colors.white)),
       onTap: () {
-        Navigator.of(context).pop();
+        AutoRouter.of(context).pop();
         if (ModalRoute.of(context)?.settings.name != tag) {
-          Navigator.of(context).pushNamed(tag);
+          AutoRouter.of(context).pushNamed(tag);
 
-//          Navigator.of(context).pushNamedAndRemoveUntil(
+//          AutoRouter.of(context).pushNamedAndRemoveUntil(
 //              tag,
 //              (route) => route.isCurrent
 //                  ? route.settings.name == tag ? false : true
 //                  : true);
         }
 
-//        Navigator.pop(context);
-//        Navigator.push(context, MaterialPageRoute(
+//        AutoRouter.pop(context);
+//        AutoRouter.push(context, MaterialPageRoute(
 //            builder: (context) => widgets)
 //        );
       },

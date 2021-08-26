@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/common/constants/color_constants.dart';
@@ -106,7 +107,7 @@ class LoginPage extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all<Color>(colorAppGrey),
         ),
         onPressed: () {
-          Navigator.of(context).pushNamed(RouteName.homePage);
+          AutoRouter.of(context).pushNamed(RouteName.homePage);
 //          setState(() {loginBtnText = _pinCodeController.text;});
         },
         child: Text(loginBtnText, style: const TextStyle(color: Colors.white)),
