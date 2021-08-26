@@ -145,8 +145,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
     setState(() {
       _selectedIndex = index;
     });
-    // if (ModalRoute.of(context)?.settings.name != tag) {
-    //   AutoRouter.of(context).pushNamed(tag);
+    // if (getIt<AppRouter>().currentChild?.path != tag) {
+    //   getIt<AppRouter>().pushNamed(tag);
     // }
   }
 }

@@ -1,8 +1,10 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/constants/color_constants.dart';
 import 'package:flutter_app/common/constants/router_constants.dart';
 import 'package:flutter_app/common/constants/string_constants.dart';
+import 'package:flutter_app/common/injector/injector.dart';
+
+import '../routes.gr.dart';
 
 class AppDrawer extends StatefulWidget {
   @override
@@ -48,19 +50,19 @@ class DrawerState extends State<AppDrawer> {
     return ListTile(
       title: Text(text, style: const TextStyle(color: Colors.white)),
       onTap: () {
-        AutoRouter.of(context).pop();
-        if (ModalRoute.of(context)?.settings.name != tag) {
-          AutoRouter.of(context).pushNamed(tag);
+        getIt<AppRouter>().pop();
+        if (getIt<AppRouter>().currentChild?.path != tag) {
+          getIt<AppRouter>().pushNamed(tag);
 
-//          AutoRouter.of(context).pushNamedAndRemoveUntil(
+//          getIt<AppRouter>().pushNamedAndRemoveUntil(
 //              tag,
 //              (route) => route.isCurrent
 //                  ? route.settings.name == tag ? false : true
 //                  : true);
         }
 
-//        AutoRouter.pop(context);
-//        AutoRouter.push(context, MaterialPageRoute(
+//        getIt<AppRouter>().pop(context);
+//        getIt<AppRouter>().push(context, MaterialPageRoute(
 //            builder: (context) => widgets)
 //        );
       },

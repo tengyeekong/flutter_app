@@ -16,7 +16,7 @@ void main() {
 }
 
 class ContactlyApp extends StatelessWidget {
-  final _appRouter = AppRouter();
+  final _appRouter = getIt<AppRouter>();
 
   @override
   Widget build(BuildContext context) {

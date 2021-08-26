@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/common/constants/color_constants.dart';
@@ -10,6 +9,8 @@ import 'package:flutter_app/presentation/widgets/app_drawer.dart';
 import 'package:flutter_app/presentation/widgets/bottom_nav_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../routes.gr.dart';
 
 class ListingPage extends StatefulWidget {
   @override
@@ -424,7 +425,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                     if (item != null) {
                       widget.onListUpdated(item);
                     }
-                    AutoRouter.of(context).pop();
+                    getIt<AppRouter>().pop();
                   }
                 }
               },
@@ -476,7 +477,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
   //     if (result) {
   //       isUpdating = false;
   //       widget.onListUpdated(listItem);
-  //       AutoRouter.of(context).pop();
+  //       getIt<AppRouter>().pop();
   //     }
   //   } catch (e) {
   //     print(e);

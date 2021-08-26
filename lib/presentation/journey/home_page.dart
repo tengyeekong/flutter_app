@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/common/constants/color_constants.dart';
 import 'package:flutter_app/common/constants/router_constants.dart';
 import 'package:flutter_app/common/constants/string_constants.dart';
+import 'package:flutter_app/common/injector/injector.dart';
 import 'package:flutter_app/data/models/record.dart';
 import 'package:flutter_app/data/models/record_list.dart';
 import 'package:flutter_app/data/models/record_service.dart';
@@ -166,7 +166,7 @@ class _HomePageState extends State<HomePage> {
             size: 30.0,
           ),
           onTap: () {
-            AutoRouter.of(context).pushAndPopUntil(
+            getIt<AppRouter>().pushAndPopUntil(
               DetailRoute(record: record),
               predicate: (route) {
                 if (route.isCurrent &&

@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_app/common/constants/color_constants.dart';
@@ -6,7 +5,10 @@ import 'package:flutter_app/common/constants/image_constants.dart';
 import 'package:flutter_app/common/constants/router_constants.dart';
 import 'package:flutter_app/common/constants/string_constants.dart';
 import 'package:flutter_app/common/constants/value_constants.dart';
+import 'package:flutter_app/common/injector/injector.dart';
 import 'package:flutter_app/presentation/widgets/app_drawer.dart';
+
+import '../routes.gr.dart';
 
 class LoginPage extends StatelessWidget {
   final _pinCodeController = TextEditingController();
@@ -107,7 +109,7 @@ class LoginPage extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all<Color>(colorAppGrey),
         ),
         onPressed: () {
-          AutoRouter.of(context).pushNamed(RouteName.homePage);
+          getIt<AppRouter>().pushNamed(RouteName.homePage);
 //          setState(() {loginBtnText = _pinCodeController.text;});
         },
         child: Text(loginBtnText, style: const TextStyle(color: Colors.white)),

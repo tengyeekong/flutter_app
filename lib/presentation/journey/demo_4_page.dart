@@ -25,7 +25,7 @@ class _LogoAppState extends State<Demo4Page>
 
   @override
   Widget build(BuildContext context) => GrowTransition(
-    animation: animation,
+        animation: animation,
         child: LogoWidget(),
       );
 
@@ -45,15 +45,15 @@ class GrowTransition extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Center(
-    child: AnimatedBuilder(
-        animation: animation,
-        builder: (context, child) => SizedBox(
+        child: AnimatedBuilder(
+            animation: animation,
+            builder: (context, child) => SizedBox(
                   height: animation.value,
                   width: animation.value,
                   child: child,
                 ),
-        child: child),
-  );
+            child: child),
+      );
 }
 // #enddocregion GrowTransition
 
