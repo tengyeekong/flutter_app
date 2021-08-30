@@ -36,8 +36,8 @@ class ListingRemoteDataSource {
         MyLogger.d(listingResponse.toString());
         if (listingResponse.statusCode == 200 &&
             listingResponse.data["status"]["code"] == 200) {
-          final Listing lists = Listing.fromJson(
-              listingResponse.data["listing"] as List<dynamic>);
+          final Listing lists =
+              Listing.fromJson(listingResponse.data as Map<String, dynamic>);
           return lists;
         }
       }

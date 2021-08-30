@@ -1,19 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'record.dart';
 
+part 'record_list.g.dart';
+
+@JsonSerializable()
 class RecordList {
   List<Record> records;
 
   RecordList({required this.records});
 
-  factory RecordList.fromJson(List<dynamic> parsedJson) {
-    List<Record> records = [];
-
-    records = parsedJson
-        .map((i) => Record.fromJson(i as Map<String, dynamic>))
-        .toList();
-
-    return RecordList(
-      records: records,
-    );
-  }
+  factory RecordList.fromJson(Map<String, dynamic> json) =>
+      _$RecordListFromJson(json);
 }

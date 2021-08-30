@@ -13,7 +13,7 @@ class RecordService {
     final String jsonString = await _loadRecordsAsset();
     final jsonResponse = json.decode(jsonString);
     final RecordList records =
-        RecordList.fromJson(jsonResponse as List<dynamic>);
+        RecordList.fromJson(jsonResponse as Map<String, dynamic>);
     return records;
   }
 }

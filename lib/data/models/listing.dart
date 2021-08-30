@@ -1,19 +1,16 @@
+import 'package:json_annotation/json_annotation.dart';
+
 import 'list_item.dart';
 
+part 'listing.g.dart';
+
+@JsonSerializable()
 class Listing {
+  @JsonKey(name: "listing")
   final List<ListItem> lists;
 
   const Listing({this.lists = const []});
 
-  factory Listing.fromJson(List<dynamic> parsedJson) {
-    List<ListItem> lists = <ListItem>[];
-
-    lists = parsedJson
-        .map((i) => ListItem.fromJson(i as Map<String, dynamic>))
-        .toList();
-
-    return Listing(
-      lists: lists,
-    );
-  }
+  factory Listing.fromJson(Map<String, dynamic> json) =>
+      _$ListingFromJson(json);
 }

@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'record.g.dart';
+
+@JsonSerializable()
 class Record {
   String name;
   String address;
@@ -9,16 +14,8 @@ class Record {
       {required this.name,
       required this.address,
       required this.contact,
-      required this.photo,
-      required this.url});
+    required this.photo,
+    required this.url});
 
-  factory Record.fromJson(Map<String, dynamic> json) {
-    return Record(
-      name: json['name'].toString(),
-      address: json['address'].toString(),
-      contact: json['contact'].toString(),
-      photo: json['photo'].toString(),
-      url: json['url'].toString(),
-    );
-  }
+  factory Record.fromJson(Map<String, dynamic> json) => _$RecordFromJson(json);
 }
