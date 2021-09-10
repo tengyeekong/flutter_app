@@ -164,7 +164,7 @@ class Header extends StatelessWidget {
             .evaluate(animation),
         padding: EdgeInsetsTween(
           begin: EdgeInsets.only(left: 45, top: statusBarHeight),
-          end: const EdgeInsets.only(),
+          end: EdgeInsets.zero,
         ).evaluate(animation),
         margin: const EdgeInsets.only(bottom: 12, left: 12),
         child: Text(
